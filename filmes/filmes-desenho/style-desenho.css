@@ -1,0 +1,19 @@
+@charset  "UTF-8";
+body {background-color: black;}
+h1 {text-align: center;color: rgb(255, 0, 0);text-shadow:2px 2px rgb(116, 0, 0);}
+/* Adicione estas regras CSS para estilizar o h2 */
+h2 {
+    display: inline-block; /* Torna o h2 em um bloco de linha com largura automática */
+    padding: 10px; /* Adiciona espaçamento interno ao redor do texto */
+    border: 2px solid #383838; /* Adiciona uma borda sólida com uma cor escura (#333) */
+    border-radius: 8px; /* Adiciona bordas arredondadas */
+    margin: 15px;}
+
+    h3 {font-size: 20px;color: rgb(0, 108, 231);}
+
+    img{width:200px; 
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 11px;display: inline;margin: 10px;}
+
+    img:hover {transform: scale(1.1)}
+
