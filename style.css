@@ -1,6 +1,4 @@
 @charset "UTF-8";
-h1 {text-align: center;}
-label {margin: 10px;}
-input {margin: 10px;border: 2px solid rgb(45, 45, 206);border-radius: 10px;width: 200px;}
-button {margin: 10px;background-color: rgb(7, 131, 89);color: rgb(0, 0, 0);}
-main {border: 2px solid rgb(15, 129, 163);border-radius: 10px; width: 300px;height: 400px;display: inline-block;}
+a {text-decoration: none;color: rgb(0, 110, 255);
+    font-size: 25px;border: 10px groove rgb(0, 102, 255);
+ border-radius: 10px;}
