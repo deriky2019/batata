@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Quiz-biblico</h1>
+ <h2>pontuaçao <span id="pontuaçao">0</span></h2>  
+
+
+
+<main>
+    <span id="p" >
+        <p>1:Qual bloco é necessário para criar um portal para o Nether?</p>
+    <p class="per" onclick="errado()" >a&rpar;  Pedra</p>
+        
+    <p class="per" onclick="errado()">b&rpar; Obsidiana</p>    <br>
+    
+    <p class="per" onclick="certo()" >c&rpar; Areia</p>
+        
+    <p class="per" onclick="errado()">d&rpar;  Madeira</p>
+    </span>
+
+    <span id="p2" class="sumir">
+        <p>2:Qual desses itens é necessário para criar uma poção de cura?</p>
+        <p class="per" onclick="certo2()" >a&rpar; Maçã dourada</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Olho de aranha</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Pó de blaze</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Pó de redstone</p>
+    </span>
+
+
+    <span id="p3"  class="sumir">
+        <p>3:Qual destas ferramentas é mais eficaz para minerar diamantes?</p>
+        <p class="per" onclick="errado()" >a&rpar; Picareta de madeira</p>
+        
+        <p class="per" onclick="errado()">b&rpar; Picareta de pedra</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar;Picareta de ouro</p>  
+       
+        <p class="per" onclick="certo3()">d&rpar;Picareta de ferro</p>
+    </span>
+
+
+
+
+
+    <span id="p4" class="sumir">
+       <p> O que é necessário para domesticar um lobo no Minecraft?</p> 
+       
+        <p class="per" onclick="errado()" >a&rpar; Peixe cru</p>   
+        
+        <p class="per" onclick="certo4()">b&rpar; Osso</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Semente de melancia</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Semente de trigo</p>
+    </span>
+
+
+
+
+
+
+    <span id="p5" class="sumir">
+        <p>5: Como se chama o monstro que habita nas áreas escuras do jogo e explode quando está próximo do jogador?</p>
+        <p class="per" onclick="errado()" >a&rpar; Zombie</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Enderman</p> <br>
+  
+        <p class="per" onclick="certo5()" >c&rpar; Creeper</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Esqueleto</p>
+    </span>
+
+
+
+
+
+    <span id="p6" class="sumir">
+        <p>6:Qual é o nome do mundo alternativo que pode ser acessado por meio de um portal do End?</p>
+        <p class="per" onclick="certo6()" >a&rpar; Submundo</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Terras Distantes</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar;  End</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Dimensão Negra</p>
+    </span>
+
+
+
+    <span id="p7" class="sumir">
+        <p>7:Qual desses mineiro faz a armadura mais forte?</p>
+        <p class="per" onclick="certo7()" >a&rpar; Diamantes</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Ouro</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Ferro</p>
+        
+        <p class="per" onclick="errado()">d&rpar; Redstone</p>
+    </span>
+
+
+
+
+
+
+    <span id="p8" class="sumir">
+        <p>8:Qual é o nome da criatura que habita as mansões das florestas e pode ser encontrada em salas secretas?</p>
+        <p class="per" onclick="errado()" >a&rpar; Bruxa </p>  
+        
+        <p class="per" onclick="certo8()">b&rpar; Vex</p>  <br>
+  
+        <p class="per" onclick="errado()" >c&rpar;  Ilusionista</p>
+        
+        <p class="per" onclick="errado()">d&rpar; Vampiro</p>
+    </span>
+
+
+    <span id="p9" class="sumir">
+        <p>9:Qual é o nome do bloco que é obtido ao destruir um bloco de diamante com uma picareta encantada com Toque de Seda?</p>
+
+        <p class="per" onclick="errado()" >a&rpar; Diamante Puro</p>  
+        
+        <p class="per" onclick="errado()">b&rpar; Diamante Reluzente</p> <br>
+  
+        <p class="per" onclick="certo9()" >c&rpar; Diamante Bruto</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Diamante Reluzente</p>
+    </span>
+
+
+
+
+
+
+    <span id="p10" class="sumir">
+        <p>10:Qual é o nome do item que permite aos jogadores dormirem e avançarem para o amanhecer, além de definir seu ponto de respawn?</p>
+        <p class="per" onclick="finalizado()" >a&rpar; Cama</p> 
+
+        <p class="per" onclick="errado()">b&rpar; Rede</p> 
+        <br>
+        <p class="per" onclick="errado()" >c&rpar; Almofada</p> 
+
+        <p class="per" onclick="errado()">d&rpar; Luminária</p>
+    </span>
+
+    <p id="final"></p>
+    <a id="rodada" href="">Sim </a>
+    <a href="quiz-bibico2.html">Não</a>
+    
+
+
+
+
+
+
+
+
+</main>
+
+
+
+
+    <script src="quiz-biblico.js"></script>
+</body>
+</html>
