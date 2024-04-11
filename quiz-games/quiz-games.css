@@ -26,7 +26,8 @@ main {width: 97%;
 
 .sumir {display: none;}
 a {text-decoration: none;color:rgb(0, 167, 139);
- text-align: center;font-size: 30px; margin: 10px;}
+ text-align: center;font-size: 30px; margin: 10px;
+border: 5px solid #4e4e4e;border-radius: 10px;}
 
 a:hover {color:rgb(0, 102, 85) ;}
 
