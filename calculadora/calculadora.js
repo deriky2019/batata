@@ -26,7 +26,7 @@ function resolver() {
     let d = parseInt(bsub)
 
     let sub = c - d
-    p.innerHTML = `a subtração de ${c} e ${d}e igual a ${sub}`
+    p.innerHTML = `a subtração de ${c} e ${d} e igual a ${sub}`
     
 }
 
@@ -40,7 +40,7 @@ function multiplicar() {
     let f = parseFloat(bmulti)
 
     let multi = e * f
-    p.innerHTML = `a mutiplicação de ${e} e ${f}e igual a ${multi}`
+    p.innerHTML = `a mutiplicação de ${e} e ${f} e igual a ${multi}`
 }
 
 function dividir() {
@@ -52,7 +52,7 @@ function dividir() {
     let h = parseFloat(bdiv)
 
     let div = g / h
-    p.innerHTML = `a mutiplicação de ${g} e ${g}e igual a ${div}`
+    p.innerHTML = `a mutiplicação de ${g} e ${g} e igual a ${div}`
 }
 
 
