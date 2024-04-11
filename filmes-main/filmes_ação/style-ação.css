@@ -1,5 +1,5 @@
 @charset  "UTF-8";
-body {color: black;}
+body {background-color: black;}
 h1 {text-align: center;}
 /* Adicione estas regras CSS para estilizar o h2 */
 h2 {
