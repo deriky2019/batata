@@ -1,5 +1,5 @@
 @charset  "UTF-8";
-h1 {text-align: center;}
+h1 {text-align: center;text-align: initial;color: cornflowerblue;}
 /* Adicione estas regras CSS para estilizar o h2 */
 h2 {
     display: inline-block; /* Torna o h2 em um bloco de linha com largura automática */
