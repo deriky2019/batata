@@ -1,6 +1,6 @@
 @charset  "UTF-8";
 body {background-color: black;}
-div {text-align: center;}
+div {text-align: justify;}
 a {text-align: inherit;text-decoration: none;font-size: 20px;color: rgb(197, 197, 197);}
 h1 {text-align: center;color: rgb(1, 62, 133);}
 h2 {text-align: center;color: rgb(168, 168, 168);margin: 15px;}
