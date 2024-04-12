@@ -1,4 +1,5 @@
 @charset "UTF-8";
 body {background-color: black;}
 h1 {text-align: center;}
+h2 {color: bisque;}
 img {width: 200;height: 300;border: 1px solid rgb(255, 0, 0); border-radius: 10px;}

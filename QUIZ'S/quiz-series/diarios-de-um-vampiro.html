@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="series.css">
+</head>
+<body>
+    <h1>Quiz-Minecreft</h1>
+ <h2>pontuaçao <span id="pontuaçao">0</span></h2>  
+
+
+
+<main>
+    <span id="p" >
+        <p>1:Quem é o protagonista principal da série "Diários de um Vampiro"?</p>
+    <p class="per" onclick="errado()" >a&rpar;  Klaus</p>
+        
+    <p class="per" onclick="errado()">b&rpar; Bonnie Bennett </p>    <br>
+    
+    <p class="per" onclick="certo()" >c&rpar; Elena Gilbert </p>
+        
+    <p class="per" onclick="errado()">d&rpar; Caroline Forbes </p>
+    </span>
+
+    <span id="p2" class="sumir">
+        <p>2:Qual é o nome da cidade onde se passa a maior parte da série?</p>
+        <p class="per" onclick="certo2()" >a&rpar; Mystic Falls</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Mystic Hills </p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Mystic Bay</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Mystic Valley</p>
+    </span>
+
+
+    <span id="p3"  class="sumir">
+        <p>3:Quem é o melhor amigo de Elena?</p>
+        <p class="per" onclick="errado()" >a&rpar; Klaus</p>
+        
+        <p class="per" onclick="errado()">b&rpar; Damon</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; alaric</p>  
+       
+        <p class="per" onclick="certo3()">d&rpar; Matt Donovan</p>
+    </span>
+
+
+
+
+
+    <span id="p4" class="sumir">
+       <p>4:Qual é a espécie sobrenatural de Elena? </p> 
+       
+        <p class="per" onclick="errado()" >a&rpar; Bruxa</p>   
+        
+        <p class="per" onclick="certo4()">b&rpar; Vampira</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Lobisomem</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Humana</p>
+    </span>
+
+
+
+
+
+
+    <span id="p5" class="sumir">
+        <p>5:Qual é o nome do melhor amigo de Damon, que também é um vampiro? </p>
+        <p class="per" onclick="errado()" >a&rpar; Tyler Lockwood</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Klaus Mikaelson</p> <br>
+  
+        <p class="per" onclick="certo5()" >c&rpar; Enzo St. John</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Lexi Branson</p>
+    </span>
+
+
+
+
+
+    <span id="p6" class="sumir">
+        <p>6:O que Bonnie é?</p>
+        <p class="per" onclick="certo6()" >a&rpar; bruxa</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; vampira</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Lobisomem </p> 
+        
+        <p class="per" onclick="errado()">d&rpar; hibrida</p>
+    </span>
+
+
+
+    <span id="p7" class="sumir">
+        <p>7:Qual é o nome do grupo de vampiros originais na série?</p>
+        <p class="per" onclick="certo7()" >a&rpar; A Irmandade</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Os Fundadores</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; A Linhagem</p>
+        
+        <p class="per" onclick="errado()">d&rpar; Os Originais</p>
+    </span>
+
+
+
+
+
+
+    <span id="p8" class="sumir">
+        <p>8:Qual é a organização secreta que tem como objetivo controlar os seres sobrenaturais em Mystic Falls?</p>
+        <p class="per" onclick="errado()" >a&rpar;  A Sociedade </p>  
+        
+        <p class="per" onclick="certo8()">b&rpar; Os Fundadores</p>  <br>
+  
+        <p class="per" onclick="errado()" >c&rpar;  A Irmandade</p>
+        
+        <p class="per" onclick="errado()">d&rpar; Os Caçadores de Vampiros</p>
+    </span>
+
+
+    <span id="p9" class="sumir">
+        <p>9:Quem é o pai de hope Mikaelson </p>
+
+        <p class="per" onclick="errado()" >a&rpar;  Alaric</p>  
+        
+        <p class="per" onclick="errado()">b&rpar; Elijah Mikaelson</p> <br>
+  
+        <p class="per" onclick="certo9()" >c&rpar;  Klaus Mikaelson</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; damon salvatore</p>
+    </span>
+
+
+
+
+
+
+    <span id="p10" class="sumir">
+        <p>10:Qual é o sobrenome verdadeiro de Katherine Pierce?</p>
+        <p class="per" onclick="finalizado()" >a&rpar; Petrova</p> 
+
+        <p class="per" onclick="errado()">b&rpar;  Salvatore </p> 
+        <br>
+        <p class="per" onclick="errado()" >c&rpar; Forbes</p> 
+
+        <p class="per" onclick="errado()">d&rpar;  Lockwood</p>
+    </span>
+
+    <p id="final"></p>
+    <a id="rodada" href="">Sim </a>
+    <script src="series.js"></script>
