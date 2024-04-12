@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="quiz-games.css">
+</head>
+<body>
+    <h1>Quiz-Minecreft</h1>
+ <h2>pontuaçao <span id="pontuaçao">0</span></h2>  
+
+
+
+<main>
+    <span id="p" >
+        <p>1:Qual é o objetivo principal do Minecraft no modo Sobrevivência?</p>
+    <p class="per" onclick="errado()" >a&rpar;Construir estruturas incríveis.   </p>
+        
+    <p class="per" onclick="errado()">b&rpar;  Criar um familia.</p>    <br>
+    
+    <p class="per" onclick="certo()" >c&rpar; Sobreviver e derrotar o dragão final.</p>
+        
+    <p class="per" onclick="errado()">d&rpar;  Criar um reino subaquático. </p>
+    </span>
+
+    <span id="p2" class="sumir">
+        <p>2:Como os jogadores podem obter diamantes no Minecraft?</p>
+        <p class="per" onclick="certo2()" >a&rpar;  Minerando minérios de diamante encontrados em profundidades específicas.</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Minerando minérios de ferro.</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Trocando com aldeões.</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Derrotando o dragão final.</p>
+    </span>
+
+
+    <span id="p3"  class="sumir">
+        <p>3:Qual é o nome do dragão final que os jogadores enfrentam no "The End"?</p>
+        <p class="per" onclick="errado()" >a&rpar; Endarius</p>
+        
+        <p class="per" onclick="errado()">b&rpar; Enderwing</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Enderdragon </p>  
+       
+        <p class="per" onclick="certo3()">d&rpar; Endervex</p>
+    </span>
+
+
+
+
+
+    <span id="p4" class="sumir">
+       <p>O que é uma vila no Minecraft e quais tipos de estruturas os jogadores podem encontrar nelas?</p> 
+       
+        <p class="per" onclick="errado()" >a&rpar; Uma área de comércio, com lojas e mercados.</p>   
+        
+        <p class="per" onclick="certo4()">b&rpar;  Uma área com habitações e fazendas, como casas, celeiros e campos de cultivo.</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Uma área de mineração, com minas e cavernas.</p> 
+        
+        <p class="per" onclick="errado()">d&rpar;  Uma área militar, com torres de defesa e muralhas.</p>
+    </span>
+
+
+
+
+
+
+    <span id="p5" class="sumir">
+        <p>5:Como os jogadores podem criar e treinar um golem de ferro no Minecraft?</p>
+        <p class="per" onclick="errado()" >a&rpar; Com blocos de ferro e uma melancia.</p> 
+        
+        <p class="per" onclick="errado()">b&rpar;  Com blocos de ferro e uma abóbora de jack-o'-lantern.</p> <br>
+  
+        <p class="per" onclick="certo5()" >c&rpar;  Com blocos de ferro e uma abóbora.</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Com blocos de ferro e uma melancia de jack-o'-lantern.</p>
+    </span>
+
+
+
+
+
+    <span id="p6" class="sumir">
+        <p>6:O que é o "The Nether" no Minecraft e quais perigos os jogadores podem enfrentar lá?</p>
+        <p class="per" onclick="certo6()" >a&rpar; Uma dimensão subterrânea com lava, fogo e criaturas hostis como ghasts e piglins</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Uma dimensão alternativa com biomas gelados e monstros de gelo.</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Uma dimensão aquática com oceanos profundos e criaturas marinhas como os guardianos.</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Uma dimensão celestial com nuvens e criaturas pacíficas como oschicoteadores.</p>
+    </span>
+
+
+
+    <span id="p7" class="sumir">
+        <p>7:Quais são as dimensões principais no Minecraft?</p>
+        <p class="per" onclick="certo7()" >a&rpar; Overworld, The End e The Nether.</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Planícies, Montanhas e Oceanos.</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Deserto, Selva e Tundra.</p>
+        
+        <p class="per" onclick="errado()">d&rpar; Céu, Inferno e Terra.</p>
+    </span>
+
+
+
+
+
+
+    <span id="p8" class="sumir">
+        <p>8:Quais são as duas criaturas amigáveis ​​que podem ser domesticadas pelos jogadores no Minecraft?</p>
+        <p class="per" onclick="errado()" >a&rpar;   Gatos e ocelotes</p>  
+        
+        <p class="per" onclick="certo8()">b&rpar; Lobos e cavalos.</p>  <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Lhamas e alpacas. </p>
+        
+        <p class="per" onclick="errado()">d&rpar; Tartarugas e coelhos.</p>
+    </span>
+
+
+    <span id="p9" class="sumir">
+        <p>9:Como os jogadores podem fazer um cavalo se tornar domesticado no Minecraft?</p>
+
+        <p class="per" onclick="errado()" >a&rpar; Alimentando-o com trigo.</p>  
+        
+        <p class="per" onclick="errado()">b&rpar; Montando-o várias vezes até ele se acalmar.</p> <br>
+  
+        <p class="per" onclick="certo9()" >c&rpar; Alimentando-o com maças</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Usando uma corda para prendê-lo</p>
+    </span>
+
+
+
+
+
+
+    <span id="p10" class="sumir">
+        <p>10:O que acontece quando um jogador entra no modo Hardcore no Minecraft?</p>
+        <p class="per" onclick="finalizado()" >a&rpar; O jogador tem apenas uma vida e o jogo termina permanentemente se morrer.</p> 
+
+        <p class="per" onclick="errado()">b&rpar; O jogador não pode mais construir ou quebrar blocos.</p> 
+        <br>
+        <p class="per" onclick="errado()" >c&rpar; O jogador enfrenta criaturas muito mais poderosas.</p> 
+
+        <p class="per" onclick="errado()">d&rpar; O jogador tem acesso a um novo conjunto de ferramentas e armas.</p>
+    </span>
+
+    <p id="final"></p>
+    <a id="rodada" href="">Sim </a>
+    
+    
