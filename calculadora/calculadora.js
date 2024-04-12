@@ -52,7 +52,7 @@ function dividir() {
     let h = parseFloat(bdiv)
 
     let div = g / h
-    p.innerHTML = `a mutiplicação de ${g} e ${g} e igual a ${div}`
+    p.innerHTML = `a divisão de ${g} e ${g} e igual a ${div}`
 }
 
 
@@ -64,8 +64,8 @@ function potencia() {
     let g = parseFloat(apot)
     let h = parseFloat(bpot)
 
-    let div = g / h
-    p.innerHTML = `a mutiplicação de ${g} e ${g} e igual a ${div}`
+    let div = g ** h
+    p.innerHTML = ` ${g} elevado a  ${g} é igual a ${div}`
 }
 
 
