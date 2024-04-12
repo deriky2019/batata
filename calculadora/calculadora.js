@@ -57,12 +57,12 @@ function dividir() {
 
 
 function potencia() {
-    let adiv = document.getElementById("numerod").value
-    let bdiv = document.getElementById("numerodivB").value
-    let p = document.getElementById("respostadiv")
+    let apot = document.getElementById("numeropotA").value
+    let bpot = document.getElementById("numeropotB").value
+    let p = document.getElementById("respostapot")
 
-    let g = parseFloat(adiv)
-    let h = parseFloat(bdiv)
+    let g = parseFloat(apot)
+    let h = parseFloat(bpot)
 
     let div = g / h
     p.innerHTML = `a mutiplicação de ${g} e ${g} e igual a ${div}`
