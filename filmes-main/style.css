@@ -59,6 +59,6 @@ h2 {
     #sub-menu {display: none;text-decoration: none;}
     #menu:hover {color: rgb(0, 129, 86);}
     #menu:hover > #sub-menu {display:block;}
-    .de {color: #005825;border:2px solid #5a5959 ;}
+    .de {color: #005825;}
     
     
