@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="quiz-games.css">
+</head>
+<body>
+    <h1>Quiz-biblico</h1>
+ <h2>pontuaçao <span id="pontuaçao">0</span></h2>  
+
+
+
+<main>
+    <span id="p" >
+        <p>1:Qual dos profetas teve uma visão do céu, onde viu serafins clamando "Santo, Santo, Santo"?</p>
+    <p class="per" onclick="errado()" >a&rpar; Isaías</p>
+        
+    <p class="per" onclick="errado()">b&rpar; Jeremias</p>    <br>
+    
+    <p class="per" onclick="certo()" >c&rpar; Ezequiel</p>
+        
+    <p class="per" onclick="errado()">d&rpar;  Daniel</p>
+    </span>
+
+    <span id="p2" class="sumir">
+        <p>2:Qual era o nome da esposa de Isaque?</p>
+        <p class="per" onclick="certo2()" >a&rpar;  Raquel</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Rebeca</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar;  Lia</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Sara</p>
+    </span>
+
+
+    <span id="p3"  class="sumir">
+        <p>3:Qual foi o nome do lugar onde Jesus foi crucificado?</p>
+        <p class="per" onclick="errado()" >a&rpar; Monte Sinai</p>
+        
+        <p class="per" onclick="errado()">b&rpar; Monte das Oliveiras</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Monte Carmelo</p>  
+       
+        <p class="per" onclick="certo3()">d&rpar; Monte Calvário</p>
+    </span>
+
+
+
+
+
+    <span id="p4" class="sumir">
+       <p>4:Quem foi o primeiro rei de Judá após a divisão do reino de Israel? </p> 
+       
+        <p class="per" onclick="errado()" >a&rpar; Jeroboão</p>   
+        
+        <p class="per" onclick="certo4()">b&rpar; Roboão</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Salomão</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Absalão</p>
+    </span>
+
+
+
+
+
+
+    <span id="p5" class="sumir">
+        <p>5:Quem foi o primeiro mártir cristão?</p>
+        <p class="per" onclick="errado()" >a&rpar;  Paulo</p> 
+        
+        <p class="per" onclick="errado()">b&rpar;  Pedro</p> <br>
+  
+        <p class="per" onclick="certo5()" >c&rpar;  Estêvão</p> 
+        
+        <p class="per" onclick="errado()">d&rpar;  João</p>
+    </span>
+
+
+
+
+
+    <span id="p6" class="sumir">
+        <p>6:Qual destes discípulos era cobrador de impostos antes de seguir Jesus?</p>
+        <p class="per" onclick="certo6()" >a&rpar; Mateus</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Pedro</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Tiago</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; João</p>
+    </span>
+
+
+
+    <span id="p7" class="sumir">
+        <p>7:Qual destes profetas foi chamado por Deus enquanto pastoreava ovelhas?</p>
+        <p class="per" onclick="certo7()" >a&rpar;  Amós</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Oséias</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Miquéias</p>
+        
+        <p class="per" onclick="errado()">d&rpar;  Samuel</p>
+    </span>
+
+
+
+
+
+
+    <span id="p8" class="sumir">
+        <p>8:Qual dos apóstolos foi conhecido como "o discípulo amado"?</p>
+        <p class="per" onclick="errado()" >a&rpar;  Pedro </p>  
+        
+        <p class="per" onclick="certo8()">b&rpar; João</p>  <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Tiago </p>
+        
+        <p class="per" onclick="errado()">d&rpar; André</p>
+    </span>
+
+
+    <span id="p9" class="sumir">
+        <p>9:Qual destas mulheres foi esposa de Davi?</p>
+
+        <p class="per" onclick="errado()" >a&rpar; Raquel</p>  
+        
+        <p class="per" onclick="errado()">b&rpar; Rebeca</p> <br>
+  
+        <p class="per" onclick="certo9()" >c&rpar; Abigail</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Tamar</p>
+    </span>
+
+
+
+
+
+
+    <span id="p10" class="sumir">
+        <p>10:Qual foi o nome da mãe de Samuel?</p>
+        <p class="per" onclick="finalizado()" >a&rpar;Ana </p> 
+
+        <p class="per" onclick="errado()">b&rpar; Abigail</p> 
+        <br>
+        <p class="per" onclick="errado()" >c&rpar; Rebeca</p> 
+
+        <p class="per" onclick="errado()">d&rpar; Tamar</p>
+    </span>
+
+    <p id="final"></p>
+    <a id="rodada" href="">Sim </a>
