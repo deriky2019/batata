@@ -60,7 +60,7 @@ h2 {
     #menu:hover {color: rgb(0, 129, 86);}
     
     .aparecer {display: none; text-decoration: none;}
-    #passar:hover > .aparecer {display: block;}
+    #Atores:hover > .aparecer {display: block;}
     #passar:hover {color: rgb(0, 129, 86);}
     #menu:hover > #sub-menu {display:block;}
     .de {color: #005825;}
