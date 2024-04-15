@@ -8,5 +8,7 @@ h2:hover {color: rgb(19, 87, 189);}
  img {border: 2px solid red;border-radius: 50%;
       width: 150px; height: 150px;}
  .imagem {text-align: center;}
- ul {display: flex;justify-content: space-between;}
+ ul {text-decoration: none; display: flex;justify-content: space-between;}
  #Projetos:hover >span {display: block;}
+ a {text-decoration: none;color: white;font-size: 20px;}
+ li {text-decoration: none;display: inline;font-size: 20px;}
