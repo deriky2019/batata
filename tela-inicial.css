@@ -1,14 +1,17 @@
 @charset "UTF-8";
 body {background-color: black;}
 h1 {display: inline;}
-h2 {color: cornflowerblue;display: inline;}
-#menu {display: none;}
-h2:hover {color: rgb(19, 87, 189);}
+
+
  h1 {text-align: center;color: rgb(0, 91, 177);}
  img {border: 2px solid red;border-radius: 50%;
       width: 150px; height: 150px;}
  .imagem {text-align: center;}
- ul {text-decoration: none; display: flex;justify-content: space-between;}
+ ul {padding: 0%;  text-decoration: none; display: flex;justify-content: space-between;}
  #Projetos:hover >span {display: block;}
- a {text-decoration: none;color: white;font-size: 20px;}
+ a {text-decoration: none;color: white;font-size: 10px;}
  li {text-decoration: none;display: inline;font-size: 20px;}
+ h3 {color: beige;}
+ p {color: aliceblue;}
+#menu {display: none;font-size: 1px;}
+a > h2
