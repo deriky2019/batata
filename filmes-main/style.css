@@ -27,15 +27,14 @@ span > p {position: relative;right: -600  ;}
     nav {padding: 10px;color: #000000;background-color: #383838; }
     a {text-decoration: none;color: #383838;}
     p {display: inline;}
-    #menu {display:inline;color: rgb(255, 255, 255);font-size: 18px;position:relative;right: -600px;}
-    #sub-menu {display: none;text-decoration: none;
-    position: relative;right:  -25%;}
+    #menu {display:inline;color: rgb(255, 255, 255);font-size: 18px;margin: 0px;cursor: pointer;}
+    #sub-menu {display: none;text-decoration: none;padding-top: 10px; margin-left: 200px;} 
     #menu:hover {color: rgb(156, 173, 168);}
     #menu:hover > #sub-menu {display: block;}
-    .de {color: #bfcac4;}
+    .de {color: white;}
 
-    #atores {color: aliceblue;font-size: 18px;position:relative;right: -450px;}
-    #atores-sub{display: none;position: relative;right: -275px;padding: 10px;}
+    #atores {color: aliceblue;font-size: 18px;margin-left: 20px;cursor: pointer;}
+    #atores-sub{display: none;margin-left: 300px;}
     #atores:hover > #atores-sub {display: inline;}
     h3 { display:inline}
     
