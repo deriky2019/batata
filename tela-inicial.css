@@ -9,9 +9,9 @@ h1 {display: inline;}
  .imagem {text-align: center;}
  ul {padding: 0%;  text-decoration: none; display: flex;justify-content: space-between;}
  #Projetos:hover >span {display: block;}
- a {text-decoration: none;color: white;font-size: 10px;}
+ a {text-decoration: none;color: white;font-size: 20px;}
  li {text-decoration: none;display: inline;font-size: 20px;}
  h3 {color: beige;}
  p {color: aliceblue;}
 #menu {display: none;font-size: 1px;}
-a > h2
+a > h2 {font-size: 20px;}

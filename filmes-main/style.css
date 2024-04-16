@@ -1,9 +1,11 @@
 @charset  "UTF-8";
 body {background-color: black;}
-h1 {text-align: center;color: rgb(255, 0, 0);text-shadow:2px 2px rgb(116, 0, 0);}
+h1 { color: rgb(255, 0, 0);text-shadow:2px 2px rgb(116, 0, 0);}
 /* Adicione estas regras CSS para estilizar o h2 */
-h2 {
-    display: inline-block; /* Torna o h2 em um bloco de linha com largura automática */
+header >h1 {display: inline;padding-right: 20px;}
+
+span > p {position: relative;right: -600  ;}
+  h2 { display: inline-block; /* Torna o h2 em um bloco de linha com largura automática */
     padding: 10px; /* Adiciona espaçamento interno ao redor do texto */
     border: 2px solid #383838; /* Adiciona uma borda sólida com uma cor escura (#333) */
     border-radius: 8px; /* Adiciona bordas arredondadas */
@@ -14,56 +16,27 @@ h2 {
     img {width: 160px;height: 240px;padding-bottom: 20px;  border: 2px groove red; border-radius: 5px;margin:  10px;}
     img:hover {transform: scale(1.1)}
 
-@keyframes smoke {
-    0% { opacity: 0; transform: translateY(0) rotate(0deg); }
-    100% { opacity: 1; transform: translateY(-200px) rotate(360deg); }
-}
 
-.smoke {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.2), rgba(255, 255, 255, 0));
-    animation: smoke 4s linear infinite;
-}
-/* styles.css */
-
-@keyframes smoke {
-    0% { opacity: 0; transform: translateY(0) rotate(0deg); }
-    100% { opacity: 1; transform: translateY(-200px) rotate(360deg); }
-}
-
-.smoke2 {
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(25, 0, 255, 0.2), rgba(255, 255, 255, 0));
-    animation: smoke 4s linear infinite}
 
     .seta-terror   {width: 120px;height: 120px;padding: 0px;border: 0px;}
     .seta-ação     {width: 120px;height: 120px;padding: 0px;border: 0px;}
     .seta-fantasia {width: 120px;height: 120px;padding: 0px;border: 0px;}
     .seta-ficção   {width: 120px;height: 120px;padding: 0px;border: 0px;}
   
-    header   {text-align: center;padding: 20px;color: rgb(255, 153, 0);background-color: rgb(0, 0, 0);}
+    header {padding: 0px;color: rgb(255, 153, 0);background-color: rgb(0, 0, 0);}
     nav {padding: 10px;color: #000000;background-color: #383838; }
     a {text-decoration: none;color: #383838;}
     p {display: inline;}
-    #menu {display:inline;color: rgb(55, 100, 100);font-size: 18px;;}
-    #sub-menu {display: none;text-decoration: none;}
-    #menu:hover {color: rgb(0, 129, 86);}
-    
-    .aparecer {display: none; text-decoration: none;}
-    #Atores:hover > .aparecer {display: block;}
-    #passar:hover {color: rgb(0, 129, 86);}
-    #menu:hover > #sub-menu {display:block;}
-    .de {color: #005825;}
+    #menu {display:inline;color: rgb(255, 255, 255);font-size: 18px;position:relative;right: -600px;}
+    #sub-menu {display: none;text-decoration: none;
+    position: relative;right:  -25%;}
+    #menu:hover {color: rgb(156, 173, 168);}
+    #menu:hover > #sub-menu {display: block;}
+    .de {color: #bfcac4;}
+
+    #atores {color: aliceblue;font-size: 18px;position:relative;right: -450px;}
+    #atores-sub{display: none;position: relative;right: -275px;padding: 10px;}
+    #atores:hover > #atores-sub {display: inline;}
     h3 { display:inline}
     
     
