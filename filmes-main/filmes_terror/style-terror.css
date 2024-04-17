@@ -9,7 +9,7 @@ h2 {
     border-radius: 8px; /* Adiciona bordas arredondadas */
     margin: 20px;}
     h3 {font-size: 20px;color: rgb(0, 108, 231);}
-    img{width:200px;height: 270px; 
+    img{width:125px;height: 200px; 
     border: 2px groove rgb(192, 13, 13);
     border-radius: 8px;display: inline;margin: 10px;}
     img:hover {transform: scale(1.1)}
