@@ -1,7 +1,7 @@
 @charset  "UTF-8";
 body {background-color: black;}
-h1 { color: rgb(255, 0, 0);text-shadow:2px 2px rgb(116, 0, 0);}
-/* Adicione estas regras CSS para estilizar o h2 */
+#h1Especial{font-size: 25px;}
+h1 { color: rgb(255, 0, 0);text-shadow:2px 2px rgb(116, 0, 0);font-size: 20px}
 header >h1 {display: inline;padding-right: 20px;}
 
 span > p {position: relative;right: -600  ;}
