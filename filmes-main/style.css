@@ -13,7 +13,7 @@ span > p {position: relative;right: -600  ;}
 
     h3 {font-size: 20px;color: rgb(55, 100, 100);}
     .so {width: 70px;}
-    img {width: 125px;height: 200px;padding-bottom: 20px;  border: 2px groove red; border-radius: 5px;margin:  5px;}
+    img {width: 125px;height: 200px;  border: 2px groove red; border-radius: 5px;margin:  5px;}
     img:hover {transform: scale(1.1)}
 
 
@@ -48,10 +48,11 @@ span > p {position: relative;right: -600  ;}
 #preto {display: none;}
 
 button {background-color: black;width: 30px;
-    height: 30px; border-radius: 10px
+height: 30px; border-radius: 10px
 ;padding-right: 50px;}
 
-#bolaB {width: 15px;height: 15px;background-color: rgb(255, 255, 255);
+#bolaB {width: 15px;height: 15px;
+background-color: rgb(255, 255, 255);
 border-radius: 50%;}
 
 #bolaP {width: 15px;height: 15px;
