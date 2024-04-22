@@ -42,4 +42,13 @@ span > p {position: relative;right: -600  ;}
  #atores:hover > #atores-sub {display: inline;}
     h3 { display:inline}
     
-    
+  footer > p {font-size: 20px;color: #8b8b8b;}
+
+  #branco {display: none;}
+button {background-color: black;width: 30px;
+    height: 30px; border-radius: 10px
+;padding-right: 50px;}
+#bolaB {width: 15px;height: 15px;background-color: rgb(73, 73, 73);
+border-radius: 50%;}
+#bolaP {width: 15px;height: 15px;background-color: rgb(73, 73, 73);
+position: absolute;right: 95%;top: 7.6%;border-radius: 50%;}

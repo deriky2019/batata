@@ -1,0 +1,20 @@
+@charset "UTF-8";
+.memory-game {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 300px;
+}
+
+.memory-card {
+    width: calc(25% - 10px);
+    height: calc(25% - 10px);
+    margin: 5px;
+    background-color: #f00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+

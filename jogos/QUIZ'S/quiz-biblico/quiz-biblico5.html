@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="quiz-games.css">
+</head>
+<body>
+    <h1>Quiz-Minecreft</h1>
+ <h2>pontuaçao <span id="pontuaçao">0</span></h2>  
+
+
+
+<main>
+    <span id="p" >
+        <p>1:Como é o nome dos cinco primeiros livros da Biblia?</p>
+    <p class="per" onclick="errado()" >a&rpar; Velho Testamento</p>
+        
+    <p class="per" onclick="errado()">b&rpar; Cincoteu</p>    <br>
+    
+    <p class="per" onclick="certo()" >c&rpar; Pentatel</p>
+        
+    <p class="per" onclick="errado()">d&rpar; Tanak</p>
+    </span>
+
+    <span id="p2" class="sumir">
+        <p>2:Quantos filhos teve Jacó?</p>
+        <p class="per" onclick="certo2()" >a&rpar; 12</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; 11</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; 10</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; 9</p>
+    </span>
+
+
+    <span id="p3"  class="sumir">
+        <p>3:Qual desses não foi um dos doze apóstolos originais de Jesus?</p>
+        <p class="per" onclick="errado()" >a&rpar; Bartolomeu</p>
+        
+        <p class="per" onclick="errado()">b&rpar; </p> Natanael<br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Simon</p>  
+       
+        <p class="per" onclick="certo3()">d&rpar; Lucas</p>
+    </span>
+
+
+
+
+
+    <span id="p4" class="sumir">
+       <p>4:Quem era o pai de Moisés? </p> 
+       
+        <p class="per" onclick="errado()" >a&rpar; Josias</p>   
+        
+        <p class="per" onclick="certo4()">b&rpar; Anrão</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Zorobabel</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; José</p>
+    </span>
+
+
+
+
+
+
+    <span id="p5" class="sumir">
+        <p>5:Qual é o nome do profeta que profetizou o nascimento de João Batista? </p>
+        <p class="per" onclick="errado()" >a&rpar; Ezequiel</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Zacarias</p> <br>
+  
+        <p class="per" onclick="certo5()" >c&rpar; Isaías</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Jeremias</p>
+    </span>
+
+
+
+
+
+    <span id="p6" class="sumir">
+        <p>6:Qual dos seguintes não era um dos filhos de Davi?</p>
+        <p class="per" onclick="certo6()" >a&rpar; Joaquim</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Amom</p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar;  Absalão</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Tamar</p>
+    </span>
+
+
+
+    <span id="p7" class="sumir">
+        <p>7:Qual dessas mulheres foi uma das esposas de Jacó?</p>
+        <p class="per" onclick="certo7()" >a&rpar; Raquel</p> 
+        
+        <p class="per" onclick="errado()">b&rpar; Rebeca
+        </p> <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Miriam</p>
+        
+        <p class="per" onclick="errado()">d&rpar; Rute</p>
+    </span>
+
+
+
+
+
+
+    <span id="p8" class="sumir">
+        <p>8:Qual foi a cidade onde Jesus nasceu?</p>
+        <p class="per" onclick="errado()" >a&rpar; Jerusalém</p>  
+        
+        <p class="per" onclick="certo8()">b&rpar; Belém</p>  <br>
+  
+        <p class="per" onclick="errado()" >c&rpar; Nazaré</p>
+        
+        <p class="per" onclick="errado()">d&rpar; Cafarnaum</p>
+    </span>
+
+
+    <span id="p9" class="sumir">
+        <p>9:Quem foi o rei que sucedeu a roboão como rei de Juda?</p>
+
+        <p class="per" onclick="errado()" >a&rpar; Gideão</p>  
+        
+        <p class="per" onclick="errado()">b&rpar; Josafá</p> <br>
+  
+        <p class="per" onclick="certo9()" >c&rpar; Abias</p> 
+        
+        <p class="per" onclick="errado()">d&rpar; Saul</p>
+    </span>
+
+
+
+
+
+
+    <span id="p10" class="sumir">
+        <p>10:Qual é o nome da mãe de João Batista?</p>
+        <p class="per" onclick="finalizado()" >a&rpar;  Isabe</p> 
+
+        <p class="per" onclick="errado()">b&rpar; Maria</p> 
+        <br>
+        <p class="per" onclick="errado()" >c&rpar;  Sara</p> 
+
+        <p class="per" onclick="errado()">d&rpar; Rebeca</p>
+    </span>
+
+
+
+<p id="final"></p>
+    <a id="rodada" href="">Sim </a>

@@ -1,0 +1,9 @@
+@charset "UTF-8";
+#branco {display: none;}
+button {background-color: black;width: 30px;
+    height: 30px; border-radius: 10px
+;padding-right: 50px;}
+#bolaB {width: 15px;height: 15px;background-color: rgb(73, 73, 73);
+border-radius: 50%;}
+#bolaP {width: 15px;height: 15px;background-color: rgb(73, 73, 73);
+position: absolute;right: 500px;top: 16px;border-radius: 50%;}

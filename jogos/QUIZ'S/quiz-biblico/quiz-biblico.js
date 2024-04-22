@@ -60,7 +60,7 @@ function certo2() {
 
 
     function certo7() {
-                        pontuacao.textContent = parseInt(pontuacao.textContent) + 1;
+            pontuacao.textContent = parseInt(pontuacao.textContent) + 1;
             p7.style.display = "none";
             p8.style.display = "block"}
 
@@ -79,8 +79,8 @@ function certo2() {
 
     function finalizado() {
     p10.style.display = "none"
-    let p = document.getElementById("pontuaçao")
     proxima.style.display = "block"
+    voltar.style.display = "block"
 
    fim.innerHTML = "Quer mais perguntas?"
         
@@ -93,3 +93,4 @@ function errado() {
     pontuacao.textContent = parseInt(pontuacao.textContent) - 1;
     
 }
+
