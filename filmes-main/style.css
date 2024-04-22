@@ -23,34 +23,39 @@ span > p {position: relative;right: -600  ;}
     .seta-fantasia {width: 120px;height: 120px;padding: 0px;border: 0px;}
     .seta-ficção   {width: 120px;height: 120px;padding: 0px;border: 0px;}
   
-    header {color: #a76868; padding: 1px;color: rgb(255, 153, 0);background-color: rgb(0, 0, 0);}
-    nav {padding: 10px;color: #242424;background-color: #383838; }
+  header {color: #a76868; padding: 1px;color: rgb(255, 153, 0);background-color: rgb(0, 0, 0);}
+  nav {padding: 10px;color: #242424;background-color: #383838; }
     a {text-decoration: none;color: #383838;}
     p {display: inline;}
-    #menu {display:inline;padding: 10px;
+  #menu {display:inline;padding: 10px;
     color: rgb(255, 255, 255);font-size: 18px
     ;margin: 0px;cursor: pointer;}
-    #sub-menu{ display: none;text-decoration: none;
+  #sub-menu{ display: none;text-decoration: none;
     padding-top: 10px; margin-left: 220px;} 
-    #menu:hover {color: rgb(156, 173, 168);}
-    #menu:hover > #sub-menu {display: block;}
-    .de {color: white;}
+  #menu:hover {color: rgb(156, 173, 168);}
+  #menu:hover > #sub-menu {display: block;}
+  .de {color: white;}
 
-    #atores {color: aliceblue;font-size: 18px;
+  #atores {color: aliceblue;font-size: 18px;
     margin-left: 20px;cursor: pointer;padding: 10px;}
-    #atores-sub{display: none;margin-left: 330px;}
+  #atores-sub{display: none;margin-left: 330px;}
  #atores:hover > #atores-sub {display: inline;}
+
     h3 { display:inline}
     
   footer > p {font-size: 20px;color: #8b8b8b;}
 
 #preto {display: none;}
+
 button {background-color: black;width: 30px;
     height: 30px; border-radius: 10px
 ;padding-right: 50px;}
-#bolaB {width: 15px;height: 15px;background-color: rgb(73, 73, 73);
+
+#bolaB {width: 15px;height: 15px;background-color: rgb(255, 255, 255);
 border-radius: 50%;}
+
 #bolaP {width: 15px;height: 15px;
-background-color: rgb(73, 73, 73);
+background-color: rgb(0, 0, 0);
 border-radius: 50%;}
+
 #preto {transform: rotate(180deg);}
