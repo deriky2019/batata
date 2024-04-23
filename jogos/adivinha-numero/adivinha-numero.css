@@ -6,3 +6,4 @@ label {margin: 6px;font-size: 30px;}
 input {margin: 6px;border-radius: 10px;}
     button {margin: 6px;background-color: black;color: red;} 
     p {font-size: 20px}
+button:hover {color: rgb(190, 0, 0);}

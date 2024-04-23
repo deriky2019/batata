@@ -4,6 +4,7 @@ let  escuro = document.getElementById("preto")
 let  temas = document.getElementById("temas")
 let  atores = document.getElementById("atores")
 let  hyper = document.getElementById("hyper")
+
 function preto() {
     muda.style.backgroundColor = "black"
     escuro.style.display = "none"

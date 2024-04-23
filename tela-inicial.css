@@ -8,10 +8,12 @@ h1 {display: inline;}
       width: 150px; height: 150px;}
  .imagem {text-align: center;}
  ul {padding: 0%;  text-decoration: none; display: flex;justify-content: space-between;}
- #Projetos:hover >span {display: block;}
+ #Projetos:hover >span {display: block;position: absolute;right: 1%;}
  a {text-decoration: none;color: white;font-size: 20px;}
+ a:hover {color: rgb(173, 173, 173);}
  li {text-decoration: none;display: inline;font-size: 20px;}
  h3 {color: beige;}
  p {color: aliceblue;}
 #menu {display: none;font-size: 1px;}
 a > h2 {font-size: 20px;}
+div {margin: 2px;}
