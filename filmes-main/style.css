@@ -21,6 +21,7 @@ span > p {position: relative;right: -600  ;}
   header {color: #a76868; padding: 1px;color: rgb(255, 153, 0);background-color: rgb(0, 0, 0);}
   nav {padding: 10px;color: #242424;background-color: #383838; }
     a {text-decoration: none;color: #383838;}
+    a:hover {color: #242424;}
     p {display: inline;}
   #menu {display:inline;padding: 10px;
     color: rgb(255, 255, 255);font-size: 18px
@@ -29,6 +30,7 @@ span > p {position: relative;right: -600  ;}
     padding-top: 10px; margin-left: 220px;position: absolute;border: 1px solid #383838;padding: 10px;} 
   #menu:hover {color: rgb(156, 173, 168);}
   #menu:hover > #sub-menu {display: block;}
+  #sub-menu:hover {color: #242424;}
   .de {color: white;}
 
   #atores {color: aliceblue;font-size: 18px;
