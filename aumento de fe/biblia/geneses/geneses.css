@@ -2,7 +2,7 @@
 h1 {text-align: center;}
 h2 {color: rgb(24, 129, 170);}
 p {font-size: 20px;color: rgb(117, 159, 196);font-family: monospace;}
-img {width: 55px;height: 55px;}
+img {width: 100px;height: 100px;}
 #principal {display: flex;justify-content: space-between;}
 div {display: inline;}
 #esquerdo {display: inline;}

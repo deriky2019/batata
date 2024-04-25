@@ -1,0 +1,7 @@
+@charset "UTF-8";
+span {display: flex;justify-content: space-between;}
+h2 {color: rgb(0, 130, 190);font-size: 25px;
+}
+div {display: flex;justify-content: space-between;}
+img {width: 250px;height: 300px;}
+img:hover {transform: scale(1.1);}
