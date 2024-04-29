@@ -1,0 +1,8 @@
+@charset "UTF-8";
+header {display: flex;
+justify-content: space-between;padding-bottom: 30px
+;background-color:  darkgoldenrod;}
+img {width: 70px;height: 70px;}
+#busca {width: 300px;height: 30px;position: relative;
+}
+#busca::after {content: url(icone_busca-removebg-preview.png);}

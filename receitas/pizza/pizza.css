@@ -1,0 +1,9 @@
+@charset "UTF-8";
+body {display: flex;
+justify-content: space-between;margin: 0;}
+main {width: 500px;height: 700px;
+border: 3px solid rgb(0, 0, 0);}
+div  {width: 600px;height: 950px;
+    border: 3px solid rgb(0, 0, 0);}
+h1 {color: cornflowerblue;}
+p {font-size: 25px;color: cadetblue;}

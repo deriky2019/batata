@@ -1,0 +1,8 @@
+@charset "UTF-8";
+body {background-color: black;}
+div {text-align: center;}
+img {width: 180px;}
+nav {width: 99%;height: 30px;display: flex;
+justify-content: space-between;background-color: rgb(9, 85, 172);}
+a {text-decoration: none;color: white;font-size: 22px;}
+.igreja {width:200px ;height: 200px;}

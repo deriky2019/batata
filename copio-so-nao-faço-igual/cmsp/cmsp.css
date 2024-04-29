@@ -1,7 +1,8 @@
 @charset "UTF-8";
 body {background-image: url(fundo\ cmsp.png);}
-main {margin: auto; 
-width: 300px;height: 500px;
+main {margin: auto; border-radius: 10px;
+width: 300px;height: 500px; position: relative;
+top: 50px;
 background-color: #131313;}
 
 img {width: 100px;height: 100px;
