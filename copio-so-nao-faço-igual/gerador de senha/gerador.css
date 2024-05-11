@@ -1,0 +1,11 @@
+@charset "UTF-8";
+main {width: 500px;height:500px;margin: auto;
+text-align: center;
+border: 1px solid blanchedalmond;}
+
+input {width: 200px;height: 30px;border: 0;
+border-radius: 10px;position: relative;right: 10%;}
+
+button {width: 300px;height: 30px;border: 0;
+border-radius: 10px;
+background-color:  #00FF00;}

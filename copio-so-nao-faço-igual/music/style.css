@@ -1,0 +1,25 @@
+@charset "UTF-8";
+body {background-image: url(images/pattern-background-desktop.svg);
+background-repeat: no-repeat;
+background-color: rgba(6, 0, 97, 0.699);
+}
+main {width: 400px;height: 520px;margin: auto;
+border-radius: 10px;
+position: relative;top: 50px;
+background-color: rgb(0, 0, 0);}
+#logo {width: 400px;margin: 0%;
+border-radius: 10px 10px 0px 0px;}
+h1 {color: rgb(0, 132, 255);}
+p {color: rgb(0, 162, 255);text-align: center;
+font-size: 18px;margin: 0;}
+#anuncio 
+{display: flex;justify-content: space-around;
+background-color: rgb(98, 156, 231);width: 300px;
+border-radius: 10px;margin: 10px;}
+#comprar 
+{width: 350px;height: 30px;border: 0;
+border-radius: 10px;
+margin: 10px;background-color: rgb(0, 81, 255);}
+#nao-quero {
+width: 350px;height: 30px;border: 0;
+border-radius: 10px;margin: 10px;}

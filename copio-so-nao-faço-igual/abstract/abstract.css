@@ -1,0 +1,59 @@
+@charset "UTF-8";
+body {margin: 0;}
+header {background-color: black;margin: 0;
+height: 100px;
+display: flex;justify-content: space-between;}
+
+#principal {background-color: #dadbf1;margin: 0;
+text-align: center;height: 400px;
+}
+
+h1 {font-size: 45px;margin: 0;
+position: relative;top: 90px;}
+
+
+
+input{width: 90%;height:60px;border:1px solid #444;
+background-color: #222;border-radius: 10px;
+position: relative;top: 100px;}
+
+input::after {
+    content: url(/projetos-receitas.png);
+}
+img {width: 150px;height: 150px;}
+
+h3 {margin: 0;font-size: 24px;}
+
+p {margin: 0;font-size: 19px;}
+
+
+.cruzadas 
+{display: flex;justify-content: space-around;
+margin: 16px;flex-wrap: wrap;}
+
+.corpo {display: flex;}
+
+.imagem {display: flex;flex-direction: column;
+margin: 16px;}
+
+.sobre {display: flex;flex-direction: column;
+margin: 16px;}
+
+a {text-decoration: none;font-size: 19px;color: rgb(4, 138, 255);}
+footer {width: 100%;height: 200px;
+background-color: black;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

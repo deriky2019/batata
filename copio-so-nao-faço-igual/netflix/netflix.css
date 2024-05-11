@@ -16,9 +16,12 @@ margin: 10px;background-color: #333333b2;
 border: 1px solid #333;height: 35px;
 border-radius: 10px;}
 
-#butao {background-color:red;
-color: white;border-radius: 10px;
-height: 40px;border: 0px;font-size: 16px;}
+#butao {
+background-color:red;
+text-decoration: none;
+color: white;width: 300px;
+border-radius: 10px;height:40px;
+border: 0px;font-size: 16px;}
 #butao:hover {background-color:rgb(182, 0, 0);cursor: pointer;}
 #butao:active {color: #ff0000}
 .che {width: 15px;height: 15px;  color: #333;background-color: #ff0000;}

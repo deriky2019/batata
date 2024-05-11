@@ -17,3 +17,5 @@ header {padding: 14px ;background-color: darkorange;}
 
  #main {display: flex;
 justify-content: space-around;}
+
+#doce {display: flex;justify-content: space-around;}

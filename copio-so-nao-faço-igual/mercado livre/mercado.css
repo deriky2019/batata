@@ -2,7 +2,21 @@
 header {display: flex;
 justify-content: space-between;padding-bottom: 30px
 ;background-color:  darkgoldenrod;}
-img {width: 70px;height: 70px;}
-#busca {width: 300px;height: 30px;position: relative;
+#logo {width: 90px;height: 90px;}
+#busca {width: 300px;height: 37px;
+position: relative;right: 25%;top: 10px;
 }
-#busca::after {content: url(icone_busca-removebg-preview.png);}
+main {display: flex;justify-content: space-between;}
+
+img {width: 150px ;height: 150px;
+position: relative;top: -10px;}
+
+img:hover {transform: scale(1.26);}
+
+div {width: 150px ;height: 150px;
+padding: 20px;border: 1px solid #333;}
+
+p {display: inline;position: relative;top: -2px;}
+
+
+

@@ -9,5 +9,5 @@ img {width: 130px;height: 170px;}
 a {font-size: 20px; text-decoration: none;
     color: rgb(255, 255, 255);}
 a:hover {color: rgb(134, 134, 134);}
-p {font-size: 19px;}
+p {font-size: 19px;color: aliceblue;}
 #ver {cursor: pointer;}

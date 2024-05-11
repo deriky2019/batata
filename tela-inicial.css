@@ -13,7 +13,10 @@ h1 {display: inline;}
  a:hover {color: rgb(173, 173, 173);}
  li {text-decoration: none;display: inline;font-size: 20px;}
  h3 {color: beige;}
- p {color: aliceblue;}
+ p {color: aliceblue;font-size: 20px;}
 #menu {display: none;font-size: 1px;}
 a > h2 {font-size: 20px;}
 div {margin: 2px;}
+.projetoDIV {text-align: center;}
+.PROJETOS {width: 200px;height: 200px;}
+.PROJETOS:hover{transform: scale(2.2);transition: 1s;}

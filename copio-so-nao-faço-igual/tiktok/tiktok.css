@@ -1,15 +1,40 @@
 @charset "UTF-8";
-header {display: flex;
-justify-content: space-between;}
-h1 {font-size: 25px;color: rgb(208, 224, 255);
-margin: 0%;}
-p {margin: 0%;padding: 10px;background-color: rgb(36, 36, 36);}
-video {position: relative;right: -40%;
-border: 2px solid black;border-radius: 10px;}
-#lateral {display: flex;flex-direction: column;
-position: absolute;}
-a {text-decoration: none;color: white;
-padding-right: 10px;padding-bottom: 20px;
-border-right: 1px solid black;
-font-size: 20px;}
-#ultimoLINK {border-bottom: 1px solid black;}
+/* Estilos Gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header, nav, main, footer {
+    padding: 20px;
+}
+h1 {
+    margin: 0;
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+section {
+    margin-bottom: 40px;
+}
+.projeto {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+/* Responsividade */
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+}

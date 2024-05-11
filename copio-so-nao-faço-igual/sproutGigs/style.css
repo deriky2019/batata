@@ -2,14 +2,14 @@
 * {font-family:Arial, Helvetica, sans-serif}
 span {display: flex;justify-content: space-between;
 margin-bottom: 100px;}
-#logo {width: 140px;height: 50px;}
+#logo {width: 145px;height: 55px;}
 a {text-decoration: none;color: white;
 color: rgb(0, 105, 0);position: relative;
 top: 10px;}
 #menu {width: 50px;height: 30px;}
-main {width: 500px;height: 100px;margin: auto;}
+main {width: 400px;height: 100px;margin: auto;}
 div {text-align: center;}
-h2 {position: relative;right: 35%;color: rgb(178, 255, 178);}
+h2 {position: relative;right: 40%;color: rgb(178, 255, 178);}
 button {border-radius: 10px; background-color: #333;width: 85px;
 height: 40px}
 #butaoV {background-color: rgb(73, 194, 73);}

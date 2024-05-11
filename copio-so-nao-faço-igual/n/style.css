@@ -1,0 +1,13 @@
+@charset "UTF-8";
+body {background-color: gold;}
+main {width: 300px;height: 500px;border-radius: 10px;
+margin: auto;background-color: whitesmoke;
+position: relative;top: 50px;
+box-shadow: 10px 10px 10px 5px;}
+
+img {width: 280px;position: relative;right: -10px;
+top: 10px;border-radius: 10px;box-shadow: 2px 2px 2px 2px;}
+
+input {margin: 10px;width: 250px;height: 25px;}
+button {margin: 10px;width: 270px;height: 30px;
+background-color: chartreuse;font-size: 17px;}

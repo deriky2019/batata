@@ -1,4 +1,4 @@
 @charset "UTF-8";
-header {border: 1px solid;}
-main {background-image: url(fundo\ cmsp.png);}
+body {background-image: url(fundo\ cmsp.png)}
+p {display: inline; color: rgb(255, 0, 0);font-size: 20px;}
 

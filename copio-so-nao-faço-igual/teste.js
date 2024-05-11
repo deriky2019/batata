@@ -1,10 +1,18 @@
+function curtir() {
+    let norma = document.getElementById("normal")
+    let curtido = document.getElementById("curtido")
+    curtido.style.display = "block"
+    norma.style.display = "none"
 
-let butao = document.getElementById("checkbox")
-let mudar = document.getElementById("mudar")
-function ver() {
-mudar.style.backgroundColor = "green"
-    
 }
+function descurtir() {
+    let norma = document.getElementById("normal")
+    let curtido = document.getElementById("curtido")
+    curtido.style.display = "none"
+    norma.style.display = "block"
 
+
+
+}
 
 
