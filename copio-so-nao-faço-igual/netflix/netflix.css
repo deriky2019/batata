@@ -3,11 +3,12 @@ body {background-image: url(logo\ de\ tras.jpg);}
 h1 {color: red;}
 main{border: 1px solid rgb(0, 0, 0);
 width: 400px;height: 500px;margin: auto;
-background-color: rgba(0, 0, 0, 0.829);}
+background-color: rgba(0, 0, 0, 0.959);
+border-radius: 10px;}
 
 form {text-align: center;}
 
-h2 {position: relative;right: 30%; font-size: 35px;}
+h2 {position: relative;right: 30%; font-size: 35px;color: aliceblue;}
 
 label {font-size: 20px;}
 
@@ -22,10 +23,16 @@ text-decoration: none;
 color: white;width: 300px;
 border-radius: 10px;height:40px;
 border: 0px;font-size: 16px;}
+
 #butao:hover {background-color:rgb(182, 0, 0);cursor: pointer;}
+
 #butao:active {color: #ff0000}
-.che {width: 15px;height: 15px;  color: #333;background-color: #ff0000;}
-strong {cursor: pointer}
+
+.che {width: 15px;height: 15px;  color: #333;
+background-color: #ff0000;}
+
+strong {cursor: pointer;}
 
 
-h3 {display: inline;}
+h3 {display: inline;color: antiquewhite;}
+p {color: aliceblue;}
