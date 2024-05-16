@@ -11,24 +11,27 @@
     <main>
       <form action="">
         <h2>Entar</h2>
-        
-        <input type="email" placeholder="Digite seu Email ou Numero de telefone">
+        <label for="email">Email</label>
+        <br>
+        <input size="23" required id="email" type="email" placeholder="Digite seu Email ou Numero de telefone">
         <br>
         
         <br>
-        <input type="password" placeholder="Senha" ></input>
+        <label for="senha">Senha</label>
+        <br>
+        <input minlength="6" maxlength="15" required id="senha" checked type="password" placeholder="Senha" ></input>
         <br>
         <input id="butao" type="submit" value="ENTRAR">
         <br>
         <input class="che" type="radio" name="" id="che">Lembrar-se de mim
         <br>
         <h3>Novo aqui?</h3> <strong>Assine aqui</strong>
-         <footer>
-            <p>Esse site não é oficial é apenas para estudo</p>
-         </footer>
+         
 
       </form>
-
+      <footer>
+        <p>Esse site não é oficial é apenas para estudo</p>
+     </footer>
     </main>
 </body>
 </html>

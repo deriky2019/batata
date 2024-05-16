@@ -1,0 +1,28 @@
+@charset "UTF-8";
+body {background-color: rgb(10, 10, 10);}
+main {display: flex;justify-content: space-around;
+flex-wrap: wrap;}
+h2 {color: rgb(127, 197, 255);font-size: 30px;}
+h3 {color: rgb(127, 176, 241);font-size: 25px;}
+
+
+video {width: 60%;height: 61%;
+position: relative;right: 5%;
+border-radius: 10px; margin: 10px;
+background-image: url(capa\ arvore\ cortada.jpg);
+background-repeat: no-repeat;
+background-size: 100%;
+
+}
+
+
+
+
+button {width: 80px;height: 40px;border: 0;
+border-radius: 10px;color: antiquewhite;
+background-color: black;
+position: relative;left: 30%;}
+button:hover {cursor: pointer;color: rgb(189, 189, 189);}
+
+p {color: rgb(0, 110, 255);
+font-size: 18px;display: none;}

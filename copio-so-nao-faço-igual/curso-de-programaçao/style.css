@@ -1,0 +1,8 @@
+@charset "UTF-8";
+body {margin: 0;background-color: black;}
+header {margin: 0;}
+img {width: 100%;margin: 0;}
+nav {margin: 0; display: flex;justify-content: space-around;
+background-color: rgb(14, 13, 13);}
+a {text-decoration: none; font-size: 20px;color: aliceblue;}
+a:hover {text-decoration: underline;}

@@ -12,11 +12,13 @@ div {text-align: center;}
 h2 {position: relative;right: 40%;color: rgb(178, 255, 178);}
 button {border-radius: 10px; background-color: #333;width: 85px;
 height: 40px}
-#butaoV {background-color: rgb(73, 194, 73);}
-.ES {width: 400px;height: 42px;margin-bottom: 10px;background-color: #222222;border: 0;}
+#butaoV {background-color: rgb(73, 194, 73);border: 0;}
+.ES {width: 400px;height: 42px;margin-bottom: 10px;background-color: #222222;border: 0;
+border-radius: 10px;}
 
-label {position: relative;right: 37%;font-size: 15px;margin-bottom: 10px;}
+label {position: relative;font-size: 15px;margin-bottom: 10px;}
 .check {position:relative;color: rgb(255, 0, 0);}
 .Esqueceu{position: relative;right: -15%;top: -1px;}
-#final {width: 400px;height: 50px;
+#final {width: 400px;height: 50px;border: 0;
+border-radius: 10px;
 background-color: rgb(67, 163, 43);font-size: 18px;}

@@ -15,16 +15,20 @@
     </span>
     <main>
     
-   <div>
+   <form action="">
         <h2>Login</h2>
         <label for="email">Email</label> <br> <br>
-        <input placeholder="Digite seu Email" class="ES" type="email"> <br> <br>
-        <label for="password">Senha</label> <br> <br>
-        <input placeholder="Digite sua senha" class="ES" type="password"> <br>
-        <input class="check" type="checkbox" name="" id="">Lembra-se</input>
+        <input autocomplete="email" required placeholder="Digite seu Email" class="ES" type="email" id="email"> <br> <br>
+
+
+        <label  for="senha">Senha</label> <br> <br>
+        <input minlength="6" maxlength="15" required placeholder="Digite sua senha" class="ES" type="password" id="senha"> <br>
+        
+        <label for="check">Lembrar-se</label>
+        <input  type="checkbox" name="" id="check">
         <a class="Esqueceu" href="#">Esqueceu a senha?</a> <br> <br>
-        <button id="final">Login</button>
-   </div>
+        <input id="final" type="submit" value="Login">
+    </form>
     </main>
 </body>
 </html>

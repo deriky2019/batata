@@ -1,0 +1,24 @@
+@charset "UTF-8";
+body {margin: 0;}
+#principal {display: flex;justify-content: space-between;
+height: 30px;}
+#menu {width: 40px;height:40px;
+position: relative;top: -53px;}
+#menu:hover {transform:scale(1.2)}
+#youtube {width: 100px;height: 105px;
+position: relative;top: -26px;}
+
+input {border-radius: 10px;border: 0;position: relative;
+width: 50%;height: 30px;position: relative;left: 28%;top: -20px;}
+#IconP{position: relative;left: 28%;top: -15px;
+width: 22px;height: 22px;}
+
+nav {display: none;position: absolute;background-color: black;
+margin-top: 20px;width: 100px;font-size: 20px;
+border-top: 2px solid rgb(121, 5, 5);
+border-right: 2px solid rgb(146, 0, 0);
+}
+main {display: flex;justify-content: space-around;
+flex-wrap: wrap;}
+video {width: 270px;height: 270px;margin: 10px;
+border-radius: 10px;}
