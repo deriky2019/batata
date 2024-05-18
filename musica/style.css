@@ -14,7 +14,7 @@ color: rgb(0, 81, 255);cursor: pointer;}
 #cantores {display: none;}
 
 .imagem {width: 120px;height: 120px;margin: 10px;
-border-radius: 50%;border: 1px solid palevioletred;}
+border-radius: 50%;border: 2px solid palevioletred;}
 .video {width:200px;height: 200px;margin: 11px;
     border-radius: 10px;border: 1px solid rgb(19, 87, 212);}
 .video:hover {transform: scale(1.1);}
