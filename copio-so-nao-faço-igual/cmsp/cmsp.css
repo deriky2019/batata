@@ -32,7 +32,8 @@ div {text-decoration: none;
       border-radius: 10px;
       cursor: pointer;}
 a {text-decoration: none;color: white;
-position: relative;top: 20%;}
+position: relative;top: 20%;font-size: 18px;}
+a:hover {color: rgb(184, 184, 184);}
 
 
 input::placeholder {color: aliceblue;

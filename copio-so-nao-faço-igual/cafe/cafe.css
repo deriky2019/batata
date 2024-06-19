@@ -1,0 +1,17 @@
+@charset "UTF-8";
+body {background-image: url(imagems/bg-cafe.jpg);
+background-repeat: no-repeat;
+background-size: 100%;
+background-color: black;}
+main {width: 85%;height: 50%;background-color: rgb(14, 13, 13);margin: auto;
+border-radius: 10px;}
+h1, h3 {text-align: center;}
+button {text-align: center;background-color:#181717;border-radius: 10px;
+border: 0px;padding: 9px;}
+button:hover {background-color: rgb(150, 150, 150);}
+#butoes {text-align: center;}
+.divseg {display: flex;justify-content:space-between ;}
+.escondido {display: none;}
+.IMGs {width: 200px;height: 200px;margin: 10px;border-radius: 10px;}
+
+span {display: flex;justify-content: space-around;flex-wrap: wrap;}

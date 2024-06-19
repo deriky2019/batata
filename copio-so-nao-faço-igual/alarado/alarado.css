@@ -1,0 +1,14 @@
+@charset "UTF-8";
+body {margin: 0;}
+header {display: flex;justify-content: space-between;}
+#dark{display: none;}
+.mudar {width: 45px;height: 45px;}
+#divH {display: flex;}
+header > div > p {margin-right: 10px;}
+#imagemP {width: 60%;height: 60%}
+main {display: flex;justify-content: space-between; flex-wrap: wrap-reverse;}
+h1 {font-size: 340%;color: #223344;}
+
+button {width: 130px;height: 35px;background-color: #2A4DD0;
+border: 0;border-radius: 10px;}
+.check {display: flex;}
