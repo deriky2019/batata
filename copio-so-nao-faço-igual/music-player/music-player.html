@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="music-player.css">
 </head>
 <body>
-    <main>
+    <main id="cover1">
        <div class="imagemP">
           <img class="capa" src="imagem/cover-1.png" alt="">
        </div>
         <h3>Lost in the City Lights</h3>
         <p>Cosmo Sheldrake</p>
         <input type="range">
-        <div>
+        <div id="butoes">
             <img class="butao" src="imagem/arrow-left-short.svg" alt="">
-            <img class="butao" src="imagem/pause.svg" alt="">
-            <img class="butao" src="imagem/play.svg" alt="">
+            <img class="butao" onclick="pausar()" id="play" src="imagem/pause.svg" alt="">
+            <img class="butao" onclick="despausar()" id="pause" src="imagem/play.svg" alt="">
             <img class="butao" src="imagem/arrow-right-short.svg" alt="">
         </div>
  
@@ -44,6 +44,7 @@
              
         
     </div>
+    <audio controls autoplay src="imagem/lost-in-city-lights-145038.mp3"></audio>
     <script src="music-player.js"></script>
 </body>
 </html>

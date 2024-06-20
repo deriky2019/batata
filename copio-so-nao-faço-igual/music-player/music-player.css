@@ -1,5 +1,5 @@
 @charset "UTF-8";
-body {background-: linear-gradient(right #C93B76 , #212936 );}
+body {margin: 0;}
 main {background-color: #2222229a;width: 300px;margin: auto;
 border-radius: 10px;position: relative;top: 100px;}
 #cover2{background-color: #000000;width: 300px;margin: auto;
@@ -7,4 +7,7 @@ border-radius: 10px;display: none;}
 h3,p {text-align: center;}
 .imagemP {text-align: center;}
 .capa {width: 200px;height: 200px;}
+#butoes {display: flex;justify-content: space-evenly;}
 .butao {width:30px ;height: 30px;}
+#pause {display: none;}
+audio {width: 300px;height: 30px;}
