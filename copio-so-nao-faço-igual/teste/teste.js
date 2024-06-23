@@ -7,3 +7,8 @@ function menu() {
 function sair() {
     submenu.style.display = "none"
 }
+function crescer() {
+  let clique = document.getElementById("circulo")
+  let pontuacao =document.getElementById("pontuacao")
+  pontuacao.innerHTML + (1)
+}

@@ -1,9 +1,0 @@
-@charset "UTF-8";
-body {background-color: black;}
-img {width: 150px;height: 150px;margin: 15px;
-}
-#p {display: flex;flex-wrap: wrap;
-flex-direction: row}
-
-
- 
