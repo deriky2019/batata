@@ -51,3 +51,4 @@ flex-wrap: wrap;}
 #mulheres  h3 {font-size: 27px;text-decoration: underline;}
 #mulheres  p {font-size: 20px;color: antiquewhite;}
 #mulheres > div {width: 450px;}
+.linha {width: 100%;text-align: center;}

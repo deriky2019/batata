@@ -19,12 +19,15 @@ img {width: 100px;height: 100px;}
 font-size: 45px;color: red;}
 a {text-decoration: none;color: rgb(94, 164, 230);}
 #pfeio {margin: 0;display: inline;}
+main > div > p {color: rgb(196, 196, 255);}
+main h2 {color: rgb(236, 250, 255);}
+main p {color: rgb(236, 250, 255);}
 #imgs1 {display: flex;justify-content: space-around;
 background-color: rgb(114, 141, 15);}
 #foto2 {width: 150px;height: 150px;}
 #foto3 {width: 200px;height: 200px;}
 #video {text-align: center;}
-iframe {width: 99%;}
+iframe {width: 99%;height: 460px;}
 #imgs2 {display: flex;flex-direction: column;text-align: center;
 background-color: rgb(32, 65, 0);}
 #cara {position:relative;top: -170px;left: 30%;}

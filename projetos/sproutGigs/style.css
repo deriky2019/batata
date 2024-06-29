@@ -1,4 +1,5 @@
 @charset "UTF-8";
+body {background-color: #222222;}
 * {font-family:Arial, Helvetica, sans-serif}
 span {display: flex;justify-content: space-between;
 margin-bottom: 100px;}
