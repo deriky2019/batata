@@ -38,14 +38,16 @@ margin: 30px;flex-wrap: wrap;margin-bottom: 90px;}
 div > div {width: 250px;height: 200px;}
 
 .igrejas h2 {font-size: 30px;color: brown;}
+.igrejas h3 {color: rgb(125, 170, 190);}
+.igrejas a {color: rgb(0, 43, 63);}
 
 main > p {font-size: 19px;}
 
-span {display: noe;}
+span {display: none;}
 
 #mulheres {display: flex;justify-content: center;
 flex-wrap: wrap;}
 #muieIMG {width: 330px;height: 330px;}
 #mulheres  h3 {font-size: 27px;text-decoration: underline;}
-#mulheres  p {font-size: 20px;}
+#mulheres  p {font-size: 20px;color: antiquewhite;}
 #mulheres > div {width: 450px;}
