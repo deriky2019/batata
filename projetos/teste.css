@@ -1,0 +1,12 @@
+@charset "UTF-8";
+body {background-color: black;}
+* {font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;}
+a {text-decoration: none;color: antiquewhite;
+font-size: 20px;}
+h1 {text-align: center;color: aliceblue;}
+img {width: 215px;height: 215px;border-radius: 10px;
+border: 1px solid red;}
+img:hover {transform: scale(1.2);cursor: pointer;transition: 1s;}
+
+span {display: flex;justify-content: space-around;flex-wrap: wrap;
+margin: 12px;}

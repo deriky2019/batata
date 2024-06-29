@@ -1,7 +1,0 @@
-@charset "UTF-8";
-h1 {text-align: center;}
-a {text-decoration: none;font-size: 23px;
-    color: white;padding: 10px;display: inline;}
-
-a:hover {text-decoration: underline rgb(0, 0, 0);color: rgb(92, 92, 92);}
-a:active {color: rgb(148, 113, 113);}
