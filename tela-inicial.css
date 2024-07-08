@@ -14,7 +14,7 @@ header > div  > div {display: flex;flex-direction: column;}
  #divP  img {width: 300px;height: 320px;border-radius: 10px 0px 0px 10px;}
  #divP p {text-align: center;font-size: 22px;}
  #divA {text-align: center;}
- #divP > div:hover {transform: scale(1.2);transition: 2s;}
+ #divP > div:hover {transform: scale(0.9);transition: 2s;}
  main > p {font-size: 18px;color: white}
 footer {background-color: rgb(20, 20, 20);margin: 0;padding: 10px;}
 h1 {color: white}
