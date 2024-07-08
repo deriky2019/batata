@@ -1,0 +1,15 @@
+@charset "UTF-8";
+body {background-color: black;margin: 0;}
+header > div  {text-align: center;}
+nav {background-color: darkred;}
+.navDI {display: flex;justify-content: center;}
+nav > div > img {width: 50px;height: 50px;}
+
+nav > div > a {text-decoration: none;font-size: 18px;color: white;}
+
+#submenu {display: none;}
+#desaparecer {display: none;}
+
+main  img {width: 200px;height: 300px;border: 2px solid red;}
+
+main > div {display: flex;justify-content: space-around;flex-wrap: wrap;}

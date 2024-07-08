@@ -1,0 +1,45 @@
+@charset "UTF-8";
+body {margin: 0;background-color: rgb(0, 0, 0);}
+header {display: flex;justify-content: space-between;}
+header > img {width: 180px;height: 120px;}
+#menu {width: 40px;height: 40px;}
+#foto1 {width: 100%;height: 1%;}
+h1 {text-align: center;}
+#vagas {display: flex;justify-content: center ;flex-wrap: wrap;}
+#vagas > h1 {margin: 10px 2px 10px 0px}
+#vaD {color: white;}
+#euM {color: orange;}
+#boxG {display: flex;justify-content: space-around;flex-wrap: wrap;}
+
+
+.box {width: 350px;height: 300px;border-radius: 10px;margin-top: 20px;
+background-color: #111;border: 1px solid black;margin-bottom: 7px;}
+
+.box:hover {transform: scale(1.1);transition: 1s;}
+
+
+.box > h1 {padding: 3px;background-color: #E1B400;color: white;
+font-size: 20px;margin: 0;border-radius: 10px 10px 0px 0px;}
+
+
+.box > p {text-align: center;font-size: 20px;color: white;}
+
+a {position: relative;right: -29%;top: 10px;
+text-decoration:none;padding: 17px;
+border-radius: 6px;color: antiquewhite;background-color:#212033;}
+
+
+a:hover {transition: 0.5s; color: rgb(13, 111, 196);padding: 22px;
+right: -25%;}
+
+#divV {display: flex;justify-content: center;}
+
+#verMais {background-color: transparent;border: 1px solid #111;
+padding: 10px 100px 10px 100px;top:20px;right: 0;
+border: 15px 0px 15px 0px;}
+
+#final {margin-top:  39px;background-color: aliceblue;height: 300px}
+#final > h1 {color: #E1B400;text-align: left;font-size: 21px;}
+#final > p {color: rgb(185, 134, 66);font-size: 18px;}
+
+#ultimoA:hover {padding: 17px;right: -25%;}

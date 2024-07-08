@@ -1,0 +1,13 @@
+@charset "UTF-8";
+body {background-color: black;}
+div  {text-align: center;}
+ main {width: 92%;margin: auto;background-color: #111;}
+ strong {color: red;}
+ p {font-size: 18px;}
+ a {text-decoration: none;padding: 20px 0px 20px 0px;background-color:#111;
+border: 1px solid green;color: aliceblue;}
+a:hover {background-color: green;transition: 2s;}
+#divL {margin: 40px 0px 40px 0px;}
+a {text-decoration: none;color: aliceblue;background-color: #333;
+border: 1px solid red;
+padding: 10px 5px 10px 5px;}
