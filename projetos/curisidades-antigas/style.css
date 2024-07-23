@@ -1,0 +1,13 @@
+@charset "UTF-8";
+body {background-color: black;margin: 0;}
+header {padding: 20px;background-color: #222;}
+header > h1 {text-align: center;}
+nav {display: flex;justify-content: space-around;background-color: #111;}
+nav > p {font-size: 20px;color: white;}
+nav > p:hover {color: rgb(185, 172, 155);cursor: pointer;}
+main > div {display: flex;justify-content: space-around;margin: 10px;flex-wrap: wrap;}
+main > div > div:hover {transform: scale(1.1);}
+a {text-decoration: none;font-size:20px;color: white;}
+div  img {width: 220px;height: 230px;border: 2px solid red;}
+.setas {width: 20px;height: 20px;position: relative;top: 5px;}
+main > a {margin-bottom: 16px;}

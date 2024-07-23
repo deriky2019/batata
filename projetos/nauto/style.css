@@ -1,0 +1,19 @@
+@charset "UTF-8";
+body {margin: 0;background-color: #111;}
+header {width: 100%;height:500px ;background-image: url(imagem/header.png);
+background-repeat: no-repeat;background-size: 100%;}
+header > img {width: 200px;}
+header > h1 {width: 70%;color: #038103;text-shadow: 0.5px 0.5px 0.5px black;}
+
+header > p {color: #ffffff;font-size: 20px;text-shadow: 0.5px 0.5px 0.5px black;}
+header > h3 {color: #ffffff;text-shadow: 0.5px 0.5px 0.5px black;}
+main {width: 100%; display: flex;flex-wrap: wrap-reverse;justify-content: space-around;}
+main p {font-size: 17px;color: #808080;}
+span {width: 43%;position: relative;top: -50px;}
+span > div {border-radius: 10px;}
+span div > h1 {background-color: #111;border-radius: 10px;}
+span > div {text-align: center; width: 100%;}
+label {font-size: 17.5px;}
+input {width: 90%;border-radius: 8px;background-color: black;}
+input:active {border: 5px solid rgb(103, 255, 103);}
+li {color: #808080;font-size: 17px;}

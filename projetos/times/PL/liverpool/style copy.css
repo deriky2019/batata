@@ -1,0 +1,20 @@
+@charset "UTF-8";
+body {background-color: black;margin: 0;}
+div {text-align: center;}
+header > h2 {text-align: center;}
+header > div > img {width: 180px;}
+nav {display: flex;justify-content: space-around;
+background-color: red;}
+nav > p {margin: 0%;}
+nav > p {text-decoration: none;color: white;font-size: 20px;}
+nav > p:hover {text-decoration: underline;color: #444;}
+ol {text-decoration: none;}
+p{font-size: 20px;text-decoration: none;}
+#sobre {display: none;}
+#lendas{display: none;}
+#lendas > div >div {display: flex;flex-wrap: wrap;
+justify-content: space-around;margin:20px;}
+#lendas > div >div > div {width: 400px;
+}
+.imgL {width: 300px;height: 300px;}
+#sobre  h2 {color: red}

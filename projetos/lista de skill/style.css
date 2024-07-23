@@ -1,2 +1,9 @@
 @charset "UTF-8";
-main {width: 80%;height: 40%;background-color: white;}
+body {margin:0;background-color: black;}
+div {position:relative;inset: 0;width: 100%;height: 100vh;}
+div video{width: 100%;height: 100vh;object-fit: cover;opacity: 10%;}
+main {position: absolute;} 
+main > div {width: 100%;height: 100vh;
+    display: flex;justify-content: space-between;}
+
+img {width: 60%;height: 60%;position: relative;}

@@ -6,15 +6,18 @@ header > div   {display: flex;justify-content: space-around;flex-wrap: wrap;}
 header > div  > div {display: flex;flex-direction: column;}
 #lua {display: none;}
 .mudar {width: 40px;height: 40px;position: absolute;right: -0.01%;}
+#link:hover {text-decoration: underline;}
  a {text-decoration: none;color: white;font-size: 25px;}
- a > img {width: 25px;height: 25px;position: relative;top: 6px}
+ a > img {width: 25px;height: 25px;position: relative;top: 6px;}
  a:hover {color: rgb(173, 173, 173);}
  #divP {display: flex;justify-content: space-evenly;flex-wrap: wrap;}
  #divP > div {border: 1px solid red;margin: 20px;border-radius: 10px 0px;background-color: black;}
- #divP  img {width: 300px;height: 320px;border-radius: 10px 0px 0px 10px;}
+ #divP  img {width: 320px;height: 350px;border-radius: 10px 0px 0px 10px;opacity: 41%;}
+ #divP img:hover {opacity: 100%;transition: 1s;}
  #divP p {text-align: center;font-size: 22px;}
  #divA {text-align: center;}
- #divP > div:hover {transform: scale(0.9);transition: 2s;}
+ #divP > div:hover {transform: scale(1.05);transition: 2s;}
+
  main > p {font-size: 18px;color: white}
 footer {background-color: rgb(20, 20, 20);margin: 0;padding: 10px;}
 h1 {color: white}
