@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+body {display: flex;justify-content: center;background-color: rgb(255, 196, 196);}
+main {position: relative;top: 170px;background-color: rgb(253, 253, 253);
+width: 90%;height: 350px;border-radius: 10px;}
+main > div {text-align: center;}
+h1 {border-bottom: 5px solid orangered;text-align: center;}
+label {position: relative;right: 20%;}
+.ES {width: 50%;height: 20px ;border-radius: 10px;border-color: rgb(2, 167, 167);}
+
+.center {text-align: center;}
+#checkbox {position: relative;right: 14%;}
+#butao {width: 100px;height: 40px;border-radius: 17px;
+border-radius: 12px;}
+a {color: rgb(0, 81, 255);}

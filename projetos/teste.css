@@ -5,7 +5,7 @@ a {text-decoration: none;color: antiquewhite;
 font-size: 20px;}
 h1 {text-align: center;color: aliceblue;}
 img {width: 215px;height: 215px;border-radius: 10px;
-border: 1px solid red;opacity: 40%;}
+border: 1px solid red;opacity: 70%;}
 img:hover {opacity: 100%;transition: 1s;}
 
 div:hover {transform: scale(1.2);cursor: pointer;transition: 1s;}

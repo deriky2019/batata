@@ -1,0 +1,12 @@
+@charset "UTF-8";
+body {background-image: url(imagem/images/bg-desktop.svg);
+background-repeat: no-repeat;background-color: blueviolet;}
+header {margin-bottom: 30px;}
+main {display: flex;justify-content: space-evenly ;width:100%;
+flex-wrap: wrap;}
+main > img {width: 41%;}
+p {font-size: 17px;}
+button {background-color: #ffffff;color: blueviolet;border-radius: 17px;
+border: 0;width: 160px;height: 40px;margin-bottom: 12px;}
+#divIcons {text-align: center;}
+#fotomeio {margin-left: 5px;margin-right: 5px;}

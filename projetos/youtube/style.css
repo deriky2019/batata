@@ -1,24 +1,27 @@
 @charset "UTF-8";
 body {margin: 0;}
-#principal {display: flex;justify-content: space-between;
-height: 30px;}
-#menu {width: 40px;height:40px;
-position: relative;top: -53px;}
-#menu:hover {transform:scale(1.2)}
-#youtube {width: 100px;height: 105px;
-position: relative;top: -26px;}
-
-input {border-radius: 10px;border: 0;position: relative;
-width: 50%;height: 30px;position: relative;left: 28%;top: -20px;}
-#IconP{position: relative;left: 28%;top: -15px;
-width: 22px;height: 22px;}
-
-nav {display: none;position: absolute;background-color: black;
-margin-top: 20px;width: 100px;font-size: 20px;
-border-top: 2px solid rgb(121, 5, 5);
-border-right: 2px solid rgb(146, 0, 0);
-}
-main {display: flex;justify-content: space-around;
-flex-wrap: wrap;}
-video {width: 270px;height: 270px;margin: 10px;
+#menu {width: 30px;position: relative;top: -70px;}
+header {display: flex;justify-content: space-between;}
+ #logo {width: 190px;height: 95px;
+position: relative;top: -38px;}
+ header  input {width: 40%;height: 40px;
 border-radius: 10px;}
+header > div {margin:10px;}
+
+#div3 {display: flex;}
+#a {width: 30px;height: 30px;border-radius: 50%;background-color: rgb(0, 0, 0);}
+#b {width: 30px;height: 30px;border-radius: 50%;background-color: aqua;}
+#c {width: 30px;height: 30px;border-radius: 50%;background-color: aqua;}
+nav {display: flex;flex-direction: column;
+border-right:  1px solid #333 ;
+border-bottom: 1px solid #333;
+width: 180px; height:380;
+}
+nav > a {text-decoration: none;color: white;font-size: 18px;
+}
+body > div {display: flex;width: 100%;}
+
+main > div {display: flex;flex-wrap: wrap;} 
+main > div > div {border: 1px solid #111;margin: 5px;border-radius: 10px;}
+div > div > a {text-decoration: none;color: white;}
+a > img {width: 290px ; height: 190px;border-radius: 10px 0px 0px}

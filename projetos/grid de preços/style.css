@@ -1,0 +1,25 @@
+@charset "UFT-8";
+body {display: flex;justify-content: center;background-color: black;}
+main {display: flex;flex-wrap: wrap;width: 98%;height: 350px;
+background-color: cornflowerblue;position: relative;top: 116px;}
+#div1 {background-color: rgb(255, 255, 255);width: 100%;}
+#div1 > h1 {color: rgb(28, 121, 197);}
+h4 {color: rgba(255, 255, 0, 0.863);}
+#div1 > p {color: #666666;}
+#div2 {background-color: chocolate; width: 100%;
+display: flex;flex-wrap: wrap}
+#blueEscuro > #divPV {display: flex;}
+#blueEscuro > div > p {margin: 0;}
+#blueEscuro > div > #valor {font-size: 35px;}
+#blueEscuro > div > #data {position: relative;top: 10px;margin-left: 10px;}
+#blueEscuro {background-color: rgb(21, 84, 199);width: 50%;}
+button {width: 190px;height: 40px ;background-color: rgb(0, 236, 0);color: white;
+border-radius: 10px;border: 0px;margin-bottom: 10px;}
+button:hover {color: rgb(201, 201, 201);}
+#divB {text-align: center;}
+#blueClaro {background-color: cadetblue;width: 50%;}
+#blueClaro > h1 {font-size: 20px;text-align:center}
+#blueClaro > p {font-size: 17px;text-align:center}
+
+
+
