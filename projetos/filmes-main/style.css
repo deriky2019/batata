@@ -1,9 +1,10 @@
 @charset  "UTF-8";
-body {background-color: black;}
+body {background-color: rgb(0, 0, 0);}
 #h1Especial{font-size: 25px;}
 h1 { color: rgb(255, 0, 0);text-shadow:2px 2px rgb(116, 0, 0);font-size: 20px}
 header >h1 {display: inline;padding-right: 20px;}
-
+header > img {width: 100px;height: 100px;
+position: relative;top: 43px;}
 span > p {position: relative;right: -600  ;}
   h2 { display: inline-block; /* Torna o h2 em um bloco de linha com largura automática */
     padding: 10px; /* Adiciona espaçamento interno ao redor do texto */
@@ -13,7 +14,7 @@ span > p {position: relative;right: -600  ;}
 
     h3 {font-size: 20px;color: rgb(55, 100, 100);}
     .so {width: 70px;}
-    img {width: 118px;height: 200px;  border: 2px groove red; border-radius: 5px;margin:  5px;}
+  body> a >  img {width: 118px;height: 200px;  border: 2px groove red; border-radius: 5px;margin:  5px;}
     img:hover {transform: scale(1.1)}
 
     .seta  {width: 120px;height: 120px;padding: 0px;border: 0px;}
