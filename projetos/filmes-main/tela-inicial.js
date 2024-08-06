@@ -26,11 +26,11 @@ function branco() {
 }
 
 function verificarLarguraJanela() {
-    let  = document.getElementById("input");
+    let titulo = document.getElementById("h1Especial");
     if (window.innerWidth < 690) {
-        input.style.display = "none";
+        titulo.style.display = "none";
     } else {
-        input.style.display = "block"; // ou "inline", dependendo do estilo desejado
+        t.style.display = "block"; // ou "inline", dependendo do estilo desejado
     }
 }
 
