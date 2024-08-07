@@ -1,0 +1,5 @@
+@charset "UTF-8";
+body {margin: 0;}
+h1 {text-align: center;}
+img {width: 200px;height: 300;border: 2px solid gold;}
+div {display: flex;justify-content: space-around;flex-wrap: wrap;}

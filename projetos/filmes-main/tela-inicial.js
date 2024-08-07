@@ -27,10 +27,14 @@ function branco() {
 
 function verificarLarguraJanela() {
     let titulo = document.getElementById("h1Especial");
+    let img = document.getElementById("imgES")
     if (window.innerWidth < 690) {
         titulo.style.display = "none";
+        img.style.display = "block"
+
     } else {
-        t.style.display = "block"; // ou "inline", dependendo do estilo desejado
+        img.style.display = "none"
+        titulo.style.display = "block"; // ou "inline", dependendo do estilo desejado
     }
 }
 
