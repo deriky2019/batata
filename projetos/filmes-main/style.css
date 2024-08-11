@@ -8,7 +8,7 @@ header > img {width: 40px;height: 40px;
 display: none;
 }
 header > a {margin-left: 10px;position: relative;
-top: 7px;font-size: 20px;color: bisque;}
+top: 7px;font-size: 20px;color: rgb(255, 255, 255);}
 #aovivo {margin-left: 10px;}
 span > p {position: relative;right: -600  ;}
   h2 { display: inline-block; /* Torna o h2 em um bloco de linha com largura automática */
@@ -54,21 +54,10 @@ span > p {position: relative;right: -600  ;}
     
   footer > p {font-size: 20px;color: #8b8b8b;}
 
-#preto {display: none;}
 
-button {background-color: black;width: 30px;
-height: 30px; border-radius: 10px
-;padding-right: 50px;}
 
-#bolaB {width: 15px;height: 15px;
-background-color: rgb(255, 255, 255);
-border-radius: 50%;}
 
-#bolaP {width: 15px;height: 15px;
-background-color: rgb(27, 27, 27);
-border-radius: 50%;}
 
-#preto {transform: rotate(180deg);}
-
-#voltaAOtopo {position: relative;right: -48%; behavior: smooth;transform: rotate(270deg);border: 0;
-width: 120px;height: 120px;}
+  footer > a {display: flex;justify-content: center;}
+  footer > a > img {transform: rotate(270deg);}
+  footer > a > img:hover {rotate: 270deg;}

@@ -2,7 +2,7 @@
 body {display: flex;justify-content: center;background-color: black;}
 main {display: flex;flex-wrap: wrap;width: 98%;height: 350px;
 background-color: cornflowerblue;position: relative;top: 116px;}
-#div1 {background-color: rgb(194, 194, 194);width: 100%;}
+#div1 {background-color: rgb(255, 255, 255);width: 100%;}
 #div1 > h1 {color: rgb(28, 121, 197);}
 h4 {color: rgba(255, 255, 0, 0.863);}
 #div1 > p {color: #666666;}
