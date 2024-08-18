@@ -1,4 +1,5 @@
 @charset "UTF-8";
+* {font-family:'Trebuchet MS', sans-serif;}
 body {margin: 0;}
 header {background-color:#feda6367 ;}
 header > div {display: flex;justify-content:space-between;}
@@ -11,28 +12,36 @@ color: purple;margin-top: 10px;}
 nav {display: none;}
 nav > div {display: flex;justify-content: center;}
 nav > div > a {text-decoration: none;font-size: 20px;
-color: rgb(190, 20, 167);margin-left: 30px;}
+color: #444;margin-left: 30px;}
+nav > div > a:hover {color: rgb(73, 0, 73);}
 nav > input {width: 400px;height: 30px;}
 header a {display: inline;
 position: relative;top: 2px;right: 10%;
 text-decoration: none;padding: 15px;
 background-color:rgb(39, 0, 102);
 border-radius: 12px;color: white;}
-section {margin: 10px;}
+section {margin: 15px;width: 500px;}
 section > input {width: 240px;height: 30px;margin-bottom: 10px;}
 section > a {text-decoration: none;font-size: 20px;
-color: rgb(190, 20, 167);}
+color: #444;}
+section > a:hover {color: rgb(155, 0, 134);}
 #divF {width: 260px;background-color:  rgb(57, 51, 68);
 border-radius: 12px;height: 150px;}
 #divAM {margin-top: 15px;margin-bottom: 10px;}
 #divAM > a {text-decoration: none;font-size: 20px;
-color: rgb(190, 20, 167)}
+color: #444}
+#divAM > a:hover {color: rgb(155, 0, 134);}
 #divF {text-align: center;}
 #divF  a {text-decoration: none;color: white;padding: 10px;
 background-color: purple;border-radius: 10px;}
 body > div {display: flex;}
 main {width: 100%;}
-main > div {border: 2px solid rgb(117, 117, 117);width: 98.9%;}
-main > div > a {text-decoration: none;font-size: 20px;}
-main div > a > div > img {width: 30px;}
+main > div {display: flex;flex-wrap: wrap;}
+main > div > div {margin-bottom: 10px;
+border: 2px solid rgb(117, 117, 117);width: 95.9%;}
+main > div > div  > a {text-decoration: none;font-size: 20px;}
+main div > div > a > div > img {width: 35px;}
+main div >  div > div > a > div {margin: 15px;}
+h2 {color: purple;}
+h3 {color: white;}
 
