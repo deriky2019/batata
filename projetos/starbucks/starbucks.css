@@ -3,7 +3,7 @@ body {margin: 0;background-color:black;}
 #logo {width: 60px;height: 90px;}
 header {margin-top: 40px;}
 header > div {display: flex;width: 90%;position: relative;right: -4%;}
-header > div > div {
+#divTG {
 display: flex;justify-content: space-between;width: 100%;}
 header > div > div > div > a {text-decoration: none;margin: 10px;
 font-size: 18px;color: #fff;}

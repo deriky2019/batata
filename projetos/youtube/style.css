@@ -15,7 +15,7 @@ header > div {margin:10px;}
 nav {display: flex;flex-direction: column;
 border-right:  1px solid #333 ;
 border-bottom: 1px solid #333;
-width: 180px; height:380;
+width: 440px; height:380;
 }
 nav > a {text-decoration: none;color: white;font-size: 18px;display: flex;
 }
@@ -24,7 +24,7 @@ body > div {display: flex;width: 100%;}
 main > div {display: flex;flex-wrap: wrap;} 
 main > div > div {border: 1px solid #111;margin: 5px;border-radius: 10px;}
 div > div > a {text-decoration: none;color: white;}
-a > img {width: 290px ; height: 190px;border-radius: 10px 0px 0px}
+a > img {width: 290px ; height: 190px;border-radius: 10px 10px 10px 10px}
 svg {width: 30px;}
 .oi {width: 10px;}
 

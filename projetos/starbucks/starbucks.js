@@ -2,7 +2,7 @@ function verificarLarguraJanela() {
     let menuG = document.getElementById("menuTG");
     let menuP = document.getElementById("menuTP");
     
-    if (window.innerWidth < 690) {
+    if (window.innerWidth < 870) {
         menuG.style.display = "none";
         menuP.style.display = "inline";
         
