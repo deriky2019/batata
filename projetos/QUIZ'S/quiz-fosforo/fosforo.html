@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Quiz-biblico</h1>
+    <h2>pontuaçao <span id="pontuaçao">0</span></h2>  
+   
+   
+   
+   <main id="main">
+       <span id="p" >
+           <p>1:Qual é a principal fonte de fósforo para os ecossistemas terrestres?</p>
+       <p class="per" onclick="errado()" >a&rpar; Atmosfera</p>
+           
+       <p class="per" onclick="errado()">b&rpar;  Solos</p>    <br>
+       
+       <p class="per" onclick="certo()" >c&rpar;Rochas e minerais </p>
+           
+       <p class="per" onclick="errado()">d&rpar; Águas superficiais </p>
+       </span>
+       
+   
+       <span id="p2" class="sumir">
+           <p>2:Qual processo libera fósforo das rochas para o solo?</p>
+           <p class="per" onclick="certo2()" >a&rpar;intemperismo </p> 
+           
+           <p class="per" onclick="errado()">b&rpar; Respiração</p> <br>
+     
+           <p class="per" onclick="errado()" >c&rpar; Fotossíntese</p> 
+           
+           <p class="per" onclick="errado()">d&rpar; Erosão</p>
+       </span>
+   
+   
+       <span id="p3"  class="sumir">
+           <p>3:Qual das seguintes atividades humanas contribui significativamente para a liberação de fósforo nos ecossistemas aquáticos?</p>
+           <p class="per" onclick="errado()" >a&rpar; Reflorestamento</p>
+           
+           <p class="per" onclick="errado()">b&rpar; Redução do uso de agrotóxicos</p> <br>
+     
+           <p class="per" onclick="errado()" >c&rpar;   Proteção de áreas de manguezais</p>  
+          
+           <p class="per" onclick="certo3()">d&rpar; Uso de fertilizantes fosfatados</p>
+       </span>
+   
+   
+   
+   
+   
+       <span id="p4" class="sumir">
+          <p>4:Qual organismo é responsável pela absorção do fósforo do solo?</p> 
+          
+           <p class="per" onclick="errado()" >a&rpar; Animais</p>   
+           
+           <p class="per" onclick="certo4()">b&rpar; Plantas</p> <br>
+     
+           <p class="per" onclick="errado()" >c&rpar;  Bactérias</p> 
+           
+           <p class="per" onclick="errado()">d&rpar; Fungos</p>
+       </span>
+   
+   
+   
+   
+   
+   
+       <span id="p5" class="sumir">
+           <p>5:Qual é o papel dos microrganismos no ciclo do fósforo?</p>
+           <p class="per" onclick="errado()" >a&rpar; Decompor matéria orgânica</p> 
+           
+           <p class="per" onclick="errado()">b&rpar;Produzir oxigênio </p> <br>
+     
+           <p class="per" onclick="certo5()" >c&rpar;Alimentar as Plantas  </p> 
+           
+           <p class="per" onclick="errado()">d&rpar; Reduzir CO2</p>
+       </span>
+   
+   
+   
+   
+   
+       <span id="p6" class="sumir">
+           <p>6: Como o fósforo é transferido para os corpos d'água?</p>
+           <p class="per" onclick="certo6()" >a&rpar; atividade humana</p> 
+           
+           <p class="per" onclick="errado()">b&rpar; Pelo vento</p> <br>
+     
+           <p class="per" onclick="errado()" >c&rpar; Pela fotossíntese</p> 
+           
+           <p class="per" onclick="errado()">d&rpar; Pelo consumo de alimentos</p>
+       </span>
+   
+   
+   
+       <span id="p7" class="sumir">
+           <p>Qual é o efeito do excesso de fósforo nos corpos d'água?</p>
+           <p class="per" onclick="certo7()" >a&rpar; Eutrofização</p> 
+           
+           <p class="per" onclick="errado()">b&rpar; Acidificação</p> <br>
+     
+           <p class="per" onclick="errado()" >c&rpar; Poluição por metais pesados</p>
+           
+           <p class="per" onclick="errado()">d&rpar; Decomposição das Rochas</p>
+       </span>
+   
+   
+   
+   
+   
+   
+       <span id="p8" class="sumir">
+           <p>8:Como o fósforo é reincorporado ao solo após a morte de organismos?</p>
+           <p class="per" onclick="errado()" >a&rpar;Pela fotossíntese</p>  
+           
+           <p class="per" onclick="certo8()">b&rpar; Pela decomposição</p>  <br>
+     
+           <p class="per" onclick="errado()" >c&rpar; Pela sedimentação</p>
+           
+           <p class="per" onclick="errado()">d&rpar; Pela chuva</p>
+
+       </span>
+   
+   
+       <span id="p9" class="sumir">
+           <p>9:Qual é a principal forma de fósforo que as plantas absorvem do solo?</p>
+   
+           <p class="per" onclick="errado()" >a&rpar; Fosfato de cálcio </p>  
+           
+           <p class="per" onclick="errado()">b&rpar; Fósforo orgânico</p> <br>
+     
+           <p class="per" onclick="certo9()" >c&rpar;Fosfato (PO₄³⁻) </p> 
+           
+           <p class="per" onclick="errado()">d&rpar; Fosfato de amônio</p>
+       </span>
+   
+   
+   
+   
+       <span id="p10" class="sumir">
+           <p>10:Qual é a consequência da eutrofização para a vida aquática?</p>
+           <p class="per" onclick="certo10()" >a&rpar; Redução de oxigênio na água</p> 
+   
+           <p class="per" onclick="errado()">b&rpar; Aumento da biodiversidade</p> 
+           <br>
+           <p class="per" onclick="errado()" >c&rpar; Melhoria na qualidade da água</p> 
+   
+           <p class="per" onclick="errado()">d&rpar; Crescimento de algas benéficas</p>
+       </span>
+
+
+
+
+
+       <span id="p11" class="sumir">
+        <h1>Bonus</h1>
+        <p>10:Ciclo do fosforo tem forma Gasosa?</p>
+        <p class="per" onclick="finalizado()" >a&rpar;Sim</p> 
+
+        <p class="per" onclick="errado()">z&rpar; Não</p>
+    </span>
+   
+       <p id="final"></p>
+   
+
+
+
+    <script src="fosfor.js"></script>
+</body>
+</html>
