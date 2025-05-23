@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Biblico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Quiz-Biblico</h1>
+    <h2> Pontuação <span id="pontuaçao">0</span></h2>  
+   
+   
+   
+   <main>
+       <span id="p" >
+           <p>1:Quem foi para a cova do leãos</p>
+       <p class="per" onclick="errado()">a &rpar; Davi</p>
+           
+       <p class="per" onclick="errado()">b&rpar; Jeremias</p>    <br>
+       
+       <p class="per" onclick="certo()">c&rpar; Daniel</p>
+           
+       <p class="per" onclick="errado()">d&rpar; Samuel</p>
+       </span>
+   
+       <span id="p2" class="sumir">
+           <p>2:Quem matou Golias</p>
+           <p class="per" onclick="certo2()">a&rpar; Davi</p> 
+           
+           <p class="per" onclick="errado()">b&rpar; Jusue</p> <br>
+     
+           <p class="per" onclick="errado()">c&rpar; Samuel</p> 
+           
+           <p class="per" onclick="errado()">d&rpar;Moisés</p>
+       </span>
+   
+   
+       <span id="p3" class="sumir">
+           <p>3:Qual dos seguintes não é um dos Dez Mandamentos?</p>
+           <p class="per" onclick="errado()">a&rpar; Amar ao próximo como a si mesmo</p>
+           
+           <p class="per" onclick="errado()">b&rpar; Não roubar</p> <br>
+     
+           <p class="per" onclick="errado()">c&rpar; Não matar</p>  
+          
+           <p class="per" onclick="certo3()">d&rpar; Não divociar</p>
+       </span>
+   
+   
+   
+   
+   
+       <span id="p4" class="sumir">
+          <p> Quem foi o rei que construiu o Templo de Jerusalém?</p> 
+          
+           <p class="per" onclick="errado()">a&rpar; Davi</p>   
+           
+           <p class="per" onclick="certo4()">b&rpar; Salomão</p> <br>
+     
+           <p class="per" onclick="errado()">c&rpar; Ezequias</p> 
+           
+           <p class="per" onclick="errado()">d&rpar; Josias</p>
+       </span>
+   
+   
+   
+   
+   
+   
+       <span id="p5" class="sumir">
+           <p>5:Qual destes personagens bíblicos foi vendido como escravo</p>
+           <p class="per" onclick="errado()">a&rpar; Daniel</p> 
+           
+           <p class="per" onclick="errado()">b&rpar;Moisés</p> <br>
+     
+           <p class="per" onclick="certo5()">c&rpar;José</p> 
+           
+           <p class="per" onclick="errado()">d&rpar;Samuel</p>
+       </span>
+   
+   
+   
+   
+   
+       <span id="p6" class="sumir">
+           <p>6:Qual dos apóstolos de Jesus era um coletor de impostos antes de se tornar discípulo?</p>
+           <p class="per" onclick="certo6()">a&rpar;Mateus</p> 
+           
+           <p class="per" onclick="errado()">b&rpar;Tiago</p> <br>
+     
+           <p class="per" onclick="errado()">c&rpar;Pedro</p> 
+           
+           <p class="per" onclick="errado()">d&rpar;João</p>
+       </span>
+   
+   
+   
+       <span id="p7" class="sumir">
+           <p>7:Qual foi o milagre de Jesus que envolveu a transformação da água em vinho?</p>
+           <p class="per" onclick="certo7()">a&rpar; No casamento em Caná</p> 
+           
+           <p class="per" onclick="errado()">b&rpar; Na multiplicação dos pães e peixes</p> <br>
+     
+           <p class="per" onclick="errado()">c&rpar; Ao caminhar sobre as águas</p>
+           
+           <p class="per" onclick="errado()">d&rpar; Ao acalmar a tempestade</p>
+       </span>
+   
+   
+   
+   
+   
+   
+       <span id="p8" class="sumir">
+           <p>8:Quem foi o profeta que passou 40 dias e 40 noites no monte Sinai?</p>
+           <p class="per" onclick="errado()">a&rpar; Elias</p>  
+           
+           <p class="per" onclick="certo8()">b&rpar; Moisés</p>  <br>
+     
+           <p class="per" onclick="errado()">c&rpar; Isaías</p>
+           
+           <p class="per" onclick="errado()">d&rpar; Jeremias</p>
+       </span>
+   
+   
+       <span id="p9" class="sumir">
+           <p>9:Quem foi o pai de Moisés?</p>
+   
+           <p class="per" onclick="errado()">a&rpar; Abraão</p>  
+           
+           <p class="per" onclick="errado()">b&rpar; Jacó</p> <br>
+     
+           <p class="per" onclick="certo9()">c&rpar; Anrão</p> 
+           
+           <p class="per" onclick="errado()">d&rpar; José</p>
+       </span>
+   
+   
+   
+   
+   
+           <span id="p10" class="sumir">
+           <p>10:Quem foi o profeta que desafiou os profetas de Baal no monte Carmelo?</p>
+           <p class="per" onclick="finalizado()">a&rpar; Elias</p> 
+   
+           <p class="per" onclick="errado()">b&rpar; Eliseu</p> 
+           <br>
+           <p class="per" onclick="errado()">c&rpar; Isaías</p> 
+   
+           <p class="per" onclick="errado()">d&rpar; Jeremias</p>
+       </span>
+
+
+   
+       <p id="final"></p>
+       <a id="rodada" href="quiz-bibico2.html">Sim </a> <br>
+       <a id="voltar" href="/tela-inicial.html">Tela Inicial</a>
+       
+       <script src="quiz-biblico.js"></script>
+</body>
+</html>
