@@ -1,162 +1,236 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Biblico</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>Quiz-Biblico</h1>
-    <h2> Pontuação <span id="pontuaçao">0</span></h2>  
-   
-   
-   
-   <main>
-       <span id="p" >
-           <p>1:Quem foi para a cova do leãos</p>
-       <p class="per" onclick="errado()">a &rpar; Davi</p>
-           
-       <p class="per" onclick="errado()">b&rpar; Jeremias</p>    <br>
-       
-       <p class="per" onclick="certo()">c&rpar; Daniel</p>
-           
-       <p class="per" onclick="errado()">d&rpar; Samuel</p>
-       </span>
-   
-       <span id="p2" class="sumir">
-           <p>2:Quem matou Golias</p>
-           <p class="per" onclick="certo2()">a&rpar; Davi</p> 
-           
-           <p class="per" onclick="errado()">b&rpar; Jusue</p> <br>
-     
-           <p class="per" onclick="errado()">c&rpar; Samuel</p> 
-           
-           <p class="per" onclick="errado()">d&rpar;Moisés</p>
-       </span>
-   
-   
-       <span id="p3" class="sumir">
-           <p>3:Qual dos seguintes não é um dos Dez Mandamentos?</p>
-           <p class="per" onclick="errado()">a&rpar; Amar ao próximo como a si mesmo</p>
-           
-           <p class="per" onclick="errado()">b&rpar; Não roubar</p> <br>
-     
-           <p class="per" onclick="errado()">c&rpar; Não matar</p>  
-          
-           <p class="per" onclick="certo3()">d&rpar; Não divociar</p>
-       </span>
-   
-   
-   
-   
-   
-       <span id="p4" class="sumir">
-          <p> Quem foi o rei que construiu o Templo de Jerusalém?</p> 
-          
-           <p class="per" onclick="errado()">a&rpar; Davi</p>   
-           
-           <p class="per" onclick="certo4()">b&rpar; Salomão</p> <br>
-     
-           <p class="per" onclick="errado()">c&rpar; Ezequias</p> 
-           
-           <p class="per" onclick="errado()">d&rpar; Josias</p>
-       </span>
-   
-   
-   
-   
-   
-   
-       <span id="p5" class="sumir">
-           <p>5:Qual destes personagens bíblicos foi vendido como escravo</p>
-           <p class="per" onclick="errado()">a&rpar; Daniel</p> 
-           
-           <p class="per" onclick="errado()">b&rpar;Moisés</p> <br>
-     
-           <p class="per" onclick="certo5()">c&rpar;José</p> 
-           
-           <p class="per" onclick="errado()">d&rpar;Samuel</p>
-       </span>
-   
-   
-   
-   
-   
-       <span id="p6" class="sumir">
-           <p>6:Qual dos apóstolos de Jesus era um coletor de impostos antes de se tornar discípulo?</p>
-           <p class="per" onclick="certo6()">a&rpar;Mateus</p> 
-           
-           <p class="per" onclick="errado()">b&rpar;Tiago</p> <br>
-     
-           <p class="per" onclick="errado()">c&rpar;Pedro</p> 
-           
-           <p class="per" onclick="errado()">d&rpar;João</p>
-       </span>
-   
-   
-   
-       <span id="p7" class="sumir">
-           <p>7:Qual foi o milagre de Jesus que envolveu a transformação da água em vinho?</p>
-           <p class="per" onclick="certo7()">a&rpar; No casamento em Caná</p> 
-           
-           <p class="per" onclick="errado()">b&rpar; Na multiplicação dos pães e peixes</p> <br>
-     
-           <p class="per" onclick="errado()">c&rpar; Ao caminhar sobre as águas</p>
-           
-           <p class="per" onclick="errado()">d&rpar; Ao acalmar a tempestade</p>
-       </span>
-   
-   
-   
-   
-   
-   
-       <span id="p8" class="sumir">
-           <p>8:Quem foi o profeta que passou 40 dias e 40 noites no monte Sinai?</p>
-           <p class="per" onclick="errado()">a&rpar; Elias</p>  
-           
-           <p class="per" onclick="certo8()">b&rpar; Moisés</p>  <br>
-     
-           <p class="per" onclick="errado()">c&rpar; Isaías</p>
-           
-           <p class="per" onclick="errado()">d&rpar; Jeremias</p>
-       </span>
-   
-   
-       <span id="p9" class="sumir">
-           <p>9:Quem foi o pai de Moisés?</p>
-   
-           <p class="per" onclick="errado()">a&rpar; Abraão</p>  
-           
-           <p class="per" onclick="errado()">b&rpar; Jacó</p> <br>
-     
-           <p class="per" onclick="certo9()">c&rpar; Anrão</p> 
-           
-           <p class="per" onclick="errado()">d&rpar; José</p>
-       </span>
-   
-   
-   
-   
-   
-           <span id="p10" class="sumir">
-           <p>10:Quem foi o profeta que desafiou os profetas de Baal no monte Carmelo?</p>
-           <p class="per" onclick="finalizado()">a&rpar; Elias</p> 
-   
-           <p class="per" onclick="errado()">b&rpar; Eliseu</p> 
-           <br>
-           <p class="per" onclick="errado()">c&rpar; Isaías</p> 
-   
-           <p class="per" onclick="errado()">d&rpar; Jeremias</p>
-       </span>
+<!DOCTYPE html> 
+<html lang="pt-br"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Quiz Minecreft</title> 
+        <link rel="stylesheet" href="QUIZ.css"> 
+</head> 
+<body> 
+    <h1>quiz financeiro</h1> 
+ <h2>pontuaçao <span id="pontuaçao">0</span></h2>   
 
 
-   
-       <p id="final"></p>
-       <a id="rodada" href="quiz-bibico2.html">Sim </a> <br>
-       <a id="voltar" href="/tela-inicial.html">Tela Inicial</a>
-       
-       <script src="quiz-biblico.js"></script>
-</body>
-</html>
+
+<main> 
+    <span id="p" > 
+        <p>1: O que é um orçamento pessoal?</p> 
+    <p class="per" onclick="errado()" >a&rpar; Um tipo de investimento de curto prazo</p> 
+
+    <p class="per" onclick="errado()">b&rpar; Um registro de todas as compras feitas com cartão de crédito</p>    <br> 
+
+    <p class="per" onclick="certo()" >c&rpar; Um planejamento das receitas e despesas pessoais</p> 
+
+    <p class="per" onclick="errado()">d&rpar; Um valor fixo que se recebe todo mês</p> 
+    </span> 
+
+    <span id="p2" class="sumir"> 
+        <p>2:Qual desses itens é necessário para criar uma poção de cura?</p> 
+        <p class="per" onclick="certo2()" >a&rpar; Maçã dourada</p>  
+
+        <p class="per" onclick="errado()">b&rpar; Olho de aranha</p> <br> 
+
+        <p class="per" onclick="errado()" >c&rpar; Pó de blaze</p>  
+
+        <p class="per" onclick="errado()">d&rpar; Pó de redstone</p> 
+    </span> 
+
+
+    <span id="p3"  class="sumir"> 
+        <p>3:Qual destas ferramentas é mais eficaz para minerar diamantes?</p> 
+        <p class="per" onclick="errado()" >a&rpar; Picareta de madeira</p> 
+
+        <p class="per" onclick="errado()">b&rpar; Picareta de pedra</p> <br> 
+
+        <p class="per" onclick="errado()" >c&rpar;Picareta de ouro</p>   
+
+        <p class="per" onclick="certo3()">d&rpar;Picareta de ferro</p> 
+    </span> 
+
+
+
+
+
+    <span id="p4" class="sumir"> 
+       <p> O que é necessário para domesticar um lobo no Minecraft?</p>  
+
+        <p class="per" onclick="errado()" >a&rpar; Peixe cru</p>    
+
+        <p class="per" onclick="certo4()">b&rpar; Osso</p> <br> 
+
+        <p class="per" onclick="errado()" >c&rpar; Semente de melancia</p>  
+
+        <p class="per" onclick="errado()">d&rpar; Semente de trigo</p> 
+    </span> 
+
+
+
+
+
+
+    <span id="p5" class="sumir"> 
+        <p>5: Como se chama o monstro que habita nas áreas escuras do jogo e explode quando está próximo do jogador?</p> 
+        <p class="per" onclick="errado()" >a&rpar; Zombie</p>  
+
+        <p class="per" onclick="errado()">b&rpar; Enderman</p> <br> 
+
+        <p class="per" onclick="certo5()" >c&rpar; Creeper</p>  
+
+        <p class="per" onclick="errado()">d&rpar; Esqueleto</p> 
+    </span> 
+
+
+
+
+
+    <span id="p6" class="sumir"> 
+        <p>6:Qual é o nome do mundo alternativo que pode ser acessado por meio de um portal do End?</p> 
+        <p class="per" onclick="certo6()" >a&rpar; End</p>  
+
+        <p class="per" onclick="errado()">b&rpar; Terras Distantes</p> <br> 
+
+        <p class="per" onclick="errado()" >c&rpar; Submundo </p>  
+
+        <p class="per" onclick="errado()">d&rpar; Dimensão Negra</p> 
+    </span> 
+
+
+
+    <span id="p7" class="sumir"> 
+        <p>7:Qual desses mineiro faz a armadura mais forte?</p> 
+        <p class="per" onclick="certo7()" >a&rpar; Diamantes</p>  
+
+        <p class="per" onclick="errado()">b&rpar; Ouro</p> <br> 
+
+        <p class="per" onclick="errado()" >c&rpar; Ferro</p> 
+
+        <p class="per" onclick="errado()">d&rpar; Redstone</p> 
+    </span> 
+
+
+
+
+
+
+    <span id="p8" class="sumir"> 
+        <p>8:Qual é o nome da criatura que habita as mansões das florestas e pode ser encontrada em salas secretas?</p> 
+        <p class="per" onclick="errado()" >a&rpar; Bruxa </p>   
+
+        <p class="per" onclick="certo8()">b&rpar; Vex</p>  <br> 
+
+        <p class="per" onclick="errado()" >c&rpar;  Ilusionista</p> 
+
+        <p class="per" onclick="errado()">d&rpar; Vampiro</p> 
+    </span> 
+
+
+    <span id="p9" class="sumir"> 
+        <p>9:Qual é o nome do bloco que é obtido ao destruir um bloco de diamante com uma picareta encantada com Toque de Seda?</p> 
+
+        <p class="per" onclick="errado()" >a&rpar; Diamante Puro</p>   
+
+        <p class="per" onclick="errado()">b&rpar; Diamante Reluzente</p> <br> 
+
+        <p class="per" onclick="certo9()" >c&rpar; Diamante Bruto</p>  
+
+        <p class="per" onclick="errado()">d&rpar; Diamante Reluzente</p> 
+    </span> 
+
+
+
+
+
+
+    <span id="p10" class="sumir"> 
+        <p>10:Qual é o nome do item que permite aos jogadores dormirem e avançarem para o amanhecer, além de definir seu ponto de respawn?</p> 
+        <p class="per" onclick="finalizado()" >a&rpar; Cama</p>  
+
+        <p class="per" onclick="errado()">b&rpar; Rede</p>  
+        <br> 
+        <p class="per" onclick="errado()" >c&rpar; Almofada</p>  
+
+        <p class="per" onclick="errado()">d&rpar; Luminária</p> 
+    </span> 
+
+    <p id="final"></p> 
+    <a id="rodada" href="quiz-minecreft2.html">Sim </a> 
+
+
+
+
+
+</main> 
+<script src="JS.js"></script> 
+
+
+2. O que significa “renda líquida”? 
+A) O valor total antes dos descontos 
+B) O valor gasto com lazer e alimentação 
+C) O valor que se investe em ações 
+D) O valor que sobra após os descontos no salário 
+
+✅ Resposta correta: D 
+
+3. Qual é um exemplo de custo fixo? 
+A) Conta de luz 
+B) Compra de roupas 
+C) Mensalidade escolar 
+D) Alimentação em restaurante 
+
+✅ Resposta correta: C 
+
+4. O que são juros compostos? 
+A) Juros que não variam com o tempo 
+B) Juros cobrados apenas uma vez 
+C) Juros calculados apenas sobre o valor inicial 
+D) Juros calculados sobre o valor inicial e os juros acumulados 
+
+✅ Resposta correta: D 
+
+5. O que é inflação? 
+A) Aumento do valor do salário 
+B) Crescimento da economia 
+C) Aumento generalizado dos preços ao longo do tempo 
+D) Redução dos impostos 
+
+✅ Resposta correta: C 
+
+6. Qual das alternativas abaixo representa um investimento de baixo risco? 
+A) Ações da bolsa de valores 
+B) Loteria 
+C) Poupança 
+D) Criptomoedas 
+
+✅ Resposta correta: C 
+
+7. Qual é a principal vantagem de investir em vez de deixar o dinheiro parado? 
+A) O dinheiro perde valor 
+B) O dinheiro desaparece com o tempo 
+C) O dinheiro se multiplica com o tempo 
+D) O dinheiro é protegido pela inflação 
+
+✅ Resposta correta: C 
+
+8. O que é score de crédito? 
+A) Uma nota que mostra quanto dinheiro a pessoa tem 
+B) Uma pontuação que indica a chance de a pessoa pagar suas dívidas 
+C) Um tipo de cartão de crédito 
+D) Um desconto oferecido por lojas 
+
+✅ Resposta correta: B 
+
+9. O que representa um gasto variável? 
+A) Aluguel 
+B) Mensalidade do plano de saúde 
+C) Compra de roupas 
+D) Seguro do carro 
+
+✅ Resposta correta: C 
+
+10. O que é um fundo de emergência? 
+A) Um dinheiro para comprar presentes 
+B) Um valor guardado para pagar impostos 
+C) Um investimento de longo prazo 
+D) Um valor reservado para imprevistos financeiros 
+
+✅ Resposta correta: D 
