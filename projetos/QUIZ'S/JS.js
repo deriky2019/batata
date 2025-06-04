@@ -24,6 +24,28 @@ let fim = document.getElementById("final")
 let proxima = document.getElementById("rodada")
 let voltar = document.getElementById("voltar")
 
+let r1 = document.getElementById("r1")
+
+let r2 = document.getElementById("")
+
+let r3 = document.getElementById("")
+
+let r4 = document.getElementById("")
+
+let r5 = document.getElementById("")
+
+let r6 = document.getElementById("")
+
+let r7 = document.getElementById("")
+
+let r8 = document.getElementById("")
+
+let r9 = document.getElementById("")
+
+let r10 = document.getElementById("")
+
+
+
 function certo() {
     pontuacao.textContent = parseInt(pontuacao.textContent) + 1;
     p.style.display = "none";
