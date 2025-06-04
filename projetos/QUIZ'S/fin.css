@@ -1,9 +1,10 @@
 *    {font-family: sans-serif;}
 body {background-color: #0e0e0e;}
-h1   {text-align: center;color: rgb(8, 137, 197);
+h1   {color: rgb(8, 137, 197);
      font-size: 50px;}
 
 h2   {
+    color: white;
      
      display: inline;
     margin-bottom: 10px;}
@@ -32,3 +33,19 @@ a:hover {color:rgb(0, 102, 85) ;}
 #rodada {display: none;}
 
 img {width: 30px;height: 300px;}
+#divlogo {display: flex;justify-content: space-between;}
+#logo {width: 105px;height: 105px; border-radius: 50%;}
+        #r1 {display: none;}
+#r2  {display: none;}
+#r3  {display: none;}
+#r4  {display: none;}
+#r5  {display: none;}
+#r6  {display: none;}
+#r7  {display: none;}
+#r8  {display: none;}
+#r9  {display: none;}
+#r10  {display: none;}
+
+#proxima {display: flex;justify-content: space-around;border-radius: 10px;
+    width: 280px;height: 100px;background-color: rgb(0, 120, 201);}
+.icon {width: 30px;height: 30px;position: relative;top: 10px;}
