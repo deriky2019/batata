@@ -4,15 +4,18 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Quiz Minecreft</title> 
-        <link rel="stylesheet" href="fin.css"> 
+        <link rel="stylesheet" href="kem.css"> 
 </head> 
 <body> 
-<div<img src="logo.png"
- <h1>quiz financeiro</h1> 
 
-<\div>
-    <h1>quiz financeiro</h1> 
- <h2>pontuaçao <span id="pontuaçao">0</span></h2>   
+ <div id="divlogo">
+    <img id="logo" src="OIP (1).jfif" alt="">
+ <h1>Quiz Financeiro</h1> 
+</div>
+
+
+    
+ <h2>Pontuaçao <span id="pontuaçao">0</span></h2>   
 
 
 
@@ -27,6 +30,18 @@
 
     <p class="per" onclick="errado()">d&rpar; Um valor fixo que se recebe todo mês</p> 
     </span> 
+
+
+
+   
+
+
+
+
+
+
+
+
 
     <span id="p2" class="sumir"> 
         <p>2:O que significa “renda líquida”? </p> 
@@ -73,14 +88,14 @@
 
 
     <span id="p5" class="sumir"> 
-        <p>5: Como se chama o monstro que habita nas áreas escuras do jogo e explode quando está próximo do jogador?</p> 
-        <p class="per" onclick="errado()" >a&rpar; Zombie</p>  
+        <p>5:O que é um fundo de emergência? </p> 
+        <p class="per" onclick="errado()" >a&rpar; Um dinheiro para comprar presentes  </p>  
 
-        <p class="per" onclick="errado()">b&rpar; Enderman</p> <br> 
+        <p class="per" onclick="errado()">b&rpar; Um valor guardado para pagar impostos </p> <br> 
 
-        <p class="per" onclick="certo5()" >c&rpar; Creeper</p>  
+        <p class="per" onclick="certo5()" >c&rpar; Um valor reservado para imprevistos financeiros</p>  
 
-        <p class="per" onclick="errado()">d&rpar; Esqueleto</p> 
+        <p class="per" onclick="errado()">d&rpar;  Um investimento de longo prazo    </p> 
     </span> 
 
 
@@ -88,27 +103,27 @@
 
 
     <span id="p6" class="sumir"> 
-        <p>6:Qual é o nome do mundo alternativo que pode ser acessado por meio de um portal do End?</p> 
-        <p class="per" onclick="certo6()" >a&rpar; End</p>  
+        <p>6:O que é score de crédito? </p> 
+        <p class="per" onclick="certo6()" >a&rpar; Uma pontuação que indica a chance de a pessoa pagar suas dívidas</p>  
 
-        <p class="per" onclick="errado()">b&rpar; Terras Distantes</p> <br> 
+        <p class="per" onclick="errado()">b&rpar; Um tipo de cartão de crédito   </p> <br> 
 
-        <p class="per" onclick="errado()" >c&rpar; Submundo </p>  
+        <p class="per" onclick="errado()" >c&rpar;  Uma nota que mostra quanto dinheiro a pessoa te </p>  
 
-        <p class="per" onclick="errado()">d&rpar; Dimensão Negra</p> 
+        <p class="per" onclick="errado()">d&rpar; Um desconto oferecido por lojas  </p> 
     </span> 
 
 
 
     <span id="p7" class="sumir"> 
-        <p>7:Qual desses mineiro faz a armadura mais forte?</p> 
-        <p class="per" onclick="certo7()" >a&rpar; Diamantes</p>  
+        <p>7: Qual é a principal vantagem de investir em vez de deixar o dinheiro parado? </p> 
+        <p class="per" onclick="certo7()" >a&rpar;  O dinheiro se multiplica com o tempo </p> 
 
-        <p class="per" onclick="errado()">b&rpar; Ouro</p> <br> 
+        <p class="per" onclick="errado()">b&rpar; O dinheiro desaparece com o tempo </p> <br> 
 
-        <p class="per" onclick="errado()" >c&rpar; Ferro</p> 
+        <p class="per" onclick="errado()" >c&rpar; O dinheiro é protegido pela inflação  </p> 
 
-        <p class="per" onclick="errado()">d&rpar; Redstone</p> 
+        <p class="per" onclick="errado()">d&rpar; O dinheiro perde valor  </p> 
     </span> 
 
 
@@ -117,102 +132,53 @@
 
 
     <span id="p8" class="sumir"> 
-        <p>8:Qual é o nome da criatura que habita as mansões das florestas e pode ser encontrada em salas secretas?</p> 
-        <p class="per" onclick="errado()" >a&rpar; Bruxa </p>   
+        <p>8: O que representa um gasto variável? </p> 
+        <p class="per" onclick="errado()" >a&rpar;  Aluguel </p>   
 
-        <p class="per" onclick="certo8()">b&rpar; Vex</p>  <br> 
+        <p class="per" onclick="certo8()">b&rpar; Compra de roupas </p>  <br> 
 
-        <p class="per" onclick="errado()" >c&rpar;  Ilusionista</p> 
+        <p class="per" onclick="errado()" >c&rpar; Mensalidade do plano de saúde  </p> 
 
-        <p class="per" onclick="errado()">d&rpar; Vampiro</p> 
+        <p class="per" onclick="errado()">d&rpar;  Seguro do carro </p> 
     </span> 
 
 
     <span id="p9" class="sumir"> 
-        <p>9:Qual é o nome do bloco que é obtido ao destruir um bloco de diamante com uma picareta encantada com Toque de Seda?</p> 
+        <p>9:Qual das alternativas abaixo representa um investimento de baixo risco? </p> 
 
-        <p class="per" onclick="errado()" >a&rpar; Diamante Puro</p>   
+        <p class="per" onclick="errado()" >a&rpar; Ações da bolsa de valores </p>   
 
-        <p class="per" onclick="errado()">b&rpar; Diamante Reluzente</p> <br> 
+        <p class="per" onclick="errado()">b&rpar;  Criptomoedas  </p> <br> 
 
-        <p class="per" onclick="certo9()" >c&rpar; Diamante Bruto</p>  
+        <p class="per" onclick="certo9()" >c&rpar;  Poupança </p>  
 
-        <p class="per" onclick="errado()">d&rpar; Diamante Reluzente</p> 
+        <p class="per" onclick="errado()">d&rpar;Loteria  </p> 
     </span> 
 
 
-
-
-
-
     <span id="p10" class="sumir"> 
-        <p>10:Qual é o nome do item que permite aos jogadores dormirem e avançarem para o amanhecer, além de definir seu ponto de respawn?</p> 
-        <p class="per" onclick="finalizado()" >a&rpar; Cama</p>  
+        <p>10: O que é inflação? </p> 
+        <p class="per" onclick="finalizado()" >a&rpar;  Aumento generalizado dos preços ao longo do tempo </p>  
 
-        <p class="per" onclick="errado()">b&rpar; Rede</p>  
+        <p class="per" onclick="errado()">b&rpar; Aumento do valor do salário</p>  
         <br> 
-        <p class="per" onclick="errado()" >c&rpar; Almofada</p>  
+        <p class="per" onclick="errado()" >c&rpar; Crescimento da economia </p>  
 
-        <p class="per" onclick="errado()">d&rpar; Luminária</p> 
+        <p class="per" onclick="errado()">d&rpar; Redução dos impostos </p> 
     </span> 
 
     <p id="final"></p> 
     <a id="rodada" href="quiz-minecreft2.html">Sim </a> 
 
 
-
-
-
 </main> 
-<script src="JS.js"></script> 
 
 
+<p id="r1">Um orçamento pessoal é um planejamento financeiro que ajuda a controlar suas receitas e despesas. Ele permite organizar o quanto você ganha e gasta em diferentes categorias (fixas e variáveis), com o objetivo de equilibrar suas finanças, poupar e alcançar metas financeiras. É útil para evitar surpresas, reduzir dívidas e garantir segurança financeira no futuro. </p>
 
+<div id="proxima">
+    <p>Proxima pergunta <img class="icon" src="arrow-right.svg" alt=""></p>
+</div>
 
-5. O que é inflação? 
-A) Aumento do valor do salário 
-B) Crescimento da economia 
-C) Aumento generalizado dos preços ao longo do tempo 
-D) Redução dos impostos 
-
-✅ Resposta correta: C 
-
-6. Qual das alternativas abaixo representa um investimento de baixo risco? 
-A) Ações da bolsa de valores 
-B) Loteria 
-C) Poupança 
-D) Criptomoedas 
-
-✅ Resposta correta: C 
-
-7. Qual é a principal vantagem de investir em vez de deixar o dinheiro parado? 
-A) O dinheiro perde valor 
-B) O dinheiro desaparece com o tempo 
-C) O dinheiro se multiplica com o tempo 
-D) O dinheiro é protegido pela inflação 
-
-✅ Resposta correta: C 
-
-8. O que é score de crédito? 
-A) Uma nota que mostra quanto dinheiro a pessoa tem 
-B) Uma pontuação que indica a chance de a pessoa pagar suas dívidas 
-C) Um tipo de cartão de crédito 
-D) Um desconto oferecido por lojas 
-
-✅ Resposta correta: B 
-
-9. O que representa um gasto variável? 
-A) Aluguel 
-B) Mensalidade do plano de saúde 
-C) Compra de roupas 
-D) Seguro do carro 
-
-✅ Resposta correta: C 
-
-10. O que é um fundo de emergência? 
-A) Um dinheiro para comprar presentes 
-B) Um valor guardado para pagar impostos 
-C) Um investimento de longo prazo 
-D) Um valor reservado para imprevistos financeiros 
-
-✅ Resposta correta: D 
+<script src="js.js"></script> 
+
