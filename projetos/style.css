@@ -1,1 +1,22 @@
-y
+@charset "UTF-8";
+
+#fundo {
+    background-color: Black;
+    
+    margin:0px ;
+}
+
+#logo 
+{
+    width: 10px;;
+    height: 40px;
+}
+
+nav {
+    align-content: center;
+    height: 40px;
+}
+
+nav > p {
+    color: white;
+}
