@@ -2,21 +2,138 @@
 
 #fundo {
     background-color: Black;
-    
+    padding: 0px;
     margin:0px ;
 }
 
 #logo 
+{height: 200px;
+ text-align: center ;
+    
+}
+
+#logo > img
+
 {
-    width: 10px;;
-    height: 40px;
+    
+    width: 60%;
+    height: 100%;
+}
+
+
+#div1
+{
+    text-align: center ;
+}
+
+.MS
+{
+    color: Red;
 }
 
 nav {
-    align-content: center;
+    background-color: yellow;
+    display: flex;
+    justify-content: space-between; 
     height: 40px;
 }
 
 nav > p {
+    color: Black ;
+    cursor: pointer;
+    margin: 0px;
+    font-size: 27px;
+    padding: 0px ;
+}
+
+
+
+main 
+{   margin: 60px ;
+
+}
+
+h1 
+{color: White;
+
+}
+
+
+h2
+{color: White;
+font-size: 20px;
+}
+
+
+p
+{color: White;
+ font-size: 20px;
+}
+
+ul
+{color: White;
+}
+
+.s1 {
+color: red;
+}
+
+.s2 {
+    color: yellow;
+}
+
+
+span {
+    font-size: 30px;
+}
+
+
+
+span > h1
+{
+    text-align: center;
+}
+a {
+
+    text-decoration: none;
     color: white;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: red;
+}
+
+.lojas
+{
+display: flex;
+justify-content:space-around;
+}
+
+.lojas > img {
+    padding: 10px;
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+    
+}
+
+.lojas > div > a 
+{
+    
+    padding: 0px;
+    margin: 0px ;
+    color: red;
+}
+
+.lojas > div > a:hover 
+
+{
+    color: yellow;
+}
+
+#pag2
+{
+    display: none;
 }
