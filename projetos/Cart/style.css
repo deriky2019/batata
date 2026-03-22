@@ -1,0 +1,93 @@
+@charset "UTF_8";
+body {
+    background: #0f0f0f;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+h1 {text-align: center;}
+/* Container */
+.top {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/* Carta */
+.cart {
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    width: 220px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    transition: 0.3s;
+}
+
+/* Hover mágico */
+.cart:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px red;
+}
+
+/* Imagem */
+
+.ima {
+    text-align: center;
+}
+img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid red;
+    margin-bottom: 10px;
+}
+
+/* Nome */
+h3 {
+    margin: 10px 0;
+    font-size: 22px;
+    text-align: center;
+}
+
+/* Atributos */
+.att {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+/* Texto */
+.att p {
+    background: rgba(255,255,255,0.05);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Raridade */
+.b {
+    color: #4da6ff;
+    font-weight: bold;
+}
+
+.a {
+    color: silver;
+    font-weight: bold;
+}
+
+.s {
+    color: gold;
+    font-weight: bold;
+}
+
+.ss {
+    color: orange;
+    font-weight: bold;
+}
