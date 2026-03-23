@@ -9,12 +9,17 @@ let bu4 = document.getElementById("bu4")
 let des4 = document.getElementById("des4")
 
 
+let link = document.getElementById("link")
+
+
+
 
 
 function linhaA() {
     des1.style.display = "block"
 bu1.style.display = "none"
 bu2.style.display = "none"
+link.style.display = "block"
 }
 
  
