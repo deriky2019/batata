@@ -37,13 +37,9 @@ button:hover {
     color: black;
 }
 
-#des1, #des0 , #des2 , #des3  ,  #des4 {
+#des1, #des0 , #des2 , #des3  ,  #des4  {
     display: none;
 }
 
-a {
+ #des1_1 , #des1_2{
     display: none;
-    text-decoration: none ;
-    font-size: 20px;
-    color: green;
-}
