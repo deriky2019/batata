@@ -1,0 +1,131 @@
+/* Configurações Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcfbfa; /* Fundo off-white suave para dar leveza */
+    color: #2c2c2c;
+}
+
+/* Menu Superior */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #1e1e1e;
+}
+
+.logo span {
+    color: #e63946; /* Vermelho apetitoso de destaque */
+}
+
+nav a {
+    text-decoration: none;
+    color: #555;
+    margin-left: 30px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #e63946;
+}
+
+.btn-nav {
+    background-color: #e63946;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 30px; /* Formato pílula combina muito com comida */
+}
+
+/* Seção Principal (Hero) */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 8%;
+    min-height: 80vh;
+}
+
+.hero-content {
+    flex: 1;
+    padding-right: 60px;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    line-height: 1.2;
+    color: #111;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+/* Botões do Banner */
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-primary {
+    text-decoration: none;
+    background-color: #e63946;
+    color: white;
+    padding: 15px 35px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #cb2d39;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    text-decoration: none;
+    border: 2px solid #111;
+    color: #111;
+    padding: 13px 35px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #111;
+    color: white;
+}
+
+/* Área da Imagem */
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    border-radius: 30px; /* Bordas bem arredondadas dão um tom moderno e amigável */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
