@@ -1,61 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Portfólio - Deriky</title>
   <link rel="stylesheet" href="tela-inicial.css">
 </head>
 <body id="body">
   <header>
-    <div>
-      <img id="zoto" src="fotos-inicio/zoto minha.jpg" alt="">
-      <div><h3>Meu nome é Deriky e eu estou aprendendo a programar, eu quero trabalhar nessa área, eu estou estudando  <br> HTML, CSS e JavaScript e isso e apenas o começo, mas no futuro eu quero aprender a criar app no mobile, <br> Estou ainda aprendendo e ainda vou melhorar muito e aprendendo a cada dia</h3></div>
-      <img class="mudar" id="sol" onclick="escurecer()" src="fotos-inicio/sol cheio.svg" alt="">
-      <img class="mudar" id="lua" onclick="clarear()" src="fotos-inicio/moon-fill.svg" alt="">
-      
-      
+    <div class="hero">
+      <img id="zoto" src="fotos-inicio/zoto minha.jpg" alt="Foto de Deriky">
+      <div class="hero-texto">
+        <h1>Olá, eu sou Deriky</h1>
+        <h3>
+          Estou aprendendo a programar e quero construir uma carreira na área de tecnologia.
+          Hoje estudo HTML, CSS, JavaScript e também estou começando a explorar o mundo dos aplicativos mobile.
+        </h3>
+      </div>
+      <div class="icones">
+        <img class="mudar" id="sol" onclick="escurecer()" src="fotos-inicio/sol cheio.svg" alt="Modo claro">
+        <img class="mudar" id="lua" onclick="clarear()" src="fotos-inicio/moon-fill.svg" alt="Modo escuro">
+      </div>
     </div>
-
   </header>
+
   <main>
-    <a id="link" href="projetos/tela-copia.html">Projetos <img src="fotos-inicio/arrow-right-svgrepo-com (1).svg" alt=""></a> 
-    <div id="divP">
-      <div>
-         <p id="s1">Pessoal</p>
-          <a href="projetos/pessoal/pessoal.html"><img src="fotos-inicio/projetos-pessoal.png" alt=""></a>
-      </div>
-         
-      <div>
-         <p id="s2">Hypertwo</p>
-          <a href="projetos/filmes-main/tela_inicial.html"><img src="fotos-inicio/projeto-hyper two.png" alt=""></a>
+    <section class="section">
+      <div class="section-title">
+        <h2>Sites</h2>
+        <a id="link" href="projetos/tela-copia.html">Ver todos</a>
       </div>
 
-      <div>
-           <p id="s3">Abstract</p>
-          <a href="projetos/abstract/abstract.html"><img src="fotos-inicio/projetos-abstract.png" alt=""></a> 
+      <div id="divP" class="cards">
+        <div class="card">
+          <p>Pessoal</p>
+          <a href="projetos/pessoal/pessoal.html"><img src="fotos-inicio/projetos-pessoal.png" alt="Projeto Pessoal"></a>
+        </div>
+
+        <div class="card">
+          <p>Hypertwo</p>
+          <a href="projetos/filmes-main/tela_inicial.html"><img src="fotos-inicio/projeto-hyper two.png" alt="Projeto Hypertwo"></a>
+        </div>
+
+        <div class="card">
+          <p>Abstract</p>
+          <a href="projetos/abstract/abstract.html"><img src="fotos-inicio/projetos-abstract.png" alt="Projeto Abstract"></a>
+        </div>
+
+        <div class="card">
+          <p>Receitas</p>
+          <a href="projetos/receitas/receitas.html"><img src="fotos-inicio/projetos-receitas.png" alt="Projeto Receitas"></a>
+        </div>
+
+        <div class="card">
+          <p>Alarado</p>
+          <a href="projetos/alarado/alarado.html"><img src="fotos-inicio/alarado.png" alt="Projeto Alarado"></a>
+        </div>
+
+        <div class="card">
+          <p>Nova Vida Com Cristo</p>
+          <a href="projetos/nova vida com cristo/tela-inicial.html"><img src="fotos-inicio/nova vida com cristo.png" alt="Projeto Nova Vida Com Cristo"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>Apps</h2>
+        <a href="meu-app/telas/inicial.js">Ver detalhes</a>
       </div>
 
-      <div>
-           <p id="s4">Receitas</p>
-         <a href="projetos/receitas/receitas.html"><img src="fotos-inicio/projetos-receitas.png" alt=""></a>  
+      <div class="cards apps">
+        <div class="card app-card">
+          <p>Meu App</p>
+          <a href="meu-app/App.js">Abrir projeto</a>
+        </div>
+        <div class="card app-card">
+          <p>App de Filmes</p>
+          <a href="meu-app/telas/filmes.js">Abrir projeto</a>
+        </div>
+        <div class="card app-card">
+          <p>App de Quiz</p>
+          <a href="meu-app/telas/quiz.js">Abrir projeto</a>
+        </div>
       </div>
+    </section>
 
-      <div>
-            <p id="s5">Alarado</p>
-         <a href="projetos/alarado/alarado.html"><img src="fotos-inicio/alarado.png" alt=""></a>   
-      </div>
-
-      <div>
-           <p id="s6">Nova Vida Com Cristo</p>
-           <a href="projetos/nova vida com cristo/tela-inicial.html"><img src="fotos-inicio/nova vida com cristo.png" alt=""></a>
-      </div>
-    </div>
-    <div id="divA"><a href="projetos/tela-copia.html">Ver Todos</a></div>
-    <h2>Estudos</h2>
-     <p>Eu crie esses sites com curso gratuitos e alguns vídeos no YouTube o curso mais importante que fiz o do Gustavo Guanabara o curso de HTML e CSS e também o curso de JavaScript, eu quero aprimorar o meu JavaScript onde eu não sei muito ainda e após conseguir fazer sites perfeitamente e saber a maioria das coisas, pois nunca saberemos de tudo, e eu irei apender a área de mobile na criação de App's</p>
+    <section class="section about">
+      <h2>Estudos e objetivos</h2>
+      <p>
+        Eu criei esses projetos com cursos gratuitos, vídeos no YouTube e muita prática.
+        O curso de HTML, CSS e JavaScript do Gustavo Guanabara foi muito importante para eu começar.
+        Quero continuar evoluindo, principalmente na parte de JavaScript e no desenvolvimento mobile para criar aplicativos cada vez melhores.
+      </p>
+    </section>
   </main>
-
 
   <script src="tela-inicial.js"></script>
 </body>
