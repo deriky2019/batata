@@ -1,0 +1,29 @@
+
+body {
+    margin: 0;
+        background-color: #18251c;
+            color: white;
+                font-family: Arial, sans-serif;
+                    text-align: center;
+                    }
+
+                    h1 {
+                        color: #f2d16b;
+                            font-size: 24px;
+                            }
+
+                            #jogo {
+                                width: 100%;
+                                    display: flex;
+                                        justify-content: center;
+                                            padding-top: 10px;
+                                            }
+
+                                            canvas {
+                                                width: 90%;
+                                                    max-width: 640px;
+                                                        background-color: #68a84f;
+                                                            border: 4px solid #e7c66b;
+                                                                image-rendering: pixelated;
+                                                                }
+                                                                
