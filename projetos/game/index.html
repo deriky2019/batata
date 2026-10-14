@@ -2,20 +2,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Reinos Perdidos</title>
+  <meta charset="UTF-8">
+    <meta name="viewport"
+            content="width=device-width, initial-scale=1.0">
+
+              <title>Aventura Pixel</title>
+
                 <link rel="stylesheet" href="style.css">
-                </head>
-                <body>
+                  <script src="game.js" defer></script>
+                  </head>
+                  <body>
 
-                    <h1>Reinos Perdidos</h1>
+                    <h1>Aventura Pixel</h1>
 
-                        <main id="jogo">
-                                <canvas id="tela-jogo" width="320" height="240"></canvas>
-                                    </main>
+                      <main>
+                          <canvas id="jogo" width="640" height="480"></canvas>
+                            </main>
 
-                                        <script src="game.js"></script>
-                                        </body>
-                                        </html>
-                                        
+                              <p id="status">Carregando personagem...</p>
+
+                                <div class="controles">
+                                    <button data-direcao="cima">▲</button>
+
+                                        <div class="linha">
+                                              <button data-direcao="esquerda">◀</button>
+                                                    <button data-direcao="baixo">▼</button>
+                                                          <button data-direcao="direita">▶</button>
+                                                              </div>
+                                                                </div>
+
+                                                                </body>
+                                                                </html>
+                                                                
