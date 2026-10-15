@@ -7,7 +7,9 @@
 
 // O que já aconteceu na história (no futuro o salvamento.js pode guardar isto)
 const historia = {
-  conheceuMillena: false
+  conheceuMillena: false,
+  conheceuMorador: false,
+  conheceuEstudante: false
 };
 
 const DIALOGOS = {
@@ -19,6 +21,28 @@ const DIALOGOS = {
     ],
     depois: [
       { quem: "Millena",  texto: "Somos melhores amigas agora, Dellalos!" }
+    ]
+  },
+  morador: {
+    primeira: [
+      { quem: "Morador",  texto: "Bom dia! Você deve ser a nova moradora da casa laranja." },
+      { quem: "Dellalos", texto: "Sou sim! Me chamo Dellalos e estou indo para a escola." },
+      { quem: "Morador",  texto: "A escola fica no fim da avenida. Cuidado com os slimes pelo caminho!" },
+      { quem: "Dellalos", texto: "Slimes?" },
+      { quem: "Morador",  texto: "Umas gosmas verdes. Use o botão A para bater neles." }
+    ],
+    depois: [
+      { quem: "Morador",  texto: "Cuidado com os slimes, Dellalos! A escola fica à direita." }
+    ]
+  },
+  estudante: {
+    primeira: [
+      { quem: "Estudante", texto: "Oi! Você é a aluna nova?" },
+      { quem: "Dellalos",  texto: "Sou! Meu nome é Dellalos." },
+      { quem: "Estudante", texto: "A Millena está na sala 2A. Ela adora conhecer gente nova!" }
+    ],
+    depois: [
+      { quem: "Estudante", texto: "A sala 2A é a segunda porta, ali em cima. Boa aula!" }
     ]
   }
 };
