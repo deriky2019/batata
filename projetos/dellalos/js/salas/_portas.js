@@ -10,7 +10,9 @@ const PORTAS = {
   escola:  { x: 52, y: 15 },   // porta da escola, na estrada
   sala:    { x: 9,  y: 11 },   // porta de dentro da casa da Dellalos
   hall:    { x: 14, y: 13 },   // porta de entrada de dentro da escola
-  aula:    { x: 10, y: 12 }    // porta de dentro de cada sala de aula
+  aula:    { x: 10, y: 12 },   // porta de dentro de cada sala de aula
+  quartoPai:{ x: 11, y: 2 },   // porta do quarto do pai, na parede de cima da sala da casa
+  quarto:  { x: 6,  y: 9 }     // porta de dentro do quarto do pai
 };
 
 // Onde a Dellalos aparece (pés, em pixels) logo DEPOIS de passar por uma porta.
