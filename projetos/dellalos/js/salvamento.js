@@ -59,7 +59,11 @@ function aplicarSave(d) {
 
   // inventário: 5 espaços; item só vale se tiver nome
   const s = Array.isArray(d.slots) ? d.slots : [];
-  inventario.slots = inventario.slots.map((_, i) => (s[i] && typeof s[i].nome === "string" ? s[i] : null));
+  inventario.slots = inventario.slots.map((_, i) => {
+    const it = s[i];
+    if (it && ITENS[it.id]) return Object.assign({ id: it.id }, ITENS[it.id]);   // item conhecido: pega os dados atuais
+    return it && typeof it.nome === "string" ? it : null;
+  });
 
   // vida: entre 1 e o máximo
   const vida = Math.round(d.vida);
