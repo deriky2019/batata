@@ -34,7 +34,7 @@ const CONFIG = {
   // x, y, largura e altura definem onde e com que tamanho a imagem é desenhada.
   sala: {
     ativar: false,
-    arquivo: "Assets/sala.jpg",
+    arquivo: "assets/sala.jpg",
     x: 0,
     y: 0,
     largura: 640,
@@ -53,7 +53,7 @@ ctx.imageSmoothingEnabled = false;   // mantém os pixels nítidos
 const imgDellalos = new Image();
 let dellalosOk = false;
 // Tenta o caminho principal e, se falhar, algumas variações (Android diferencia maiúsculas de minúsculas)
-const CAMINHOS_DELLALOS = ["Assets/dellalos.jpg", "assets/dellalos.jpg", "dellalos.jpg"];
+const CAMINHOS_DELLALOS = ["assets/dellalos.jpg", "assets/dellalos.jpg", "dellalos.jpg"];
 let tentativa = 0;
 imgDellalos.onload = () => { prepararFolha(); dellalosOk = true; };
 imgDellalos.onerror = () => {
