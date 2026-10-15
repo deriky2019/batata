@@ -16,17 +16,22 @@ function idDaCena(cena) {
   return null;
 }
 
-function salvarJogo() {
-  if (!cenaAtual || transicao) return;      // trocando de lugar: espera terminar
-  const id = idDaCena(cenaAtual);
+// salvarJogo(true) = salva "em casa, com a vida cheia" (usado quando a Dellalos morre).
+// Os eventos do navegador passam um objeto como argumento, por isso o teste é === true.
+function salvarJogo(emCasa) {
+  const casa = emCasa === true;
+  if (!casa && (menuAberto || jogador.morto)) return;   // na tela inicial ou morta: não sobrescreve o save
+  if (!cenaAtual || (!casa && transicao)) return;       // trocando de lugar: espera terminar
+  const id = casa ? "sala" : idDaCena(cenaAtual);
   if (!id) return;
+  const sp = CENAS.sala.spawn;
   const dados = {
     v: 1,
     cena: id,
-    x: Math.round(jogador.x),
-    y: Math.round(jogador.y),
-    dir: jogador.direcao,
-    vida: jogador.vida,
+    x: casa ? sp.x : Math.round(jogador.x),
+    y: casa ? sp.y : Math.round(jogador.y),
+    dir: casa ? "cima" : jogador.direcao,
+    vida: casa ? jogador.vidaMax : jogador.vida,
     slots: inventario.slots,
     historia: historia
   };
