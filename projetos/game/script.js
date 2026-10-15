@@ -7,7 +7,7 @@ ctx.imageSmoothingEnabled = false;
 
 // Carregar a sprite sheet
 const personagem = new Image();
-personagem.src = "assets/dellalos.png";
+personagem.src = "assets/dellalos.jpg";
 
 // A imagem tem 4 colunas e 4 linhas
 const COLUNAS = 4;
