@@ -52,7 +52,19 @@
   CENAS.escola = {
     mapa: m,
     corFora: "#3a3050",
-    saidas, interativos, placas
+    saidas, interativos, placas,
+    npcs: [
+      {
+        nome: "Estudante",
+        x: 16 * TILE + TILE / 2, y: 8 * TILE + 58,     // no meio do corredor
+        imagem: ["assets/Estudante.png", "assets/estudante.png"],
+        quadro: { linha: 0, coluna: 0 },
+        conversar: function () {
+          if (historia.conheceuEstudante) abrirDialogo(DIALOGOS.estudante.depois);
+          else abrirDialogo(DIALOGOS.estudante.primeira, function () { historia.conheceuEstudante = true; });
+        }
+      }
+    ]
   };
 
   // Guarda onde cada sala fica no corredor (as salas de aula usam isto para voltar)
