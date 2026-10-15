@@ -22,7 +22,7 @@ const CONFIG = {
   sala: {
     ativar: true,
     // O jogo tenta cada caminho, em ordem, até achar a imagem
-    arquivos: ["assets/Sala.jpg", "assets/Sala.jpg", "assets/Sala.jpg", "assets/sala.jpg"],
+    arquivos: ["assets/Sala.jpg"],
     x: 0,
     y: 0,
     largura: 1200,
