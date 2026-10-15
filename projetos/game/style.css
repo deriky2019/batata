@@ -16,15 +16,15 @@ html, body {
   overscroll-behavior: none;
 }
 
-/* ===== Canvas: mantém a proporção 16:9 e centraliza ===== */
+/* ===== Canvas: mantém a proporção da sala (1200x896) e centraliza ===== */
 #jogo {
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   /* Cabe na tela sem distorcer: usa a menor medida entre largura e altura */
-  width: min(100vw, calc(100dvh * 16 / 9));
-  height: min(100dvh, calc(100vw * 9 / 16));
+  width: min(100vw, calc(100dvh * 1200 / 896));
+  height: min(100dvh, calc(100vw * 896 / 1200));
   image-rendering: pixelated;  /* mantém o visual pixel art nítido */
   image-rendering: crisp-edges;
   image-rendering: pixelated;
