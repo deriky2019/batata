@@ -15,7 +15,13 @@ const historia = {
   avisouMissaoMillena: false,
   // missão 2 (falar com a Millena) é concluída por conheceuMillena
   avisouMissaoCasa: false,
-  chegouEmCasa: false          // missão 3 concluída (ir para casa)
+  chegouEmCasa: false,         // missão 3 concluída (ir para casa)
+  avisouMissaoMorador: false,
+  recebeuChaveQuarto: false,   // missão 4 concluída (o Morador deu a chave)
+  quartoPaiAberto: false,      // a porta do quarto do pai já foi destrancada
+  avisouMissaoQuarto: false,
+  entrouQuartoPai: false,      // missão 5 concluída
+  pegouCartaPai: false         // já pegou a carta na escrivaninha
 };
 
 const DIALOGOS = {
@@ -31,6 +37,13 @@ const DIALOGOS = {
     ]
   },
   morador: {
+    chave: [
+      { quem: "Morador",  texto: "Dellalos! Já voltou da escola? Tenho uma coisa para você." },
+      { quem: "Morador",  texto: "Seu pai deixou esta chave comigo. É a do quarto dele." },
+      { quem: "Dellalos", texto: "A chave do quarto do papai?" },
+      { quem: "Morador",  texto: "Isso mesmo. Ele disse que você saberia a hora certa de usar." },
+      { quem: "Dellalos", texto: "Obrigada! Vou até lá agora." }
+    ],
     primeira: [
       { quem: "Morador",  texto: "Bom dia! Você deve ser a nova moradora da casa laranja." },
       { quem: "Dellalos", texto: "Sou sim! Me chamo Dellalos e estou indo para a escola." },
