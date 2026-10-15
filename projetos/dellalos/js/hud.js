@@ -8,7 +8,7 @@ let mensagemAte = 0;
 
 function mostrarMensagem(texto) {
   mensagem = texto;
-  mensagemAte = performance.now() + 2500;
+  mensagemAte = performance.now() + Math.max(2500, 1500 + texto.length * 40);   // textos longos ficam mais tempo
 }
 
 // O botão B usa estas duas para avançar/fechar a mensagem na tela
@@ -23,11 +23,14 @@ function desenharMensagem() {
   if (performance.now() > mensagemAte) return;
   ctx.font = "30px sans-serif";
   ctx.textAlign = "center";
-  const largura = Math.min(ctx.measureText(mensagem).width + 48, VIEW_L - 40);
+  const linhas = quebrarTexto(mensagem, VIEW_L - 120);      // quebra em linhas se for longa (js/dialogos.js)
+  const largura = Math.min(Math.max(...linhas.map((l) => ctx.measureText(l).width)) + 48, VIEW_L - 40);
+  const altura = 26 + linhas.length * 38;
+  const topo = VIEW_A - 86 - altura;
   ctx.fillStyle = "rgba(0,0,0,0.8)";
-  ctx.fillRect(VIEW_L / 2 - largura / 2, VIEW_A - 150, largura, 64);
+  ctx.fillRect(VIEW_L / 2 - largura / 2, topo, largura, altura);
   ctx.fillStyle = "#f3e6c8";
-  ctx.fillText(mensagem, VIEW_L / 2, VIEW_A - 108, largura - 24);
+  linhas.forEach((l, n) => ctx.fillText(l, VIEW_L / 2, topo + 40 + n * 38, largura - 24));
 }
 
 // Balãozinho "B" sobre a cabeça quando há algo para interagir
