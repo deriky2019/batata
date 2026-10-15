@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <!-- user-scalable=no evita zoom por toque duplo; viewport-fit=cover usa a tela toda -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>Dellalos - Aventura</title>
+  <title>Shadow of War</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -39,6 +39,20 @@
     </div>
   </div>
 
+  <!-- Tela inicial (começa visível; js/telas.js controla) -->
+  <div id="menuInicial">
+    <h1 class="titulo-jogo">Shadow of War</h1>
+    <div class="menu-botoes">
+      <button id="btnContinuar" class="btn-menu">Continuar</button>
+      <button id="btnDoZero" class="btn-menu">Do zero</button>
+    </div>
+  </div>
+
+  <!-- Tela preta quando a Dellalos morre -->
+  <div id="telaMorte" hidden>
+    <button id="btnRenascer" class="btn-menu">Renascer</button>
+  </div>
+
   <!-- Aviso que aparece só em celular em pé -->
   <div id="girar">Gire o aparelho para jogar na horizontal</div>
 
@@ -68,6 +82,7 @@
   <script src="js/salas/aulas.js"></script>
   <script src="js/salas/quartopai.js"></script>
   <script src="js/desenho.js"></script>
+  <script src="js/telas.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
