@@ -85,6 +85,11 @@
         quadro: { linha: 0, coluna: 0 },
         andar: { raioX: 224, raioY: 0, velocidade: 55 },   // passeia pela calçada
         conversar: function () {
+          // Depois da escola, o Morador entrega a chave do quarto do pai
+          if (historia.conheceuMillena && !historia.recebeuChaveQuarto) {
+            abrirDialogo(DIALOGOS.morador.chave, entregarChaveDoMorador);
+            return;
+          }
           if (historia.conheceuMorador) abrirDialogo(DIALOGOS.morador.depois);
           else abrirDialogo(DIALOGOS.morador.primeira, function () { historia.conheceuMorador = true; });
         }
