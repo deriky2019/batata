@@ -20,8 +20,9 @@ function carregarImagem(caminhos, aoCarregar) {
 let dellalosOk = false;
 let folha = null;   // spritesheet já com o fundo preto transparente
 
-carregarImagem(["assets/dellalos.jpg", "dellalos.jpg"], (img) => {
-  folha = prepararFolha(img);
+// PNG já vem com fundo transparente (usa como está). JPG precisa apagar o fundo preto.
+carregarImagem(["assets/Dellalos.png", "assets/dellalos.png", "assets/dellalos.jpg", "dellalos.jpg"], (img) => {
+  folha = /\.png(\?|$)/i.test(img.src) ? img : prepararFolha(img);
   dellalosOk = true;
 });
 
