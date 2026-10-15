@@ -37,9 +37,16 @@ ctx.imageSmoothingEnabled = false;   // mantém os pixels nítidos
 /* ---------- 2. IMAGENS ---------- */
 const imgDellalos = new Image();
 let dellalosOk = false;
+// Tenta o caminho principal e, se falhar, algumas variações (Android diferencia maiúsculas de minúsculas)
+const CAMINHOS_DELLALOS = ["Assets/dellalos.jpg", "assets/dellalos.jpg", "dellalos.jpg"];
+let tentativa = 0;
 imgDellalos.onload = () => { dellalosOk = true; };
-imgDellalos.onerror = () => { console.warn("Não achei Assets/dellalos.jpg"); };
-imgDellalos.src = "Assets/dellalos.jpg";
+imgDellalos.onerror = () => {
+  console.warn("Não achei " + CAMINHOS_DELLALOS[tentativa]);
+  tentativa++;
+  if (tentativa < CAMINHOS_DELLALOS.length) imgDellalos.src = CAMINHOS_DELLALOS[tentativa];
+};
+imgDellalos.src = CAMINHOS_DELLALOS[0];
 
 // A imagem da sala só é carregada se CONFIG.sala.ativar for true.
 const imgSala = new Image();
