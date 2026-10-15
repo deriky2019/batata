@@ -1,90 +1,100 @@
 /* =====================================================
    JOGO DELLALOS - script.js
    Organização (de cima para baixo):
-   1. CONFIG  -> valores que você pode mudar
-   2. Imagens
-   3. Mundo   -> paredes e obstáculos
+   1. CONFIG      -> valores que você pode mudar
+   2. Imagens     -> Dellalos (spritesheet) e Sala
+   3. Mundo       -> paredes, móveis e interações
    4. Jogador
-   5. Controles (teclado + toque)
-   6. Atualizar (lógica) e Desenhar (visual)
-   7. Loop do jogo
+   5. Controles   (teclado + toque)
+   6. Ação (botão A) e Atualizar (lógica)
+   7. Desenhar (visual) e Loop do jogo
+   O mundo usa as MESMAS medidas da Sala.jpg (1200 x 896),
+   então qualquer posição que você ver na imagem vale no código.
    ===================================================== */
 
 /* ---------- 1. CONFIG ---------- */
 const CONFIG = {
-  velocidade: 120,          // pixels por segundo (mude aqui para andar mais rápido/devagar)
-  alturaPersonagem: 80,     // altura de UM quadro de Dellalos no mundo (os quadros são quadrados)
+  velocidade: 260,          // pixels por segundo (mude para andar mais rápido/devagar)
+  alturaPersonagem: 170,    // altura de UM quadro de Dellalos (os quadros são quadrados)
+  margemAcao: 40,           // distância máxima para o botão A "alcançar" um objeto
+
+  // CENÁRIO: imagem da sala. Se não achar a imagem, usa o cenário provisório.
+  sala: {
+    ativar: true,
+    // O jogo tenta cada caminho, em ordem, até achar a imagem
+    arquivos: ["assets/Sala.jpg", "assets/Sala.jpg", "assets/Sala.jpg", "assets/sala.jpg"],
+    x: 0,
+    y: 0,
+    largura: 1200,
+    altura: 896
+  },
 
   // SPRITESHEET: dellalos.jpg tem 4 colunas x 4 linhas de quadros.
-  // Cada animação diz em qual linha está e quais colunas usar.
   sprite: {
     colunas: 4,
     linhas: 4,
     tempoPorQuadro: 0.14,   // segundos em cada quadro da caminhada
-    pes: 0.93,              // onde ficam os pés dentro do quadro (0 = topo, 1 = base). Ajuste se ela "flutuar" ou "afundar"
+    pes: 0.93,              // onde ficam os pés dentro do quadro (0 = topo, 1 = base)
     animacoes: {
       baixo:    { linha: 0, quadros: [0, 1, 2, 3] },
       cima:     { linha: 1, quadros: [2, 3] },
       esquerda: { linha: 2, quadros: [0, 1, 2, 3] },
       direita:  { linha: 3, quadros: [0, 1, 2, 3] }
     }
-  },
-
-  // CENÁRIO: quando você colocar Assets/sala.jpg, mude "ativar" para true.
-  // x, y, largura e altura definem onde e com que tamanho a imagem é desenhada.
-  sala: {
-    ativar: false,
-    arquivo: "assets/sala.jpg",
-    x: 0,
-    y: 0,
-    largura: 640,
-    altura: 360
   }
 };
 
-const MUNDO_L = 640;        // largura do mundo (igual ao width do canvas)
-const MUNDO_A = 360;        // altura do mundo
+const MUNDO_L = 1200;       // largura do mundo (igual ao width do canvas e da Sala.jpg)
+const MUNDO_A = 896;        // altura do mundo
 
 const canvas = document.getElementById("jogo");
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;   // mantém os pixels nítidos
 
 /* ---------- 2. IMAGENS ---------- */
-const imgDellalos = new Image();
+// Tenta carregar uma imagem testando vários caminhos (Android diferencia maiúsculas de minúsculas)
+function carregarImagem(caminhos, aoCarregar) {
+  const img = new Image();
+  let n = 0;
+  img.onload = () => aoCarregar(img);
+  img.onerror = () => {
+    console.warn("Não achei " + caminhos[n]);
+    n++;
+    if (n < caminhos.length) img.src = caminhos[n];
+  };
+  img.src = caminhos[0];
+  return img;
+}
+
+// --- Dellalos ---
 let dellalosOk = false;
-// Tenta o caminho principal e, se falhar, algumas variações (Android diferencia maiúsculas de minúsculas)
-const CAMINHOS_DELLALOS = ["assets/dellalos.jpg", "assets/dellalos.jpg", "dellalos.jpg"];
-let tentativa = 0;
-imgDellalos.onload = () => { prepararFolha(); dellalosOk = true; };
-imgDellalos.onerror = () => {
-  console.warn("Não achei " + CAMINHOS_DELLALOS[tentativa]);
-  tentativa++;
-  if (tentativa < CAMINHOS_DELLALOS.length) imgDellalos.src = CAMINHOS_DELLALOS[tentativa];
-};
+let folha = null;   // spritesheet já com o fundo preto transparente
 
-// A imagem é JPG, então o fundo preto não é transparente.
-// Aqui copiamos a imagem para um canvas escondido e apagamos o preto que está ligado às bordas.
-// (O contorno escuro do desenho fica, porque não está ligado ao fundo.)
-let folha = imgDellalos;   // se algo falhar, usa a imagem original
+carregarImagem(["assets/dellalos.jpg", "assets/dellalos.jpg", "dellalos.jpg"], (img) => {
+  folha = prepararFolha(img);
+  dellalosOk = true;
+});
 
-function prepararFolha() {
+// A imagem é JPG, então o preto do fundo não é transparente.
+// Copiamos para um canvas escondido e apagamos o preto ligado às bordas.
+function prepararFolha(img) {
   try {
-    const w = imgDellalos.naturalWidth, h = imgDellalos.naturalHeight;
+    const w = img.naturalWidth, h = img.naturalHeight;
     const c = document.createElement("canvas");
     c.width = w; c.height = h;
     const cx = c.getContext("2d");
-    cx.drawImage(imgDellalos, 0, 0);
+    cx.drawImage(img, 0, 0);
     const dados = cx.getImageData(0, 0, w, h);
     const px = dados.data;
-    const LIMITE = 38;                      // quanto mais alto, mais cinza escuro some
+    const LIMITE = 38;
     const visitado = new Uint8Array(w * h);
-    const pilha = [0, w - 1, (h - 1) * w, h * w - 1];   // começa pelos 4 cantos
+    const pilha = [0, w - 1, (h - 1) * w, h * w - 1];
     const escuro = (i) => px[i*4] < LIMITE && px[i*4+1] < LIMITE && px[i*4+2] < LIMITE;
     while (pilha.length) {
       const i = pilha.pop();
       if (visitado[i] || !escuro(i)) continue;
       visitado[i] = 1;
-      px[i*4+3] = 0;                        // transparente
+      px[i*4+3] = 0;
       const x = i % w, y = (i / w) | 0;
       if (x > 0) pilha.push(i - 1);
       if (x < w - 1) pilha.push(i + 1);
@@ -92,68 +102,60 @@ function prepararFolha() {
       if (y < h - 1) pilha.push(i + w);
     }
     cx.putImageData(dados, 0, 0);
-    folha = c;
+    return c;
   } catch (erro) {
     console.warn("Não consegui remover o fundo preto (abra pelo servidor do Acode).", erro);
+    return img;
   }
 }
-imgDellalos.src = CAMINHOS_DELLALOS[0];
 
-// A imagem da sala só é carregada se CONFIG.sala.ativar for true.
-const imgSala = new Image();
+// --- Sala ---
+let imgSala = null;
 let salaOk = false;
 if (CONFIG.sala.ativar) {
-  imgSala.onload = () => { salaOk = true; };
-  imgSala.onerror = () => { console.warn("sala.jpg não encontrada, usando cenário provisório"); };
-  imgSala.src = CONFIG.sala.arquivo;
+  imgSala = carregarImagem(CONFIG.sala.arquivos, () => { salaOk = true; });
 }
 
 /* ---------- 3. MUNDO ---------- */
-// Cada retângulo: { x, y, w, h } (canto superior esquerdo + tamanho)
-const PAREDE_TOPO = 72;
-const PAREDE_LADO = 32;
-const PAREDE_BAIXO = 32;
+// Cada retângulo: { x, y, w, h } (canto superior esquerdo + tamanho), em pixels da Sala.jpg.
+// Dica: para ajustar uma colisão, mude os números aqui.
 
-const PORTA = { x: 288, y: 24, w: 64, h: PAREDE_TOPO - 24 };   // porta na parede de cima
-
-// Paredes: bloqueiam o jogador. A parede de cima tem uma abertura onde fica a porta (alcançável).
+// Paredes (a parte bege em volta do piso de madeira)
 const paredes = [
-  { x: 0, y: 0, w: MUNDO_L, h: PAREDE_TOPO - 24 },                 // topo (faixa externa)
-  { x: 0, y: 0, w: 288, h: PAREDE_TOPO },                          // topo esquerdo
-  { x: 352, y: 0, w: MUNDO_L - 352, h: PAREDE_TOPO },              // topo direito
-  { x: 0, y: 0, w: PAREDE_LADO, h: MUNDO_A },                      // esquerda
-  { x: MUNDO_L - PAREDE_LADO, y: 0, w: PAREDE_LADO, h: MUNDO_A },  // direita
-  { x: 0, y: MUNDO_A - PAREDE_BAIXO, w: MUNDO_L, h: PAREDE_BAIXO } // baixo
+  { x: 0,    y: 0,   w: 1200, h: 160 },   // parede de cima
+  { x: 0,    y: 785, w: 1200, h: 111 },   // parede de baixo
+  { x: 0,    y: 0,   w: 118,  h: 896 },   // parede da esquerda
+  { x: 1082, y: 0,   w: 118,  h: 896 }    // parede da direita (a porta fica nela)
 ];
 
-// Objetos sólidos (obstáculos) dentro da sala
-const obstaculos = [
-  { x: 440, y: 120, w: 112, h: 56, tipo: "mesa" },
-  { x: 60,  y: 100, w: 40,  h: 40, tipo: "vaso" },
-  { x: 540, y: 250, w: 48,  h: 40, tipo: "bau" }
+// Móveis sólidos
+const sofa  = { x: 245, y: 105, w: 235, h: 160 };   // sofá verde (encostado na parede de cima)
+const mesa  = { x: 822, y: 388, w: 78,  h: 184 };   // mesa com o livro
+const porta = { x: 1075, y: 340, w: 90, h: 190 };   // porta na parede da direita
+
+const solidos = paredes.concat([sofa, mesa]);
+
+// Objetos com os quais o botão A interage: { nome, area, texto }
+const interativos = [
+  { nome: "sofa",  area: sofa,  texto: "Não posso dormir, tenho que ir para a escola." },
+  { nome: "livro", area: mesa,  texto: "Um livro velho do papai." },
+  { nome: "porta", area: porta, texto: "Ainda não disponível." }
 ];
-
-// Tapete: só decoração (não bloqueia)
-const tapete = { x: 200, y: 170, w: 240, h: 130 };
-
-const solidos = paredes.concat(obstaculos);
 
 /* ---------- 4. JOGADOR ---------- */
 const jogador = {
-  x: MUNDO_L / 2,   // posição dos PÉS (centro horizontal)
-  y: 300,           // posição dos pés (parte de baixo)
-  largura: 40,
+  x: 600,           // posição dos PÉS (centro horizontal)
+  y: 700,           // posição dos pés (parte de baixo)
   altura: CONFIG.alturaPersonagem,
-  direcao: "baixo",  // baixo, cima, esquerda ou direita
-  quadro: 0,         // qual quadro da animação está sendo mostrado
-  tempoAnim: 0       // cronômetro da animação
+  direcao: "baixo", // baixo, cima, esquerda ou direita
+  quadro: 0,        // qual quadro da animação está sendo mostrado
+  tempoAnim: 0      // cronômetro da animação
 };
 
-// Caixa de colisão: só a parte de baixo do corpo (estilo Zelda), menor que a imagem
+// Caixa de colisão: só a região dos pés (estilo Zelda), menor que o desenho
+const CAIXA_L = 64, CAIXA_A = 30;
 function caixaDoJogador(x, y) {
-  const w = jogador.largura * 0.6;
-  const h = 16;
-  return { x: x - w / 2, y: y - h, w: w, h: h };
+  return { x: x - CAIXA_L / 2, y: y - CAIXA_A, w: CAIXA_L, h: CAIXA_A };
 }
 
 function bate(a, b) {
@@ -169,7 +171,6 @@ function livre(x, y) {
 }
 
 /* ---------- 5. CONTROLES ---------- */
-// Dois "conjuntos": teclado e toque. O jogador anda se QUALQUER um estiver ativo.
 const teclado = { up: false, down: false, left: false, right: false };
 const toque   = { up: false, down: false, left: false, right: false };
 
@@ -206,7 +207,7 @@ document.querySelectorAll(".dir").forEach((botao) => {
 
   const apertar = (e) => {
     e.preventDefault();
-    botao.setPointerCapture(e.pointerId);   // continua recebendo eventos mesmo se o dedo sair do botão
+    botao.setPointerCapture(e.pointerId);
     toque[dir] = true;
     botao.classList.add("ativo");
   };
@@ -217,8 +218,8 @@ document.querySelectorAll(".dir").forEach((botao) => {
 
   botao.addEventListener("pointerdown", apertar);
   botao.addEventListener("pointerup", soltar);
-  botao.addEventListener("pointercancel", soltar);          // o sistema interrompeu o toque
-  botao.addEventListener("lostpointercapture", soltar);     // perdeu o controle do ponteiro
+  botao.addEventListener("pointercancel", soltar);
+  botao.addEventListener("lostpointercapture", soltar);
   botao.addEventListener("contextmenu", (e) => e.preventDefault());
 });
 
@@ -238,23 +239,37 @@ botaoA.addEventListener("contextmenu", (e) => e.preventDefault());
 // Bloqueia rolagem/gestos no resto da tela
 document.addEventListener("touchmove", (e) => e.preventDefault(), { passive: false });
 
-/* ---------- AÇÃO (botão A) ---------- */
+/* ---------- 6. AÇÃO (botão A) E ATUALIZAR ---------- */
 let mensagem = "";
 let mensagemAte = 0;
 
 function mostrarMensagem(texto) {
   mensagem = texto;
-  mensagemAte = performance.now() + 1800;
+  mensagemAte = performance.now() + 2500;
 }
 
-// Por enquanto: só avisa se está perto da porta. Aqui entrarão objetos e NPCs no futuro.
+// Procura o objeto interativo mais próximo que Dellalos consegue alcançar
+function objetoAlcancavel() {
+  const c = caixaDoJogador(jogador.x, jogador.y);
+  const m = CONFIG.margemAcao;
+  const alcance = { x: c.x - m, y: c.y - m, w: c.w + m * 2, h: c.h + m * 2 };
+  const cx = c.x + c.w / 2, cy = c.y + c.h / 2;
+
+  let melhor = null, melhorDist = Infinity;
+  for (const obj of interativos) {
+    if (!bate(alcance, obj.area)) continue;
+    const ax = obj.area.x + obj.area.w / 2, ay = obj.area.y + obj.area.h / 2;
+    const d = Math.hypot(ax - cx, ay - cy);
+    if (d < melhorDist) { melhorDist = d; melhor = obj; }
+  }
+  return melhor;
+}
+
 function acao() {
-  const pertoDaPorta = Math.abs(jogador.x - (PORTA.x + PORTA.w / 2)) < 60 &&
-                       jogador.y < PAREDE_TOPO + 50;
-  mostrarMensagem(pertoDaPorta ? "A porta ainda não leva a lugar nenhum." : "Nada por aqui.");
+  const obj = objetoAlcancavel();
+  mostrarMensagem(obj ? obj.texto : "Nada por aqui.");
 }
 
-/* ---------- 6. ATUALIZAR (lógica) ---------- */
 function atualizar(dt) {
   let dx = 0, dy = 0;
   if (teclado.left  || toque.left)  dx -= 1;
@@ -263,8 +278,7 @@ function atualizar(dt) {
   if (teclado.down  || toque.down)  dy += 1;
 
   if (dx === 0 && dy === 0) {
-    // Parada: mostra o primeiro quadro da direção atual
-    jogador.quadro = 0;
+    jogador.quadro = 0;       // parada: primeiro quadro da direção atual
     jogador.tempoAnim = 0;
     return;
   }
@@ -272,7 +286,6 @@ function atualizar(dt) {
   // Diagonal: divide por 1.414 para não ser mais rápida
   if (dx !== 0 && dy !== 0) { dx *= Math.SQRT1_2; dy *= Math.SQRT1_2; }
 
-  // Direção (para animações futuras)
   if (Math.abs(dx) > Math.abs(dy)) jogador.direcao = dx < 0 ? "esquerda" : "direita";
   else jogador.direcao = dy < 0 ? "cima" : "baixo";
 
@@ -291,104 +304,73 @@ function atualizar(dt) {
 
 /* ---------- 7. DESENHAR (visual) ---------- */
 function desenharCenario() {
-  // Se existir sala.jpg configurada e carregada, usa a imagem
   if (CONFIG.sala.ativar && salaOk) {
     const s = CONFIG.sala;
     ctx.drawImage(imgSala, s.x, s.y, s.largura, s.altura);
     return;
   }
 
-  // Cenário provisório
-  // Chão em xadrez suave
-  for (let y = 0; y < MUNDO_A; y += 32) {
-    for (let x = 0; x < MUNDO_L; x += 32) {
-      ctx.fillStyle = ((x + y) / 32) % 2 === 0 ? "#b88a5a" : "#ae8052";
-      ctx.fillRect(x, y, 32, 32);
-    }
-  }
-
-  // Tapete
-  ctx.fillStyle = "#8a2f3a";
-  ctx.fillRect(tapete.x, tapete.y, tapete.w, tapete.h);
-  ctx.strokeStyle = "#e0b45a";
-  ctx.lineWidth = 4;
-  ctx.strokeRect(tapete.x + 8, tapete.y + 8, tapete.w - 16, tapete.h - 16);
-
-  // Paredes
+  // Cenário provisório (aparece se a Sala.jpg não for encontrada)
+  ctx.fillStyle = "#b88a5a";
+  ctx.fillRect(0, 0, MUNDO_L, MUNDO_A);
   ctx.fillStyle = "#4b3a52";
   for (const p of paredes) ctx.fillRect(p.x, p.y, p.w, p.h);
-  // Faixa clara na base da parede de cima (dá ideia de profundidade)
-  ctx.fillStyle = "#6a5473";
-  ctx.fillRect(PAREDE_LADO, PAREDE_TOPO - 10, 288 - PAREDE_LADO, 10);
-  ctx.fillRect(352, PAREDE_TOPO - 10, MUNDO_L - 352 - PAREDE_LADO, 10);
-
-  // Porta (abertura na parede de cima)
-  ctx.fillStyle = "#6b4423";
-  ctx.fillRect(PORTA.x, PORTA.y, PORTA.w, PORTA.h);
-  ctx.fillStyle = "#3d2412";
-  ctx.fillRect(PORTA.x + 6, PORTA.y + 6, PORTA.w - 12, PORTA.h - 6);
-  ctx.fillStyle = "#e0b45a";
-  ctx.fillRect(PORTA.x + PORTA.w - 18, PORTA.y + 28, 6, 6);
-
-  // Obstáculos
-  for (const o of obstaculos) {
-    if (o.tipo === "mesa") {
-      ctx.fillStyle = "#7a4e2a"; ctx.fillRect(o.x, o.y, o.w, o.h);
-      ctx.fillStyle = "#955f33"; ctx.fillRect(o.x + 4, o.y + 4, o.w - 8, o.h - 14);
-    } else if (o.tipo === "vaso") {
-      ctx.fillStyle = "#3f7d3a"; ctx.fillRect(o.x + 6, o.y, o.w - 12, 20);
-      ctx.fillStyle = "#a5563a"; ctx.fillRect(o.x + 4, o.y + 20, o.w - 8, o.h - 20);
-    } else {
-      ctx.fillStyle = "#5c3b1e"; ctx.fillRect(o.x, o.y, o.w, o.h);
-      ctx.fillStyle = "#e0b45a"; ctx.fillRect(o.x, o.y + 12, o.w, 4);
-      ctx.fillRect(o.x + o.w / 2 - 3, o.y + 10, 6, 10);
-    }
-  }
+  ctx.fillStyle = "#3f7d3a"; ctx.fillRect(sofa.x, sofa.y, sofa.w, sofa.h);
+  ctx.fillStyle = "#7a4e2a"; ctx.fillRect(mesa.x, mesa.y, mesa.w, mesa.h);
+  ctx.fillStyle = "#6b4423"; ctx.fillRect(porta.x, porta.y, porta.w, porta.h);
 }
 
 function desenharJogador() {
   const j = jogador;
   if (dellalosOk) {
     const sp = CONFIG.sprite;
-    // Tamanho de um quadro dentro da imagem
     const qw = folha.width / sp.colunas;
     const qh = folha.height / sp.linhas;
-    // Escolhe o quadro: linha da direção + coluna do quadro atual
     const anim = sp.animacoes[j.direcao];
     const coluna = anim.quadros[j.quadro % anim.quadros.length];
-    const recorteX = coluna * qw;
-    const recorteY = anim.linha * qh;
-    // Tamanho no mundo (mantém a proporção do quadro)
     const h = j.altura;
     const w = h * (qw / qh);
-    // Centraliza na horizontal e coloca os pés na posição do jogador
-    ctx.drawImage(folha, recorteX, recorteY, qw, qh,
+    ctx.drawImage(folha, coluna * qw, anim.linha * qh, qw, qh,
                   Math.round(j.x - w / 2), Math.round(j.y - h * sp.pes), w, h);
   } else {
     ctx.fillStyle = "rgba(0,0,0,0.6)";
-    ctx.fillRect(j.x - 20, j.y - 40, 40, 40);
+    ctx.fillRect(j.x - 30, j.y - 60, 60, 60);
     ctx.fillStyle = "#fff";
-    ctx.font = "10px sans-serif";
+    ctx.font = "16px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("sem img", j.x, j.y - 18);
+    ctx.fillText("sem img", j.x, j.y - 26);
   }
+}
+
+// Balãozinho "A" sobre a cabeça quando há algo para interagir
+function desenharDica() {
+  if (!objetoAlcancavel()) return;
+  const x = jogador.x;
+  const y = jogador.y - jogador.altura * CONFIG.sprite.pes - 16;
+  ctx.fillStyle = "rgba(0,0,0,0.75)";
+  ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = "#f3e6c8";
+  ctx.font = "bold 24px sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("A", x, y + 9);
 }
 
 function desenharMensagem() {
   if (performance.now() > mensagemAte) return;
-  ctx.font = "14px sans-serif";
+  ctx.font = "30px sans-serif";
   ctx.textAlign = "center";
-  const largura = ctx.measureText(mensagem).width + 24;
-  ctx.fillStyle = "rgba(0,0,0,0.75)";
-  ctx.fillRect(MUNDO_L / 2 - largura / 2, MUNDO_A - 80, largura, 28);
+  const largura = Math.min(ctx.measureText(mensagem).width + 48, MUNDO_L - 40);
+  ctx.fillStyle = "rgba(0,0,0,0.8)";
+  ctx.fillRect(MUNDO_L / 2 - largura / 2, MUNDO_A - 150, largura, 64);
   ctx.fillStyle = "#f3e6c8";
-  ctx.fillText(mensagem, MUNDO_L / 2, MUNDO_A - 61);
+  ctx.fillText(mensagem, MUNDO_L / 2, MUNDO_A - 108, largura - 24);
 }
 
 function desenhar() {
   ctx.clearRect(0, 0, MUNDO_L, MUNDO_A);
   desenharCenario();
   desenharJogador();
+  desenharDica();
   desenharMensagem();
 }
 
@@ -396,7 +378,6 @@ function desenhar() {
 let ultimo = performance.now();
 
 function loop(agora) {
-  // dt = segundos desde o último quadro (limitado para evitar "pulos" ao voltar de outra aba)
   const dt = Math.min((agora - ultimo) / 1000, 0.05);
   ultimo = agora;
 
