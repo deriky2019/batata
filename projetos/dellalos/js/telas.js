@@ -29,9 +29,11 @@ function fecharMenuInicial() {
 function continuarJogo() {
   const dados = lerSave();
   if (!dados) return;
-  fecharMenuInicial();
-  aplicarSave(dados);
-  anunciarMissaoInicial();
+  aguardarCarregamento(function () {       // "Carregando..." até tudo estar pronto (js/carregamento.js)
+    fecharMenuInicial();
+    aplicarSave(dados);
+    anunciarMissaoInicial();
+  });
 }
 
 // Do zero: apaga o save e recomeça. Se já existe um save, pede para tocar de novo (evita apagar sem querer).
@@ -52,10 +54,12 @@ function novoJogo() {
   jogador.vida = jogador.vidaMax;
   jogador.invulneravel = 0;
 
-  fecharMenuInicial();
-  const sp = CENAS.sala.spawn;
-  entrarNaCena("sala", sp.x, sp.y, "baixo");
-  anunciarMissaoInicial();
+  aguardarCarregamento(function () {
+    fecharMenuInicial();
+    const sp = CENAS.sala.spawn;
+    entrarNaCena("sala", sp.x, sp.y, "baixo");
+    anunciarMissaoInicial();
+  });
 }
 
 btnContinuar.addEventListener("click", continuarJogo);
