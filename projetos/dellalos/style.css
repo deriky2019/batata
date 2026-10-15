@@ -16,15 +16,12 @@ html, body {
   overscroll-behavior: none;
 }
 
-/* ===== Canvas: mantém a proporção da sala (1200x896) e centraliza ===== */
+/* ===== Canvas: ocupa a tela inteira (o JavaScript centraliza o mundo dentro dele) ===== */
 #jogo {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  /* Cabe na tela sem distorcer: usa a menor medida entre largura e altura */
-  width: min(100vw, calc(100dvh * 1200 / 896));
-  height: min(100dvh, calc(100vw * 896 / 1200));
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
   image-rendering: pixelated;  /* mantém o visual pixel art nítido */
   image-rendering: crisp-edges;
   image-rendering: pixelated;
@@ -117,8 +114,6 @@ html, body {
 
 @media (orientation: portrait) {
   #girar { display: block; }
-  /* Em pé, o canvas fica no topo para os controles caberem embaixo */
-  #jogo { top: 25%; }
 }
 
 /* ===== Inventário (só mexe nos elementos do inventário) ===== */
