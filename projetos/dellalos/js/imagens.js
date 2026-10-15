@@ -39,18 +39,19 @@ function prepararFolha(img, limite) {
     const px = dados.data;
     const LIMITE = limite || 38;   // quanto mais baixo, mais cabelo preto é preservado
     const visitado = new Uint8Array(w * h);
-    const pilha = [0, w - 1, (h - 1) * w, h * w - 1];
+    const pilha = new Int32Array(w * h);     // cada pixel entra no máximo uma vez
+    let topo = 0;
     const escuro = (i) => px[i*4] < LIMITE && px[i*4+1] < LIMITE && px[i*4+2] < LIMITE;
-    while (pilha.length) {
-      const i = pilha.pop();
-      if (visitado[i] || !escuro(i)) continue;
-      visitado[i] = 1;
+    const empurrar = (i) => { if (!visitado[i] && escuro(i)) { visitado[i] = 1; pilha[topo++] = i; } };
+    empurrar(0); empurrar(w - 1); empurrar((h - 1) * w); empurrar(h * w - 1);
+    while (topo > 0) {
+      const i = pilha[--topo];
       px[i*4+3] = 0;
-      const x = i % w, y = (i / w) | 0;
-      if (x > 0) pilha.push(i - 1);
-      if (x < w - 1) pilha.push(i + 1);
-      if (y > 0) pilha.push(i - w);
-      if (y < h - 1) pilha.push(i + w);
+      const x = i % w;
+      if (x > 0) empurrar(i - 1);
+      if (x < w - 1) empurrar(i + 1);
+      if (i >= w) empurrar(i - w);
+      if (i < w * (h - 1)) empurrar(i + w);
     }
     cx.putImageData(dados, 0, 0);
     return c;
