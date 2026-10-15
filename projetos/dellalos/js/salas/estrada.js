@@ -77,6 +77,18 @@
   CENAS.estrada = {
     mapa: m,
     combate: true,
+    npcs: [
+      {
+        nome: "Morador",
+        x: 24 * TILE + TILE / 2, y: 19 * TILE + 58,    // na calçada, entre as duas casas
+        imagem: ["assets/Morador.png", "assets/morador.png"],
+        quadro: { linha: 0, coluna: 0 },
+        conversar: function () {
+          if (historia.conheceuMorador) abrirDialogo(DIALOGOS.morador.depois);
+          else abrirDialogo(DIALOGOS.morador.primeira, function () { historia.conheceuMorador = true; });
+        }
+      }
+    ],
     interativos: [
       { nome: "porta_casa_do_meio", area: celula(PORTAS.casaMeio.x, PORTAS.casaMeio.y), texto: "Ainda não disponível." }
     ],
