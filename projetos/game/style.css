@@ -1,79 +1,76 @@
-
 * {
   box-sizing: border-box;
-  }
+}
 
-  body {
-    margin: 0;
-      min-height: 100vh;
-        padding: 20px 12px;
-          background: #17251c;
-            color: white;
-              font-family: Arial, sans-serif;
-                text-align: center;
-                }
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 12px;
+  background: #17251c;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
 
-                h1 {
-                  font-size: 24px;
-                    margin: 8px 0 20px;
-                    }
+h1 {
+  font-size: 24px;
+  margin: 8px 0 20px;
+}
 
-                    main {
-                      width: 100%;
-                        max-width: 640px;
-                          margin: auto;
-                            border: 4px solid #71885b;
-                              background: #8cbd65;
-                                overflow: hidden;
-                                }
+main {
+  width: 100%;
+  max-width: 640px;
+  margin: auto;
+  border: 4px solid #71885b;
+  background: #8cbd65;
+  overflow: hidden;
+}
 
-                                canvas {
-                                  display: block;
-                                    width: 100%;
-                                      height: auto;
-                                        image-rendering: pixelated;
-                                          image-rendering: crisp-edges;
-                                            touch-action: none;
-                                            }
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  touch-action: none;
+}
 
-                                            #status {
-                                              min-height: 20px;
-                                                font-size: 14px;
-                                                  color: #d4e5cb;
-                                                  }
+#status {
+  min-height: 20px;
+  font-size: 14px;
+  color: #d4e5cb;
+}
 
-                                                  .controles {
-                                                    display: flex;
-                                                      flex-direction: column;
-                                                        align-items: center;
-                                                          gap: 8px;
-                                                            margin-top: 20px;
-                                                              padding-bottom: 20px;
-                                                              }
+.controles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
 
-                                                              .linha {
-                                                                display: flex;
-                                                                  gap: 12px;
-                                                                  }
+.linha {
+  display: flex;
+  gap: 12px;
+}
 
-                                                                  .controles button {
-                                                                    width: 64px;
-                                                                      height: 56px;
-                                                                        border: 2px solid #a9c58d;
-                                                                          border-radius: 12px;
-                                                                            background: #354d32;
-                                                                              color: white;
-                                                                                font-size: 24px;
-                                                                                  font-weight: bold;
-                                                                                    touch-action: none;
-                                                                                      user-select: none;
-                                                                                        -webkit-user-select: none;
-                                                                                        }
+.controles button {
+  width: 64px;
+  height: 56px;
+  border: 2px solid #a9c58d;
+  border-radius: 12px;
+  background: #354d32;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
-                                                                                        .controles button:active {
-                                                                                          background: #63884b;
-                                                                                            transform: scale(0.94);
-                                                                                            }
-                                                                                            
-                                                     }
-                                                                
+.controles button:active {
+  background: #63884b;
+  transform: scale(0.94);
+}
