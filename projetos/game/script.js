@@ -13,13 +13,28 @@
 /* ---------- 1. CONFIG ---------- */
 const CONFIG = {
   velocidade: 120,          // pixels por segundo (mude aqui para andar mais rápido/devagar)
-  alturaPersonagem: 56,     // altura de Dellalos no mundo (a largura segue a proporção da imagem)
+  alturaPersonagem: 80,     // altura de UM quadro de Dellalos no mundo (os quadros são quadrados)
+
+  // SPRITESHEET: dellalos.jpg tem 4 colunas x 4 linhas de quadros.
+  // Cada animação diz em qual linha está e quais colunas usar.
+  sprite: {
+    colunas: 4,
+    linhas: 4,
+    tempoPorQuadro: 0.14,   // segundos em cada quadro da caminhada
+    pes: 0.93,              // onde ficam os pés dentro do quadro (0 = topo, 1 = base). Ajuste se ela "flutuar" ou "afundar"
+    animacoes: {
+      baixo:    { linha: 0, quadros: [0, 1, 2, 3] },
+      cima:     { linha: 1, quadros: [2, 3] },
+      esquerda: { linha: 2, quadros: [0, 1, 2, 3] },
+      direita:  { linha: 3, quadros: [0, 1, 2, 3] }
+    }
+  },
 
   // CENÁRIO: quando você colocar Assets/sala.jpg, mude "ativar" para true.
   // x, y, largura e altura definem onde e com que tamanho a imagem é desenhada.
   sala: {
     ativar: false,
-    arquivo: "assets/sala.jpg",
+    arquivo: "Assets/sala.jpg",
     x: 0,
     y: 0,
     largura: 640,
@@ -38,14 +53,50 @@ ctx.imageSmoothingEnabled = false;   // mantém os pixels nítidos
 const imgDellalos = new Image();
 let dellalosOk = false;
 // Tenta o caminho principal e, se falhar, algumas variações (Android diferencia maiúsculas de minúsculas)
-const CAMINHOS_DELLALOS = ["assets/dellalos.jpg", "assets/dellalos.jpg", "dellalos.jpg"];
+const CAMINHOS_DELLALOS = ["Assets/dellalos.jpg", "assets/dellalos.jpg", "dellalos.jpg"];
 let tentativa = 0;
-imgDellalos.onload = () => { dellalosOk = true; };
+imgDellalos.onload = () => { prepararFolha(); dellalosOk = true; };
 imgDellalos.onerror = () => {
   console.warn("Não achei " + CAMINHOS_DELLALOS[tentativa]);
   tentativa++;
   if (tentativa < CAMINHOS_DELLALOS.length) imgDellalos.src = CAMINHOS_DELLALOS[tentativa];
 };
+
+// A imagem é JPG, então o fundo preto não é transparente.
+// Aqui copiamos a imagem para um canvas escondido e apagamos o preto que está ligado às bordas.
+// (O contorno escuro do desenho fica, porque não está ligado ao fundo.)
+let folha = imgDellalos;   // se algo falhar, usa a imagem original
+
+function prepararFolha() {
+  try {
+    const w = imgDellalos.naturalWidth, h = imgDellalos.naturalHeight;
+    const c = document.createElement("canvas");
+    c.width = w; c.height = h;
+    const cx = c.getContext("2d");
+    cx.drawImage(imgDellalos, 0, 0);
+    const dados = cx.getImageData(0, 0, w, h);
+    const px = dados.data;
+    const LIMITE = 38;                      // quanto mais alto, mais cinza escuro some
+    const visitado = new Uint8Array(w * h);
+    const pilha = [0, w - 1, (h - 1) * w, h * w - 1];   // começa pelos 4 cantos
+    const escuro = (i) => px[i*4] < LIMITE && px[i*4+1] < LIMITE && px[i*4+2] < LIMITE;
+    while (pilha.length) {
+      const i = pilha.pop();
+      if (visitado[i] || !escuro(i)) continue;
+      visitado[i] = 1;
+      px[i*4+3] = 0;                        // transparente
+      const x = i % w, y = (i / w) | 0;
+      if (x > 0) pilha.push(i - 1);
+      if (x < w - 1) pilha.push(i + 1);
+      if (y > 0) pilha.push(i - w);
+      if (y < h - 1) pilha.push(i + w);
+    }
+    cx.putImageData(dados, 0, 0);
+    folha = c;
+  } catch (erro) {
+    console.warn("Não consegui remover o fundo preto (abra pelo servidor do Acode).", erro);
+  }
+}
 imgDellalos.src = CAMINHOS_DELLALOS[0];
 
 // A imagem da sala só é carregada se CONFIG.sala.ativar for true.
@@ -93,7 +144,9 @@ const jogador = {
   y: 300,           // posição dos pés (parte de baixo)
   largura: 40,
   altura: CONFIG.alturaPersonagem,
-  direcao: "baixo"  // preparado para animações futuras
+  direcao: "baixo",  // baixo, cima, esquerda ou direita
+  quadro: 0,         // qual quadro da animação está sendo mostrado
+  tempoAnim: 0       // cronômetro da animação
 };
 
 // Caixa de colisão: só a parte de baixo do corpo (estilo Zelda), menor que a imagem
@@ -209,7 +262,12 @@ function atualizar(dt) {
   if (teclado.up    || toque.up)    dy -= 1;
   if (teclado.down  || toque.down)  dy += 1;
 
-  if (dx === 0 && dy === 0) return;
+  if (dx === 0 && dy === 0) {
+    // Parada: mostra o primeiro quadro da direção atual
+    jogador.quadro = 0;
+    jogador.tempoAnim = 0;
+    return;
+  }
 
   // Diagonal: divide por 1.414 para não ser mais rápida
   if (dx !== 0 && dy !== 0) { dx *= Math.SQRT1_2; dy *= Math.SQRT1_2; }
@@ -217,6 +275,11 @@ function atualizar(dt) {
   // Direção (para animações futuras)
   if (Math.abs(dx) > Math.abs(dy)) jogador.direcao = dx < 0 ? "esquerda" : "direita";
   else jogador.direcao = dy < 0 ? "cima" : "baixo";
+
+  // Avança a animação de caminhada
+  const anim = CONFIG.sprite.animacoes[jogador.direcao];
+  jogador.tempoAnim += dt;
+  jogador.quadro = Math.floor(jogador.tempoAnim / CONFIG.sprite.tempoPorQuadro) % anim.quadros.length;
 
   const passoX = dx * CONFIG.velocidade * dt;
   const passoY = dy * CONFIG.velocidade * dt;
@@ -286,14 +349,22 @@ function desenharCenario() {
 function desenharJogador() {
   const j = jogador;
   if (dellalosOk) {
-    // Mantém a proporção original da imagem (sem deformar)
-    const proporcao = imgDellalos.naturalWidth / imgDellalos.naturalHeight;
+    const sp = CONFIG.sprite;
+    // Tamanho de um quadro dentro da imagem
+    const qw = folha.width / sp.colunas;
+    const qh = folha.height / sp.linhas;
+    // Escolhe o quadro: linha da direção + coluna do quadro atual
+    const anim = sp.animacoes[j.direcao];
+    const coluna = anim.quadros[j.quadro % anim.quadros.length];
+    const recorteX = coluna * qw;
+    const recorteY = anim.linha * qh;
+    // Tamanho no mundo (mantém a proporção do quadro)
     const h = j.altura;
-    const w = h * proporcao;
-    j.largura = w;
-    ctx.drawImage(imgDellalos, Math.round(j.x - w / 2), Math.round(j.y - h), w, h);
+    const w = h * (qw / qh);
+    // Centraliza na horizontal e coloca os pés na posição do jogador
+    ctx.drawImage(folha, recorteX, recorteY, qw, qh,
+                  Math.round(j.x - w / 2), Math.round(j.y - h * sp.pes), w, h);
   } else {
-    // Aviso simples caso a imagem não carregue
     ctx.fillStyle = "rgba(0,0,0,0.6)";
     ctx.fillRect(j.x - 20, j.y - 40, 40, 40);
     ctx.fillStyle = "#fff";
