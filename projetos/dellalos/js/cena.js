@@ -15,6 +15,7 @@
                     (viram sólidos e interativos sozinhos; veja js/npcs.js)
      placas      -> plaquinhas com texto: { texto, x, y (centro), w, h }
      solidos     -> (opcional) retângulos extras que bloqueiam
+     aoEntrar    -> (opcional) função chamada toda vez que Dellalos entra na cena
    Todas as posições (x, y, area) são em pixels do jogo; 1 tile = 64.
    Use celula(x, y, w, h) para escrever áreas em tiles.
    ===================================================== */
@@ -50,6 +51,7 @@ function entrarNaCena(id, x, y, dir) {
   const cena = CENAS[id];
   prepararCena(cena);
   cenaAtual = cena;
+  if (cena.aoEntrar) cena.aoEntrar();   // (opcional) ajustes da cena ao entrar, ex.: porta já destrancada
   jogador.x = x;
   jogador.y = y;
   if (dir) jogador.direcao = dir;
