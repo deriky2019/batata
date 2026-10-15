@@ -7,10 +7,10 @@
      fundo       -> (opcional) imagem: { arquivos:[...], x, y, largura, altura }
      desenhar    -> (opcional) mapa improvisado: função desenhar(ctx)
      solidos     -> paredes e móveis que bloqueiam
-     interativos -> objetos do botão A: { nome, area, texto } ou { nome, area, destino:{cena,x,y} }
+     interativos -> objetos do botão B: { nome, area, texto } ou { nome, area, destino:{cena,x,y} }
      saidas      -> lugares que levam a outra cena ao encostar: { area, para, x, y }
      inimigos    -> { tipo, x, y }
-     combate     -> true = o botão A ataca quando não há nada para interagir
+     combate     -> true = o botão A ataca neste lugar
    Se "fundo" existir e a imagem carregar, ela vale; senão usa o "desenhar".
    ===================================================== */
 

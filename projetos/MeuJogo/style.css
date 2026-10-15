@@ -53,7 +53,7 @@ html, body {
 .dir[data-dir="right"] { grid-column: 3; grid-row: 2; }
 .dir[data-dir="down"]  { grid-column: 2; grid-row: 3; }
 
-.dir, #botaoA {
+.dir, #botaoA, #botaoB {
   border: 2px solid rgba(255, 255, 255, 0.55);
   background: rgba(30, 24, 20, 0.55);
   color: #f3e6c8;
@@ -66,7 +66,7 @@ html, body {
 }
 
 /* Visual de botão pressionado (classe colocada pelo JavaScript) */
-.dir.ativo, #botaoA.ativo {
+.dir.ativo, #botaoA.ativo, #botaoB.ativo {
   background: rgba(230, 180, 80, 0.75);
   color: #2a1d0c;
 }
@@ -77,16 +77,25 @@ html, body {
   border: 2px solid rgba(255, 255, 255, 0.25);
 }
 
-/* ===== Botão A (canto inferior direito) ===== */
-#botaoA {
+/* ===== Botões A (ataca) e B (interage), canto inferior direito ===== */
+#botaoA, #botaoB {
+  --tam: clamp(80px, 18vmin, 110px);
   position: fixed;
-  right: max(24px, env(safe-area-inset-right));
-  bottom: max(28px, env(safe-area-inset-bottom));
-  width: clamp(80px, 18vmin, 110px);
-  height: clamp(80px, 18vmin, 110px);
+  width: var(--tam);
+  height: var(--tam);
   border-radius: 50%;
   font-size: 34px;
   font-weight: bold;
+}
+
+/* A fica mais alto e à direita; B fica embaixo, à esquerda do A */
+#botaoA {
+  right: max(24px, env(safe-area-inset-right));
+  bottom: calc(max(28px, env(safe-area-inset-bottom)) + var(--tam) * 0.55);
+}
+#botaoB {
+  right: calc(max(24px, env(safe-area-inset-right)) + var(--tam) + 12px);
+  bottom: max(28px, env(safe-area-inset-bottom));
 }
 
 /* ===== Aviso para girar o aparelho (só celular em pé) ===== */

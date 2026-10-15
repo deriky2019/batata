@@ -1,5 +1,5 @@
 /* =====================================================
-   controles.js - Teclado e toque (D-pad e botão A)
+   controles.js - Teclado e toque (D-pad, botão A e botão B)
    ===================================================== */
 
 const teclado = { up: false, down: false, left: false, right: false };
@@ -15,7 +15,9 @@ const MAPA_TECLAS = {
 window.addEventListener("keydown", (e) => {
   const dir = MAPA_TECLAS[e.key];
   if (dir) { teclado[dir] = true; e.preventDefault(); }
-  if ((e.key === " " || e.key === "Enter") && !e.repeat) { acao(); e.preventDefault(); }
+  // Teclado: Espaço = A (ataca) | Enter ou E = B (interage)
+  if (e.key === " " && !e.repeat) { acaoA(); e.preventDefault(); }
+  if ((e.key === "Enter" || e.key === "e" || e.key === "E") && !e.repeat) { acaoB(); e.preventDefault(); }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -54,18 +56,21 @@ document.querySelectorAll(".dir").forEach((botao) => {
   botao.addEventListener("contextmenu", (e) => e.preventDefault());
 });
 
-// Botão A
-const botaoA = document.getElementById("botaoA");
-botaoA.addEventListener("pointerdown", (e) => {
-  e.preventDefault();
-  botaoA.setPointerCapture(e.pointerId);
-  botaoA.classList.add("ativo");
-  acao();
-});
-["pointerup", "pointercancel", "lostpointercapture"].forEach((nome) => {
-  botaoA.addEventListener(nome, () => botaoA.classList.remove("ativo"));
-});
-botaoA.addEventListener("contextmenu", (e) => e.preventDefault());
+// Botões A e B (mesma lógica, cada um chama a sua função)
+function ligarBotaoDeAcao(botao, funcao) {
+  botao.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    botao.setPointerCapture(e.pointerId);
+    botao.classList.add("ativo");
+    funcao();
+  });
+  ["pointerup", "pointercancel", "lostpointercapture"].forEach((nome) => {
+    botao.addEventListener(nome, () => botao.classList.remove("ativo"));
+  });
+  botao.addEventListener("contextmenu", (e) => e.preventDefault());
+}
+ligarBotaoDeAcao(document.getElementById("botaoA"), () => acaoA());   // A = ataca
+ligarBotaoDeAcao(document.getElementById("botaoB"), () => acaoB());   // B = interage
 
 // Bloqueia rolagem/gestos no resto da tela
 document.addEventListener("touchmove", (e) => e.preventDefault(), { passive: false });

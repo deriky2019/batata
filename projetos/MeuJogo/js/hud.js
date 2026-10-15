@@ -1,6 +1,6 @@
 /* =====================================================
    hud.js - Interface desenhada em cima do jogo:
-   corações de vida, mensagens e o balãozinho "A"
+   corações de vida, mensagens e o balãozinho "B"
    ===================================================== */
 
 let mensagem = "";
@@ -9,6 +9,14 @@ let mensagemAte = 0;
 function mostrarMensagem(texto) {
   mensagem = texto;
   mensagemAte = performance.now() + 2500;
+}
+
+// O botão B usa estas duas para avançar/fechar a mensagem na tela
+function mensagemVisivel() {
+  return performance.now() <= mensagemAte;
+}
+function fecharMensagem() {
+  mensagemAte = 0;
 }
 
 function desenharMensagem() {
@@ -22,7 +30,7 @@ function desenharMensagem() {
   ctx.fillText(mensagem, MUNDO_L / 2, MUNDO_A - 108, largura - 24);
 }
 
-// Balãozinho "A" sobre a cabeça quando há algo para interagir
+// Balãozinho "B" sobre a cabeça quando há algo para interagir
 function desenharDica() {
   if (!objetoAlcancavel()) return;
   const x = jogador.x;
@@ -32,7 +40,7 @@ function desenharDica() {
   ctx.fillStyle = "#f3e6c8";
   ctx.font = "bold 24px sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("A", x, y + 9);
+  ctx.fillText("B", x, y + 9);
 }
 
 function desenharCoracao(cx, cy, s, cheio) {

@@ -1,8 +1,7 @@
 /* =====================================================
-   interacoes.js - O que o botão A faz
-   1) Perto de um objeto interativo: fala ou leva a outra cena
-   2) Senão, em lugar com combate: ataca
-   3) Senão: "Nada por aqui."
+   interacoes.js - O que os botões A e B fazem
+   A = ataca (em lugares com combate)
+   B = interage (portas, objetos, conversas, avançar texto)
    ===================================================== */
 
 // Procura o objeto interativo mais próximo que Dellalos consegue alcançar
@@ -22,8 +21,20 @@ function objetoAlcancavel() {
   return melhor;
 }
 
-function acao() {
-  if (inventarioAberto || transicao) return;   // com o inventário aberto ou trocando de lugar, o A não faz nada
+// Botão A = ATACA (só em lugares com combate)
+function acaoA() {
+  if (inventarioAberto || transicao) return;   // inventário aberto ou trocando de lugar: não faz nada
+  if (cenaAtual.combate) iniciarAtaque();
+}
+
+// Botão B = INTERAGE com o ambiente
+//   1) Se há uma mensagem/fala na tela: avança (fecha) ela
+//   2) Perto de um objeto interativo: fala ou leva a outra cena (porta)
+//   3) Senão: "Nada por aqui."
+function acaoB() {
+  if (inventarioAberto || transicao) return;
+
+  if (mensagemVisivel()) { fecharMensagem(); return; }
 
   const obj = objetoAlcancavel();
   if (obj) {
@@ -31,6 +42,5 @@ function acao() {
     else mostrarMensagem(obj.texto);
     return;
   }
-  if (cenaAtual.combate) iniciarAtaque();
-  else mostrarMensagem("Nada por aqui.");
+  mostrarMensagem("Nada por aqui.");
 }

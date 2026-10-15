@@ -6,7 +6,7 @@
 const CONFIG = {
   velocidade: 260,          // pixels por segundo (mude para andar mais rápido/devagar)
   alturaPersonagem: 170,    // altura de UM quadro de Dellalos (os quadros são quadrados)
-  margemAcao: 40,           // distância máxima para o botão A "alcançar" um objeto
+  margemAcao: 40,           // distância máxima para o botão B "alcançar" um objeto
   transicao: 0.25,          // segundos do escurecer/clarear ao trocar de lugar
 
   // SPRITESHEET: dellalos.jpg tem 4 colunas x 4 linhas de quadros.
@@ -31,7 +31,7 @@ const CONFIG = {
     empurraoVelocidade: 320
   },
 
-  // ATAQUE (botão A quando não há nada para interagir, em lugares com combate)
+  // ATAQUE (botão A, em lugares com combate)
   combate: {
     dano: 1,
     alcance: 70,       // distância do golpe a partir do corpo
