@@ -28,4 +28,5 @@ function desenhar() {
   desenharHud();
   desenharDialogo();
   desenharFade();
+  desenharTelaTempo();
 }

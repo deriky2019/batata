@@ -281,3 +281,12 @@ html, body {
 
 #inventario .missao.feita .missao-titulo { text-decoration: line-through; opacity: 0.7; }
 #inventario .missao.feita h3 { color: #8fd18a; }
+
+/* Durante a tela preta (js/telatempo.js) os controles somem */
+body.tela-tempo #dpad,
+body.tela-tempo #botaoA,
+body.tela-tempo #botaoB,
+body.tela-tempo #btnInventario {
+  opacity: 0;
+  pointer-events: none;
+}

@@ -23,7 +23,7 @@ function objetoAlcancavel() {
 
 // Botão A = ATACA (só em lugares com combate)
 function acaoA() {
-  if (inventarioAberto || transicao || dialogoAberto) return;   // inventário aberto ou trocando de lugar: não faz nada
+  if (inventarioAberto || transicao || dialogoAberto || telaTempo) return;   // inventário aberto ou trocando de lugar: não faz nada
   if (cenaAtual.combate) iniciarAtaque();
 }
 
@@ -34,7 +34,7 @@ function acaoA() {
 //   4) Perto de um objeto: fala ou leva a outra cena (porta)
 //   5) Senão: "Nada por aqui."
 function acaoB() {
-  if (inventarioAberto || transicao) return;
+  if (inventarioAberto || transicao || telaTempo) return;
 
   if (dialogoAberto) { avancarDialogo(); return; }
   if (mensagemVisivel()) { fecharMensagem(); return; }

@@ -12,7 +12,22 @@ const MISSOES = [
     id: "escola",
     titulo: "Ir para a escola",
     descricao: "Siga pela avenida até a escola, no lado direito da cidade, e entre pela porta.",
-    chave: "chegouNaEscola"      // quando historia.chegouNaEscola vira true, a missão está concluída
+    chave: "chegouNaEscola",         // quando historia.chegouNaEscola vira true, a missão está concluída
+    aviso: "avisouMissaoEscola"      // já avisou "Nova missão"?
+  },
+  {
+    id: "millena",
+    titulo: "Falar com a Millena",
+    descricao: "A Millena está na sala 2A, a segunda porta do corredor da escola. Chegue perto dela e aperte B.",
+    chave: "conheceuMillena",
+    aviso: "avisouMissaoMillena"
+  },
+  {
+    id: "casa",
+    titulo: "Ir para casa",
+    descricao: "A aula acabou. Saia da escola e volte para a casa laranja, na esquerda da cidade.",
+    chave: "chegouEmCasa",
+    aviso: "avisouMissaoCasa"
   }
 ];
 
@@ -30,17 +45,39 @@ function sinalizarMissao() {
 
 // Chamado por entrarNaCena() (js/cena.js) toda vez que Dellalos chega num lugar
 function aoEntrarNaCena(id) {
+  // Missão 1: chegar na escola -> começa a missão 2
   if (!historia.chegouNaEscola && (id === "escola" || id.indexOf("aula") === 0)) {
     historia.chegouNaEscola = true;
-    mostrarMensagem("Missão concluída: Ir para a escola!");
+    historia.avisouMissaoMillena = true;
+    mostrarMensagem("Missão concluída! Nova: falar com a Millena.");
+    sinalizarMissao();
+    return;
+  }
+  // Missão 3: depois de conhecer a Millena, chegar em casa
+  if (historia.conheceuMillena && !historia.chegouEmCasa && id === "sala") {
+    historia.chegouEmCasa = true;
+    historia.avisouMissaoCasa = true;
+    mostrarMensagem("Missão concluída: Ir para casa!");
     sinalizarMissao();
   }
 }
 
-// Chamado uma vez quando o jogo abre: avisa da missão nova
+// Fim da conversa com a Millena ("Senta do meu lado!"): missão 2 concluída,
+// passa o tempo (tela preta de 2 segundos) e começa a missão 3
+function aoConhecerMillena() {
+  historia.conheceuMillena = true;
+  iniciarTelaTempo("Algumas horas depois...", function () {
+    historia.avisouMissaoCasa = true;
+    mostrarMensagem("Missão concluída! Nova: ir para casa.");
+    sinalizarMissao();
+  }, 2);
+}
+
+// Chamado uma vez quando o jogo abre: avisa da missão ativa se ainda não avisou
 function anunciarMissaoInicial() {
-  if (historia.avisouMissaoEscola || historia.chegouNaEscola) return;
-  historia.avisouMissaoEscola = true;
+  const m = missaoAtiva();
+  if (!m || historia[m.aviso]) return;
+  historia[m.aviso] = true;
   mostrarMensagem("Nova missão! Abra o inventário.");
   sinalizarMissao();
 }

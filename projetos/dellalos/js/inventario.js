@@ -41,7 +41,7 @@ function renderizarInventario() {
 }
 
 function abrirInventario() {
-  if (inventarioAberto || dialogoAberto) return;   // durante uma conversa não abre
+  if (inventarioAberto || dialogoAberto || telaTempo) return;   // durante uma conversa não abre
   inventarioAberto = true;
   btnInventario.classList.remove("novo");   // tira o "!" de missão nova
   soltarTudo();                       // solta setas/teclas que estavam pressionadas

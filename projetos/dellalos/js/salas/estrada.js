@@ -83,6 +83,7 @@
         x: 24 * TILE + TILE / 2, y: 19 * TILE + 58,    // na calçada, entre as duas casas
         imagem: ["assets/Morador.png", "assets/morador.png"],
         quadro: { linha: 0, coluna: 0 },
+        andar: { raioX: 224, raioY: 0, velocidade: 55 },   // passeia pela calçada
         conversar: function () {
           if (historia.conheceuMorador) abrirDialogo(DIALOGOS.morador.depois);
           else abrirDialogo(DIALOGOS.morador.primeira, function () { historia.conheceuMorador = true; });

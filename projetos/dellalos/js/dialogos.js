@@ -11,7 +11,11 @@ const historia = {
   conheceuMorador: false,
   conheceuEstudante: false,
   avisouMissaoEscola: false,   // já avisou "Nova missão"?
-  chegouNaEscola: false        // missão 1 concluída
+  chegouNaEscola: false,       // missão 1 concluída (ir para a escola)
+  avisouMissaoMillena: false,
+  // missão 2 (falar com a Millena) é concluída por conheceuMillena
+  avisouMissaoCasa: false,
+  chegouEmCasa: false          // missão 3 concluída (ir para casa)
 };
 
 const DIALOGOS = {
@@ -19,7 +23,8 @@ const DIALOGOS = {
     primeira: [
       { quem: "Millena",  texto: "Oi! Você é nova aqui?" },
       { quem: "Dellalos", texto: "Sim! Eu me chamo Dellalos." },
-      { quem: "Millena",  texto: "Você é a Dellalos! Eu sou a Millena. Vamos ser melhores amigas!" }
+      { quem: "Millena",  texto: "Você é a Dellalos! Eu sou a Millena. Vamos ser melhores amigas!" },
+      { quem: "Millena",  texto: "Senta do meu lado!" }
     ],
     depois: [
       { quem: "Millena",  texto: "Somos melhores amigas agora, Dellalos!" }

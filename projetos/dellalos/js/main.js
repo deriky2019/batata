@@ -12,6 +12,14 @@ function atualizarJogo(dt) {
     return;
   }
 
+  // Tela preta de passagem de tempo: o jogo fica pausado
+  if (telaTempo) {
+    atualizarTelaTempo(dt);
+    jogador.quadro = 0;
+    jogador.tempoAnim = 0;
+    return;
+  }
+
   // Inventário aberto: o jogo inteiro fica pausado
   if (inventarioAberto) {
     jogador.quadro = 0;
