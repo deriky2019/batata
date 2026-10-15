@@ -42,11 +42,17 @@ function loop(agora) {
 
   atualizarJogo(dt);   // lógica
   atualizarCamera();   // a câmera segue a Dellalos
+  atualizarSalvamento(dt);   // salva o progresso de tempos em tempos
   desenhar();          // visual
 
   requestAnimationFrame(loop);
 }
 
-// Começa na sala, no lugar inicial definido na própria sala (js/salas/sala.js)
-entrarNaCena("sala", CENAS.sala.spawn.x, CENAS.sala.spawn.y);
+// Abrir com ?novo no endereço apaga o save e começa do zero
+if (location.search.indexOf("novo") !== -1) apagarSave();
+
+// Se existe save, continua de onde parou; senão começa na sala (js/salas/sala.js)
+const salvo = lerSave();
+if (salvo) aplicarSave(salvo);
+else entrarNaCena("sala", CENAS.sala.spawn.x, CENAS.sala.spawn.y);
 requestAnimationFrame(loop);
