@@ -28,6 +28,20 @@ const MISSOES = [
     descricao: "A aula acabou. Saia da escola e volte para a casa laranja, na esquerda da cidade.",
     chave: "chegouEmCasa",
     aviso: "avisouMissaoCasa"
+  },
+  {
+    id: "morador",
+    titulo: "Falar com o Morador",
+    descricao: "O Morador, que passeia pela calçada entre as casas, tem algo para você. Chegue perto e aperte B.",
+    chave: "recebeuChaveQuarto",
+    aviso: "avisouMissaoMorador"
+  },
+  {
+    id: "quarto",
+    titulo: "Entrar no quarto do pai",
+    descricao: "Use a chave na porta do quarto do papai, dentro da sua casa, e entre.",
+    chave: "entrouQuartoPai",
+    aviso: "avisouMissaoQuarto"
   }
 ];
 
@@ -43,34 +57,55 @@ function sinalizarMissao() {
   btnInventario.classList.add("novo");
 }
 
+// Mostra "Missão concluída: X." e, se a missão ativa ainda não foi avisada, "Nova: Y."
+// "antes" é um texto opcional que vem na frente (ex.: "Você pegou a chave!")
+function proximaMissao(concluida, antes) {
+  let txt = antes ? antes + " " : "";
+  if (concluida) txt += "Missão concluída: " + concluida + ".";
+  const m = missaoAtiva();
+  if (m && !historia[m.aviso]) {
+    historia[m.aviso] = true;
+    txt += (txt ? " " : "") + "Nova: " + m.titulo + ".";
+  }
+  if (txt) mostrarMensagem(txt);
+  sinalizarMissao();
+}
+
 // Chamado por entrarNaCena() (js/cena.js) toda vez que Dellalos chega num lugar
 function aoEntrarNaCena(id) {
-  // Missão 1: chegar na escola -> começa a missão 2
+  // Missão 1: chegar na escola
   if (!historia.chegouNaEscola && (id === "escola" || id.indexOf("aula") === 0)) {
     historia.chegouNaEscola = true;
-    historia.avisouMissaoMillena = true;
-    mostrarMensagem("Missão concluída! Nova: falar com a Millena.");
-    sinalizarMissao();
+    proximaMissao("Ir para a escola");
     return;
   }
   // Missão 3: depois de conhecer a Millena, chegar em casa
   if (historia.conheceuMillena && !historia.chegouEmCasa && id === "sala") {
     historia.chegouEmCasa = true;
-    historia.avisouMissaoCasa = true;
-    mostrarMensagem("Missão concluída: Ir para casa!");
-    sinalizarMissao();
+    proximaMissao("Ir para casa");
+    return;
+  }
+  // Missão 5: entrar no quarto do pai
+  if (!historia.entrouQuartoPai && id === "quarto_pai") {
+    historia.entrouQuartoPai = true;
+    proximaMissao("Entrar no quarto do pai");
   }
 }
 
 // Fim da conversa com a Millena ("Senta do meu lado!"): missão 2 concluída,
-// passa o tempo (tela preta de 2 segundos) e começa a missão 3
+// passa o tempo (tela preta de 2 segundos) e começa a próxima missão
 function aoConhecerMillena() {
   historia.conheceuMillena = true;
   iniciarTelaTempo("Algumas horas depois...", function () {
-    historia.avisouMissaoCasa = true;
-    mostrarMensagem("Missão concluída! Nova: ir para casa.");
-    sinalizarMissao();
+    proximaMissao("Falar com a Millena");
   }, 2);
+}
+
+// Fim da conversa em que o Morador entrega a chave (missão 4)
+function entregarChaveDoMorador() {
+  if (!darItem("chave_quarto_pai")) return;     // inventário cheio: ele repete a conversa depois
+  historia.recebeuChaveQuarto = true;
+  proximaMissao("Falar com o Morador", "Você pegou: " + ITENS.chave_quarto_pai.nome + ".");
 }
 
 // Chamado uma vez quando o jogo abre: avisa da missão ativa se ainda não avisou
