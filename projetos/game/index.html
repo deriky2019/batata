@@ -1,36 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-    <meta name="viewport"
-            content="width=device-width, initial-scale=1.0">
+  <!-- user-scalable=no evita zoom por toque duplo; viewport-fit=cover usa a tela toda -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Dellalos - Aventura</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-              <title>Aventura Pixel</title>
+  <!-- O canvas é a "tela" onde o jogo é desenhado. 640x360 é o tamanho interno do mundo. -->
+  <canvas id="jogo" width="640" height="360"></canvas>
 
-                <link rel="stylesheet" href="style.css">
-                  <script src="script.js" defer></script>
-                  </head>
-                  <body>
+  <!-- Controles virtuais: D-pad no canto esquerdo -->
+  <div id="dpad" aria-label="Direcional">
+    <button class="dir" data-dir="up"    aria-label="Cima">▲</button>
+    <button class="dir" data-dir="left"  aria-label="Esquerda">◀</button>
+    <div class="centro"></div>
+    <button class="dir" data-dir="right" aria-label="Direita">▶</button>
+    <button class="dir" data-dir="down"  aria-label="Baixo">▼</button>
+  </div>
 
-                    <h1>Aventura Pixel</h1>
+  <!-- Botão de ação A no canto direito -->
+  <button id="botaoA" aria-label="Ação">A</button>
 
-                      <main>
-                          <canvas id="jogo" width="640" height="480"></canvas>
-                            </main>
+  <!-- Aviso que aparece só em celular em pé -->
+  <div id="girar">Gire o aparelho para jogar na horizontal</div>
 
-                              <p id="status">Carregando personagem...</p>
-
-                                <div class="controles">
-                                    <button data-direcao="cima">▲</button>
-
-                                        <div class="linha">
-                                              <button data-direcao="esquerda">◀</button>
-                                                    <button data-direcao="baixo">▼</button>
-                                                          <button data-direcao="direita">▶</button>
-                                                              </div>
-                                                                </div>
-
-                                                                </body>
-                                                                </html>
-                                                                
+  <script src="script.js"></script>
+</body>
+</html>
