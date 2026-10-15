@@ -18,7 +18,7 @@ const CONFIG = {
   alturaPersonagem: 170,    // altura de UM quadro de Dellalos (os quadros são quadrados)
   margemAcao: 40,           // distância máxima para o botão A "alcançar" um objeto
 
-  // CENÁRIO: imagem da sala. Se não achar a imagem, usa o cenário provisório.
+  // CENÁRIO: imagem da sala.
   sala: {
     ativar: true,
     // O jogo tenta cada caminho, em ordem, até achar a imagem
@@ -239,6 +239,63 @@ botaoA.addEventListener("contextmenu", (e) => e.preventDefault());
 // Bloqueia rolagem/gestos no resto da tela
 document.addEventListener("touchmove", (e) => e.preventDefault(), { passive: false });
 
+/* ---------- INVENTÁRIO ---------- */
+// Os 5 espaços do inventário. null = vazio.
+// No futuro, cada espaço poderá guardar um item assim:
+//   { nome: "Chave", descricao: "Abre a porta.", imagem: "assets/chave.png" }
+const inventario = {
+  slots: [null, null, null, null, null]
+};
+
+let inventarioAberto = false;   // enquanto for true, Dellalos fica parada
+
+const btnInventario   = document.getElementById("btnInventario");
+const painelInventario = document.getElementById("inventario");
+const btnFecharInv    = document.getElementById("inventarioFechar");
+const listaSlots      = document.getElementById("inventarioSlots");
+
+// Desenha os slots na tela. Limpa a lista antes, então nunca duplica.
+function renderizarInventario() {
+  listaSlots.replaceChildren();
+  inventario.slots.forEach((item, i) => {
+    const slot = document.createElement("div");
+    slot.className = "inv-slot";
+    slot.dataset.slot = i;
+    if (item) {
+      slot.title = item.nome;
+      if (item.imagem) {
+        const img = document.createElement("img");
+        img.src = item.imagem;
+        img.alt = item.nome;
+        slot.appendChild(img);
+      }
+    } else {
+      slot.classList.add("vazio");
+      slot.setAttribute("aria-label", "Espaço vazio");
+    }
+    listaSlots.appendChild(slot);
+  });
+}
+
+function abrirInventario() {
+  if (inventarioAberto) return;
+  inventarioAberto = true;
+  soltarTudo();                       // solta setas/teclas que estavam pressionadas
+  renderizarInventario();
+  painelInventario.hidden = false;
+}
+
+function fecharInventario() {
+  if (!inventarioAberto) return;
+  inventarioAberto = false;
+  painelInventario.hidden = true;
+}
+
+// Os eventos são ligados UMA vez só, aqui, quando o jogo carrega.
+btnInventario.addEventListener("click", abrirInventario);
+btnFecharInv.addEventListener("click", fecharInventario);
+window.addEventListener("keydown", (e) => { if (e.key === "Escape") fecharInventario(); });
+
 /* ---------- 6. AÇÃO (botão A) E ATUALIZAR ---------- */
 let mensagem = "";
 let mensagemAte = 0;
@@ -266,11 +323,19 @@ function objetoAlcancavel() {
 }
 
 function acao() {
+  if (inventarioAberto) return;   // com o inventário aberto, o botão A não faz nada
   const obj = objetoAlcancavel();
   mostrarMensagem(obj ? obj.texto : "Nada por aqui.");
 }
 
 function atualizar(dt) {
+  // Inventário aberto: Dellalos fica parada
+  if (inventarioAberto) {
+    jogador.quadro = 0;
+    jogador.tempoAnim = 0;
+    return;
+  }
+
   let dx = 0, dy = 0;
   if (teclado.left  || toque.left)  dx -= 1;
   if (teclado.right || toque.right) dx += 1;
@@ -307,17 +372,7 @@ function desenharCenario() {
   if (CONFIG.sala.ativar && salaOk) {
     const s = CONFIG.sala;
     ctx.drawImage(imgSala, s.x, s.y, s.largura, s.altura);
-    return;
   }
-
-  // Cenário provisório (aparece se a Sala.jpg não for encontrada)
-  ctx.fillStyle = "#b88a5a";
-  ctx.fillRect(0, 0, MUNDO_L, MUNDO_A);
-  ctx.fillStyle = "#4b3a52";
-  for (const p of paredes) ctx.fillRect(p.x, p.y, p.w, p.h);
-  ctx.fillStyle = "#3f7d3a"; ctx.fillRect(sofa.x, sofa.y, sofa.w, sofa.h);
-  ctx.fillStyle = "#7a4e2a"; ctx.fillRect(mesa.x, mesa.y, mesa.w, mesa.h);
-  ctx.fillStyle = "#6b4423"; ctx.fillRect(porta.x, porta.y, porta.w, porta.h);
 }
 
 function desenharJogador() {
