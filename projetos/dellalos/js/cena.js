@@ -33,11 +33,14 @@ function prepararCena(cena) {
   for (const n of cena.npcs || []) {
     prepararNpc(n);
     const b = caixaDoNpc(n);
+    const area = { x: b.x - 16, y: b.y - 16, w: b.w + 32, h: b.h + 32 };
+    n._solido = b;      // guardados para acompanhar o NPC quando ele anda (js/npcs.js)
+    n._area = area;
     cena.solidos.push(b);
     cena.interativos.push({
       nome: n.nome,
-      area: { x: b.x - 16, y: b.y - 16, w: b.w + 32, h: b.h + 32 },
-      conversar: n.conversar
+      area,
+      conversar: function () { npcOlharJogador(n); n.conversar(); }
     });
   }
 }
@@ -52,6 +55,7 @@ function entrarNaCena(id, x, y, dir) {
   if (dir) jogador.direcao = dir;
   inimigos = (cena.inimigos || []).map((e) => criarInimigo(e.tipo, e.x, e.y));
   atualizarCamera();
+  aoEntrarNaCena(id);   // missões (js/missoes.js)
 }
 
 // Troca de cena com escurecer/clarear

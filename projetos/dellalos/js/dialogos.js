@@ -9,7 +9,9 @@
 const historia = {
   conheceuMillena: false,
   conheceuMorador: false,
-  conheceuEstudante: false
+  conheceuEstudante: false,
+  avisouMissaoEscola: false,   // já avisou "Nova missão"?
+  chegouNaEscola: false        // missão 1 concluída
 };
 
 const DIALOGOS = {

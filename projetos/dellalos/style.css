@@ -232,3 +232,52 @@ html, body {
   font-size: 14px;
   opacity: 0.7;
 }
+
+/* Bolinha "!" no 🎒 quando há missão nova ou atualizada */
+#btnInventario.novo::after {
+  content: "!";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e0463c;
+  border: 2px solid #1e1612;
+  color: #fff;
+  font: bold 15px/20px system-ui, sans-serif;
+  text-align: center;
+}
+
+/* Caixa da missão no inventário */
+#inventarioMissoes { margin: 0 0 16px; }
+
+#inventario .missao {
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 3px solid #6b4a2a;
+  border-radius: 10px;
+  text-align: left;
+}
+
+#inventario .missao h3 {
+  margin: 0 0 4px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #e0b45a;
+}
+
+#inventario .missao .missao-titulo {
+  margin: 0;
+  font-size: clamp(16px, 3.6vmin, 20px);
+  font-weight: bold;
+}
+
+#inventario .missao .missao-desc {
+  margin: 4px 0 0;
+  font-size: clamp(13px, 3vmin, 16px);
+  opacity: 0.85;
+}
+
+#inventario .missao.feita .missao-titulo { text-decoration: line-through; opacity: 0.7; }
+#inventario .missao.feita h3 { color: #8fd18a; }

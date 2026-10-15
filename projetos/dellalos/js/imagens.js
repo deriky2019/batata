@@ -30,7 +30,7 @@ carregarImagem(["assets/Dellalos.png", "assets/dellalos.png", "assets/dellalos.j
 // Copiamos para um canvas escondido e apagamos o preto ligado às bordas.
 function prepararFolha(img, limite) {
   try {
-    const w = img.naturalWidth, h = img.naturalHeight;
+    const w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
     const c = document.createElement("canvas");
     c.width = w; c.height = h;
     const cx = c.getContext("2d");
@@ -58,4 +58,33 @@ function prepararFolha(img, limite) {
     console.warn("Não consegui remover o fundo preto (abra pelo servidor do Acode).", erro);
     return img;
   }
+}
+
+// A imagem tem fundo opaco (JPG, ou PNG salvo sem transparência)? Olha os 4 cantos.
+function temFundoOpaco(img) {
+  try {
+    const w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+    const c = document.createElement("canvas");
+    c.width = 1; c.height = 1;
+    const cx = c.getContext("2d");
+    for (const [x, y] of [[0, 0], [w - 1, 0], [0, h - 1], [w - 1, h - 1]]) {
+      cx.clearRect(0, 0, 1, 1);
+      cx.drawImage(img, x, y, 1, 1, 0, 0, 1, 1);
+      if (cx.getImageData(0, 0, 1, 1).data[3] < 250) return false;   // tem transparência
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+// Folhas enormes (ex.: 2048 px) ficam lentas de processar: reduz para no máximo "max" px
+function reduzirFolha(img, max) {
+  const w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+  if (w <= max) return img;
+  const e = max / w;
+  const c = document.createElement("canvas");
+  c.width = Math.round(w * e); c.height = Math.round(h * e);
+  c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+  return c;
 }

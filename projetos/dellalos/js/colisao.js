@@ -17,7 +17,7 @@ function caixaDoJogador(x, y) {
 }
 
 // A caixa bate em alguma parede/móvel da cena atual?
-function temSolido(caixa) {
+function temSolido(caixa, ignorar) {
   const m = cenaAtual.mapa;
   if (m) {
     const x0 = Math.floor(caixa.x / TILE), x1 = Math.floor((caixa.x + caixa.w - 0.01) / TILE);
@@ -30,6 +30,7 @@ function temSolido(caixa) {
     }
   }
   for (const s of cenaAtual.solidos) {
+    if (s === ignorar) continue;
     if (bate(caixa, s)) return true;
   }
   return false;

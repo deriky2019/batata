@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- user-scalable=no evita zoom por toque duplo; viewport-fit=cover usa a tela toda -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Dellalos - Aventura</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- O canvas é a "tela" onde o jogo é desenhado. Ele ocupa a tela inteira; o tamanho é ajustado por js/config.js (ajustarTela). -->
+  <canvas id="jogo" width="1200" height="896"></canvas>
+
+  <!-- Controles virtuais: D-pad no canto esquerdo -->
+  <div id="dpad" aria-label="Direcional">
+    <button class="dir" data-dir="up"    aria-label="Cima">▲</button>
+    <button class="dir" data-dir="left"  aria-label="Esquerda">◀</button>
+    <div class="centro"></div>
+    <button class="dir" data-dir="right" aria-label="Direita">▶</button>
+    <button class="dir" data-dir="down"  aria-label="Baixo">▼</button>
+  </div>
+
+  <!-- Botão A = ataca | Botão B = interage (porta, conversa, avançar texto) -->
+  <button id="botaoB" aria-label="Interagir">B</button>
+  <button id="botaoA" aria-label="Atacar">A</button>
+
+  <!-- Botão do inventário (canto superior esquerdo) -->
+  <button id="btnInventario" aria-label="Abrir inventário">🎒</button>
+
+  <!-- Painel do inventário (começa escondido) -->
+  <div id="inventario" hidden>
+    <div class="inv-painel" role="dialog" aria-modal="true" aria-labelledby="inventarioTitulo">
+      <button id="inventarioFechar" aria-label="Fechar inventário">X</button>
+      <h2 id="inventarioTitulo">INVENTÁRIO</h2>
+      <div id="inventarioMissoes"></div>
+      <div id="inventarioSlots"></div>
+      <p class="inv-dica">Nenhum item ainda.</p>
+    </div>
+  </div>
+
+  <!-- Aviso que aparece só em celular em pé -->
+  <div id="girar">Gire o aparelho para jogar na horizontal</div>
+
+  <!-- Ordem importa: cada arquivo pode usar os que vêm antes dele -->
+  <script src="js/config.js"></script>
+  <script src="js/imagens.js"></script>
+  <script src="js/tiles.js"></script>
+  <script src="js/colisao.js"></script>
+  <script src="js/controles.js"></script>
+  <script src="js/inventario.js"></script>
+  <script src="js/jogador.js"></script>
+  <script src="js/inimigos.js"></script>
+  <script src="js/combate.js"></script>
+  <script src="js/npcs.js"></script>
+  <script src="js/dialogos.js"></script>
+  <script src="js/itens.js"></script>
+  <script src="js/missoes.js"></script>
+  <script src="js/salvamento.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/cena.js"></script>
+  <script src="js/interacoes.js"></script>
+  <script src="js/salas/_portas.js"></script>
+  <script src="js/salas/sala.js"></script>
+  <script src="js/salas/estrada.js"></script>
+  <script src="js/salas/escola.js"></script>
+  <script src="js/salas/aulas.js"></script>
+  <script src="js/desenho.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

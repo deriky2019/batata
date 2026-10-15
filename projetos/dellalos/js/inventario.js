@@ -18,6 +18,7 @@ const listaSlots       = document.getElementById("inventarioSlots");
 
 // Desenha os slots na tela. Limpa a lista antes, então nunca duplica.
 function renderizarInventario() {
+  renderizarMissoes();                // painel da missão (js/missoes.js)
   listaSlots.replaceChildren();
   inventario.slots.forEach((item, i) => {
     const slot = document.createElement("div");
@@ -42,6 +43,7 @@ function renderizarInventario() {
 function abrirInventario() {
   if (inventarioAberto || dialogoAberto) return;   // durante uma conversa não abre
   inventarioAberto = true;
+  btnInventario.classList.remove("novo");   // tira o "!" de missão nova
   soltarTudo();                       // solta setas/teclas que estavam pressionadas
   renderizarInventario();
   painelInventario.hidden = false;

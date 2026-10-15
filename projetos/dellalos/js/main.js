@@ -29,6 +29,7 @@ function atualizarJogo(dt) {
   }
 
   atualizarJogador(dt);
+  atualizarNpcs(dt);
   verificarSaidas();
   atualizarInimigos(dt);
   atualizarCombate(dt);
@@ -55,4 +56,5 @@ if (location.search.indexOf("novo") !== -1) apagarSave();
 const salvo = lerSave();
 if (salvo) aplicarSave(salvo);
 else entrarNaCena("sala", CENAS.sala.spawn.x, CENAS.sala.spawn.y);
+anunciarMissaoInicial();   // avisa da missão (js/missoes.js)
 requestAnimationFrame(loop);
