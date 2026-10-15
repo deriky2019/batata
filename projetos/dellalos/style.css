@@ -304,3 +304,82 @@ body.tela-tempo #btnInventario {
 #inventario .inv-slot.vazio { cursor: default; }
 #inventario .inv-slot.escolhido { border-color: #e0b45a; }
 #inventario .inv-dica { min-height: 2.6em; }
+
+/* ===== Tela inicial e tela de morte ===== */
+#menuInicial,
+#telaMorte {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 6vmin, 44px);
+  padding: 16px;
+  font-family: system-ui, sans-serif;
+  touch-action: manipulation;
+}
+#menuInicial[hidden],
+#telaMorte[hidden] { display: none; }
+
+#menuInicial {
+  z-index: 60;
+  background: radial-gradient(ellipse at center, #2b2038 0%, #0c0910 75%);
+}
+
+.titulo-jogo {
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: clamp(3px, 1.2vmin, 8px);
+  font-size: clamp(34px, 11vmin, 84px);
+  line-height: 1.05;
+  color: #f3e6c8;
+  text-shadow: 0 4px 0 #6b4a2a, 0 8px 22px rgba(0, 0, 0, 0.8), 0 0 28px rgba(224, 180, 90, 0.35);
+}
+
+.menu-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 3vmin, 18px);
+  width: min(78vw, 340px);
+}
+
+.btn-menu {
+  padding: clamp(12px, 3.4vmin, 18px) 20px;
+  border: 3px solid #e0b45a;
+  border-radius: 12px;
+  background: #3a2a1c;
+  color: #f3e6c8;
+  font-size: clamp(18px, 4.4vmin, 26px);
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px #1e1612;
+}
+.btn-menu:active { background: #e0b45a; color: #2a1d0c; }
+.btn-menu:disabled {
+  opacity: 0.35;
+  cursor: default;
+  background: #3a2a1c;
+  color: #f3e6c8;
+}
+
+/* Morte: só preto e o botão Renascer (escurece devagar, o botão aparece depois) */
+#telaMorte {
+  z-index: 55;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.8s;
+  pointer-events: none;
+}
+#telaMorte.visivel { opacity: 1; pointer-events: auto; }
+#telaMorte .btn-menu {
+  width: min(70vw, 280px);
+  opacity: 0;
+  transition: opacity 0.5s 0.8s;
+}
+#telaMorte.visivel .btn-menu { opacity: 1; }
+
+/* o aviso "gire o aparelho" fica por cima de tudo */
+#girar { z-index: 70; }
