@@ -48,6 +48,12 @@
     </div>
   </div>
 
+  <!-- Carregando (aparece ao tocar em Continuar / Do zero) -->
+  <div id="carregando" hidden>
+    <p id="carregandoTexto">Carregando... 0%</p>
+    <div class="carregando-barra"><div id="carregandoProgresso"></div></div>
+  </div>
+
   <!-- Tela preta quando a Dellalos morre -->
   <div id="telaMorte" hidden>
     <button id="btnRenascer" class="btn-menu">Renascer</button>
@@ -82,6 +88,7 @@
   <script src="js/salas/aulas.js"></script>
   <script src="js/salas/quartopai.js"></script>
   <script src="js/desenho.js"></script>
+  <script src="js/carregamento.js"></script>
   <script src="js/telas.js"></script>
   <script src="js/main.js"></script>
 </body>
