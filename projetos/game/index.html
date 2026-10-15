@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -23,6 +23,19 @@
 
   <!-- Botão de ação A no canto direito -->
   <button id="botaoA" aria-label="Ação">A</button>
+
+  <!-- Botão do inventário (canto superior esquerdo) -->
+  <button id="btnInventario" aria-label="Abrir inventário">🎒</button>
+
+  <!-- Painel do inventário (começa escondido) -->
+  <div id="inventario" hidden>
+    <div class="inv-painel" role="dialog" aria-modal="true" aria-labelledby="inventarioTitulo">
+      <button id="inventarioFechar" aria-label="Fechar inventário">X</button>
+      <h2 id="inventarioTitulo">INVENTÁRIO</h2>
+      <div id="inventarioSlots"></div>
+      <p class="inv-dica">Nenhum item ainda.</p>
+    </div>
+  </div>
 
   <!-- Aviso que aparece só em celular em pé -->
   <div id="girar">Gire o aparelho para jogar na horizontal</div>
