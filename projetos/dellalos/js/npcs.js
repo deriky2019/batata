@@ -35,7 +35,9 @@ function prepararNpc(n) {
   n._espera = 0.5 + Math.random() * 2;
   carregarImagem(n.imagem, (img) => {
     // Se o fundo é opaco (JPG ou PNG sem transparência), apaga o preto do fundo
-    n._folha = temFundoOpaco(img) ? prepararFolha(reduzirFolha(img, 1024), n.limitePreto || 18) : img;
+    setTimeout(() => {   // um instante depois: deixa a tela de carregamento atualizar antes do trabalho pesado
+      n._folha = temFundoOpaco(img) ? prepararFolha(reduzirFolha(img, 1024), n.limitePreto || 18) : img;
+    }, 30);
   });
 }
 
