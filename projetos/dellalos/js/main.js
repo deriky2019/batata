@@ -4,6 +4,13 @@
    ===================================================== */
 
 function atualizarJogo(dt) {
+  // Tela inicial ou tela de morte: o jogo fica pausado
+  if (menuAberto || jogador.morto) {
+    jogador.quadro = 0;
+    jogador.tempoAnim = 0;
+    return;
+  }
+
   // Conversa aberta: o jogo fica pausado (só o texto aparecendo)
   if (dialogoAberto) {
     atualizarDialogo(dt);
@@ -60,9 +67,9 @@ function loop(agora) {
 // Abrir com ?novo no endereço apaga o save e começa do zero
 if (location.search.indexOf("novo") !== -1) apagarSave();
 
-// Se existe save, continua de onde parou; senão começa na sala (js/salas/sala.js)
-const salvo = lerSave();
-if (salvo) aplicarSave(salvo);
-else entrarNaCena("sala", CENAS.sala.spawn.x, CENAS.sala.spawn.y);
-anunciarMissaoInicial();   // avisa da missão (js/missoes.js)
+// O jogo começa na sala só como "fundo" da tela inicial (js/telas.js).
+// Quem decide o que acontece é o botão Continuar ou Do zero.
+entrarNaCena("sala", CENAS.sala.spawn.x, CENAS.sala.spawn.y);
+iniciarCarregamento();   // começa a baixar/preparar todas as imagens já na tela inicial (js/carregamento.js)
+mostrarMenuInicial();
 requestAnimationFrame(loop);
