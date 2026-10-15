@@ -15,7 +15,8 @@ const jogador = {
   invulneravel: 0,  // segundos restantes sem levar dano
   atacando: 0,      // segundos restantes do golpe (para desenhar)
   recarga: 0,       // segundos até poder golpear de novo
-  empurraoT: 0, empurraoX: 0, empurraoY: 0   // empurrão ao levar dano
+  empurraoT: 0, empurraoX: 0, empurraoY: 0,  // empurrão ao levar dano
+  morto: false      // true = tela preta de morte (js/telas.js); o jogo fica pausado
 };
 
 // Vetor de cada direção (usado no ataque)
@@ -38,17 +39,10 @@ function machucarJogador(dano, origemX, origemY) {
   jogador.empurraoY = (dy / d) * CONFIG.jogador.empurraoVelocidade;
   jogador.empurraoT = CONFIG.jogador.empurraoTempo;
 
-  if (jogador.vida <= 0) desmaiar();
+  if (jogador.vida <= 0) morrer();
 }
 
-// Sem vida: acorda em casa com a vida cheia
-function desmaiar() {
-  jogador.vida = jogador.vidaMax;
-  jogador.invulneravel = 2;
-  mostrarMensagem("Você desmaiou e acordou em casa.");
-  const s = CENAS.sala.spawn;
-  mudarCena("sala", s.x, s.y, "cima");
-}
+// Sem vida: tela preta com o botão "Renascer" (morrer() e renascer() ficam em js/telas.js)
 
 function atualizarJogador(dt) {
   jogador.invulneravel = Math.max(0, jogador.invulneravel - dt);
