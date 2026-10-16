@@ -71,8 +71,8 @@ criarAula({
       quadro: { linha: 0, coluna: 0 },   // parada, olhando para baixo
       limitePreto: 18,                   // só vale para o JPG (preserva o cabelo preto)
       conversar: function () {
-        if (historia.conheceuMillena) abrirDialogo(DIALOGOS.millena.depois);
-        else abrirDialogo(DIALOGOS.millena.primeira, function () { historia.conheceuMillena = true; });
+        if (historia.conheceuMillena) abrirDialogo(historia.conheceuLucas ? DIALOGOS.millena.depoisLucas : DIALOGOS.millena.depois);
+        else abrirDialogo(DIALOGOS.millena.primeira, aoConhecerMillena);
       }
     }
   ]
@@ -86,7 +86,18 @@ criarAula({
   mesas: [[7, 5], [8, 5], [12, 5], [13, 5], [16, 5], [17, 5],
           [7, 7], [8, 7], [12, 7], [13, 7], [16, 7], [17, 7],
           [3, 8], [4, 8], [3, 10], [4, 10]],
-  textoQuadro: "O quadro está cheio de anotações."
+  textoQuadro: "O quadro está cheio de anotações.",
+  npcs: [
+    {
+      nome: "Nathalia", cor: "#4a7a7a",              // sem sprite ainda: boneco provisório
+      x: 10 * TILE + TILE / 2, y: 5 * TILE + 58,
+      se: function () { return historia.conheceuLucas; },   // só depois de "Novos encontros"
+      conversar: function () {
+        if (historia.conheceuNathalia) abrirDialogo(DIALOGOS.nathalia.depois);
+        else abrirDialogo(DIALOGOS.nathalia.primeira, function () { historia.conheceuNathalia = true; });
+      }
+    }
+  ]
 });
 
 // ----- 3A: vazia, sem NPC -----
