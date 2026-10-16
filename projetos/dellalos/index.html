@@ -33,9 +33,19 @@
     <div class="inv-painel" role="dialog" aria-modal="true" aria-labelledby="inventarioTitulo">
       <button id="inventarioFechar" aria-label="Fechar inventário">X</button>
       <h2 id="inventarioTitulo">INVENTÁRIO</h2>
-      <div id="inventarioMissoes"></div>
-      <div id="inventarioSlots"></div>
-      <p class="inv-dica" id="inventarioDica">Nenhum item ainda.</p>
+      <div class="inv-abas">
+        <button id="abaBtnMochila" class="ativa">🎒 Mochila</button>
+        <button id="abaBtnDiario">📖 Diário</button>
+      </div>
+
+      <div id="abaMochila">
+        <div id="inventarioMissoes"></div>
+        <div id="inventarioSlots"></div>
+        <p class="inv-dica" id="inventarioDica">Nenhum item ainda.</p>
+        <button id="inventarioExaminar" hidden>Examinar</button>
+      </div>
+
+      <div id="abaDiario" hidden></div>
     </div>
   </div>
 
@@ -60,7 +70,7 @@
   </div>
 
   <!-- Aviso que aparece só em celular em pé -->
-  <div id="girar">Gire o aparelho para jogar na horiaaaazontal</div>
+  <div id="girar">Gire o aparelho para jogar na horizontal</div>
 
   <!-- Ordem importa: cada arquivo pode usar os que vêm antes dele -->
   <script src="js/config.js"></script>
@@ -73,6 +83,8 @@
   <script src="js/inimigos.js"></script>
   <script src="js/combate.js"></script>
   <script src="js/npcs.js"></script>
+  <script src="js/personagens.js"></script>
+  <script src="js/diario.js"></script>
   <script src="js/dialogos.js"></script>
   <script src="js/itens.js"></script>
   <script src="js/missoes.js"></script>
