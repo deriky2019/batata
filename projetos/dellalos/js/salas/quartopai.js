@@ -27,7 +27,16 @@
     mapa: m,
     corFora: "#3a3050",
     interativos: [
-      { nome: "estantes", area: celula(1, 3, 2, 1), texto: "Livros de trabalho do papai." },
+      {
+        nome: "estantes",
+        area: celula(1, 3, 2, 1),
+        conversar: function () {
+          if (historia.achouCaderno) { mostrarMensagem("Livros de trabalho do papai."); return; }
+          if (!darItem("caderno_pessoal")) return;       // inventário cheio: tenta de novo depois
+          historia.achouCaderno = true;
+          mostrarMensagem("Entre os livros havia um caderno. Você pegou: " + ITENS.caderno_pessoal.nome + ".");
+        }
+      },
       { nome: "sofa",     area: celula(3, 6, 3, 1), texto: "O sofá onde o papai descansava." },
       {
         nome: "escrivaninha",
