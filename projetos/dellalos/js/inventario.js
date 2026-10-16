@@ -15,12 +15,14 @@ const btnInventario    = document.getElementById("btnInventario");
 const painelInventario = document.getElementById("inventario");
 const btnFecharInv     = document.getElementById("inventarioFechar");
 const listaSlots       = document.getElementById("inventarioSlots");
+const btnExaminar      = document.getElementById("inventarioExaminar");   // aparece quando o item tem "exame" (js/itens.js)
 
 // Desenha os slots na tela. Limpa a lista antes, então nunca duplica.
 // Tocar num item mostra o nome e a descrição dele embaixo.
 function renderizarInventario() {
   renderizarMissoes();                // painel da missão (js/missoes.js)
   const dica = document.getElementById("inventarioDica");
+  btnExaminar.hidden = true;
   const temAlgum = inventario.slots.some((x) => x);
   dica.textContent = temAlgum ? "Toque em um item para ver o que é." : "Nenhum item ainda.";
 
@@ -45,7 +47,9 @@ function renderizarInventario() {
       slot.addEventListener("click", () => {
         listaSlots.querySelectorAll(".inv-slot").forEach((el) => el.classList.remove("escolhido"));
         slot.classList.add("escolhido");
-        dica.textContent = item.nome + " - " + item.descricao;
+        dica.textContent = item.nome + " - " + descricaoDoItem(item);
+        btnExaminar.hidden = !item.exame;
+        btnExaminar.onclick = () => examinarItem(item);
       });
     } else {
       slot.classList.add("vazio");
@@ -86,6 +90,7 @@ function abrirInventario() {
   if (menuAberto || jogador.morto || inventarioAberto || dialogoAberto || telaTempo) return;   // durante uma conversa não abre
   inventarioAberto = true;
   btnInventario.classList.remove("novo");   // tira o "!" de missão nova
+  mostrarAba("mochila");              // sempre abre na mochila (o diário é a outra aba)
   soltarTudo();                       // solta setas/teclas que estavam pressionadas
   renderizarInventario();
   painelInventario.hidden = false;
