@@ -23,7 +23,9 @@ function iniciarCarregamento() {
     () => !!tilesetExtras
   ];
   for (const id in CENAS) {
-    for (const n of CENAS[id].npcs || []) carregamentoItens.push(() => !!n._folha);
+    for (const n of CENAS[id].npcs || []) {
+      if (n.imagem && n.imagem.length) carregamentoItens.push(() => !!n._folha);   // NPC sem sprite não espera
+    }
   }
 }
 
