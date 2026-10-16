@@ -51,13 +51,25 @@ function entrarNaCena(id, x, y, dir) {
   const cena = CENAS[id];
   prepararCena(cena);
   cenaAtual = cena;
+  for (const n of cena.npcs || []) if (n.se) ajustarPresencaNpc(n);   // NPC ausente não bloqueia o caminho (js/npcs.js)
   if (cena.aoEntrar) cena.aoEntrar();   // (opcional) ajustes da cena ao entrar, ex.: porta já destrancada
   jogador.x = x;
   jogador.y = y;
   if (dir) jogador.direcao = dir;
-  inimigos = (cena.inimigos || []).map((e) => criarInimigo(e.tipo, e.x, e.y));
+  inimigos = [];
+  (cena.inimigos || []).forEach((e, idx) => {
+    if (cena._derrotados && cena._derrotados.has(idx)) return;   // já derrotado
+    const i = criarInimigo(e.tipo, e.x, e.y, idx);
+    posicionarInimigoLivre(i);                                   // não nasce preso em árvore
+    inimigos.push(i);
+  });
   atualizarCamera();
   aoEntrarNaCena(id);   // missões (js/missoes.js)
+}
+
+// Todos os inimigos voltam (usado ao renascer e ao começar "Do zero")
+function reiniciarInimigos() {
+  for (const id in CENAS) CENAS[id]._derrotados = null;
 }
 
 // Troca de cena com escurecer/clarear
