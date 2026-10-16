@@ -15,6 +15,10 @@
        },
        conversar: function () { ... }     // o que o botão B faz
      }
+   Campos opcionais novos:
+     se: () => bool      o NPC só existe (aparece, bloqueia, conversa) quando isto for verdadeiro
+     (sem "imagem")      NPC ainda sem sprite: vira um boneco provisório com o nome, sem erro de carregamento
+     cor: "#rrggbb"      cor do boneco provisório
    A folha segue o mesmo padrão da Dellalos: linha 0 = baixo, 1 = cima, 2 = esquerda, 3 = direita.
    Fundo preto (JPG ou PNG sem transparência) é apagado sozinho.
    ===================================================== */
@@ -33,6 +37,7 @@ function prepararNpc(n) {
   n._y0 = n.y;
   n._destino = null;
   n._espera = 0.5 + Math.random() * 2;
+  if (!n.imagem || !n.imagem.length) { n._semImagem = true; return; }   // sem sprite: boneco provisório
   carregarImagem(n.imagem, (img) => {
     // Se o fundo é opaco (JPG ou PNG sem transparência), apaga o preto do fundo
     setTimeout(() => {   // um instante depois: deixa a tela de carregamento atualizar antes do trabalho pesado
@@ -80,8 +85,22 @@ function escolherDestinoNpc(n) {
   return null;
 }
 
+// O NPC está presente agora? (campo opcional  se  na definição do NPC)
+function npcAtivo(n) {
+  return !n.se || !!n.se();
+}
+
+// NPC ausente: tira a caixa sólida e a área de conversa do caminho (ele volta quando  se()  ficar true)
+function ajustarPresencaNpc(n) {
+  if (npcAtivo(n)) { sincronizarNpc(n); return; }
+  if (n._solido) { n._solido.x = -99999; n._solido.y = -99999; }
+  if (n._area)   { n._area.x = -99999;   n._area.y = -99999; }
+}
+
 function atualizarNpcs(dt) {
   for (const n of cenaAtual.npcs || []) {
+    if (n.se) ajustarPresencaNpc(n);
+    if (!npcAtivo(n)) continue;
     if (!n.andar || !n._pronto) continue;
 
     if (n._espera > 0) {                       // parado, descansando
@@ -142,12 +161,18 @@ function desenharNpc(n) {
     ctx.drawImage(n._folha, coluna * qw, linha * qh, qw, qh,
                   Math.round(n.x - w / 2), Math.round(n.y - h * sp.pes), w, h);
   } else {
-    // Imagem ainda não carregou (ou não foi achada): um marcador simples
-    ctx.fillStyle = "rgba(0,0,0,0.6)";
-    ctx.fillRect(n.x - 30, n.y - 60, 60, 60);
+    // Sem imagem (ainda não carregou, não foi achada ou o personagem ainda não tem sprite):
+    // boneco provisório com o nome em cima
+    ctx.fillStyle = "rgba(0,0,0,0.18)";
+    ctx.beginPath(); ctx.ellipse(n.x, n.y - 2, 22, 7, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = n.cor || "#6a5a8a";
+    ctx.fillRect(n.x - 20, n.y - 70, 40, 62);                          // corpo
+    ctx.beginPath(); ctx.arc(n.x, n.y - 86, 16, 0, Math.PI * 2); ctx.fill();   // cabeça
+    ctx.lineWidth = 3; ctx.strokeStyle = "#1e1612";
+    ctx.strokeRect(n.x - 20, n.y - 70, 40, 62);
     ctx.fillStyle = "#fff";
-    ctx.font = "16px sans-serif";
+    ctx.font = "bold 18px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText(n.nome, n.x, n.y - 26);
+    ctx.fillText(n.nome, n.x, n.y - 108);
   }
 }
