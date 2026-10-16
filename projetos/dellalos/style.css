@@ -420,3 +420,57 @@ body.tela-tempo #btnInventario {
   background: #e0b45a;
   transition: width 0.2s;
 }
+
+
+/* ===== Abas Mochila | Diário (js/diario.js) ===== */
+#inventario .inv-abas {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 0 14px;
+}
+#inventario .inv-abas button {
+  flex: 1;
+  max-width: 200px;
+  padding: 8px 10px;
+  border: 2px solid #6b4a2a;
+  background: rgba(0, 0, 0, 0.3);
+  color: #f3e6c8;
+  border-radius: 10px;
+  font: bold 15px system-ui, sans-serif;
+  outline: none;
+}
+#inventario .inv-abas button.ativa {
+  background: #e0b45a;
+  border-color: #fff4c2;
+  color: #2a1d0c;
+}
+
+#abaMochila[hidden], #abaDiario[hidden], #inventarioExaminar[hidden] { display: none; }
+
+#inventarioExaminar {
+  margin: 10px auto 0;
+  padding: 10px 22px;
+  border: 2px solid #e0b45a;
+  background: rgba(30, 24, 20, 0.7);
+  color: #f3e6c8;
+  border-radius: 10px;
+  font: bold 16px system-ui, sans-serif;
+  outline: none;
+}
+#inventarioExaminar:active { background: #e0b45a; color: #2a1d0c; }
+
+#abaDiario { text-align: left; }
+#abaDiario .dia-titulo {
+  margin: 16px 0 6px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #e0b45a;
+}
+#abaDiario .dia-titulo:first-child { margin-top: 0; }
+#abaDiario .dia-linha { margin: 4px 0; font-size: clamp(13px, 3vmin, 16px); }
+#abaDiario .dia-linha.vazio { opacity: 0.55; }
+#abaDiario .dia-linha.feito { opacity: 0.7; }
+#abaDiario .dia-doc-titulo { font-weight: bold; margin-top: 8px; }
+#abaDiario .dia-doc { opacity: 0.9; font-style: italic; }
+#abaDiario .missao { margin-bottom: 8px; }
