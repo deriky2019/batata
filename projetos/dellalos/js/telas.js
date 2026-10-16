@@ -50,9 +50,11 @@ function novoJogo() {
 
   // estado inicial (a tela inicial ainda não mexeu em nada, mas garantimos)
   for (const k in historia) historia[k] = false;
+  resetarDiario();
   inventario.slots = [null, null, null, null, null];
   jogador.vida = jogador.vidaMax;
   jogador.invulneravel = 0;
+  reiniciarInimigos();
 
   aguardarCarregamento(function () {
     fecharMenuInicial();
@@ -85,6 +87,7 @@ function renascer() {
   jogador.vida = jogador.vidaMax;
   jogador.invulneravel = 2;
   jogador.empurraoT = 0;
+  reiniciarInimigos();
   entrarNaCena("sala", sp.x, sp.y, "cima");   // troca na hora, com a tela ainda preta
   jogador.morto = false;
   mostrarMensagem("Você renasceu em casa.");
