@@ -17,7 +17,7 @@ function desenhar() {
   // Quem está mais embaixo na tela aparece na frente
   const seres = [];
   inimigos.forEach((i) => seres.push({ y: i.y, desenhar: () => desenharInimigo(i) }));
-  (cenaAtual.npcs || []).forEach((n) => seres.push({ y: n.y, desenhar: () => desenharNpc(n) }));
+  (cenaAtual.npcs || []).filter(npcAtivo).forEach((n) => seres.push({ y: n.y, desenhar: () => desenharNpc(n) }));
   seres.push({ y: jogador.y, desenhar: () => { desenharJogador(); desenharAtaque(); } });
   seres.sort((a, b) => a.y - b.y).forEach((s) => s.desenhar());
 
