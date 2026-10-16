@@ -48,6 +48,7 @@ function atualizarJogo(dt) {
   verificarSaidas();
   atualizarInimigos(dt);
   atualizarCombate(dt);
+  verificarMissoes();   // conclui missões sozinhas e dispara pequenos eventos (js/missoes.js)
 }
 
 let ultimo = performance.now();
