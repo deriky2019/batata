@@ -63,6 +63,42 @@
           if (historia.conheceuEstudante) abrirDialogo(DIALOGOS.estudante.depois);
           else abrirDialogo(DIALOGOS.estudante.primeira, function () { historia.conheceuEstudante = true; });
         }
+      },
+
+      // ----- Novos (sem sprite ainda: boneco provisório). Só aparecem no dia seguinte. -----
+      {
+        nome: "Lucas", cor: "#3a4a6a",
+        x: 22 * TILE + TILE / 2, y: 5 * TILE + 58,
+        se: function () { return historia.novoDia; },
+        conversar: function () {
+          if (historia.conheceuLucas) abrirDialogo(DIALOGOS.lucas.depois);
+          else abrirDialogo(DIALOGOS.lucas.primeira, function () { historia.conheceuLucas = true; });
+        }
+      },
+      {
+        nome: "Simon", cor: "#5a7a5a",
+        x: 20 * TILE + TILE / 2, y: 5 * TILE + 58,
+        se: function () { return historia.novoDia; },
+        conversar: function () {
+          abrirDialogo(historia.conheceuLucas ? DIALOGOS.simon.depois : DIALOGOS.simon.antes);
+        }
+      },
+      {
+        nome: "Vitinho", cor: "#7a6a3a",
+        x: 24 * TILE + TILE / 2, y: 5 * TILE + 58,
+        se: function () { return historia.novoDia; },
+        conversar: function () {
+          abrirDialogo(historia.conheceuLucas ? DIALOGOS.vitinho.depois : DIALOGOS.vitinho.antes);
+        }
+      },
+      {
+        nome: "Veras", cor: "#7a3a4a",
+        x: 3 * TILE + TILE / 2, y: 9 * TILE + 58,
+        se: function () { return historia.conheceuLucas; },
+        conversar: function () {
+          if (historia.conheceuVeras) abrirDialogo(DIALOGOS.veras.depois);
+          else abrirDialogo(DIALOGOS.veras.primeira, function () { historia.conheceuVeras = true; });
+        }
       }
     ]
   };
