@@ -33,7 +33,8 @@ function salvarJogo(emCasa) {
     dir: casa ? "cima" : jogador.direcao,
     vida: casa ? jogador.vidaMax : jogador.vida,
     slots: inventario.slots,
-    historia: historia
+    historia: historia,
+    diario: diario            // novo: conhecidos, informações, documentos e escolhas (js/diario.js)
   };
   try { localStorage.setItem(SAVE_CHAVE, JSON.stringify(dados)); } catch (e) { /* sem espaço ou bloqueado: ignora */ }
 }
@@ -60,7 +61,11 @@ function apagarSave() {
 function aplicarSave(d) {
   // história: só as chaves que existem hoje (save antigo não quebra jogo novo)
   const h = d.historia || {};
-  for (const k in historia) if (typeof h[k] === "boolean") historia[k] = h[k];
+  for (const k in historia) historia[k] = typeof h[k] === "boolean" ? h[k] : false;   // campo novo ausente = false
+
+  // diário: save antigo não tem "diario" -> começa vazio e é reconstruído pelo que já aconteceu
+  aplicarDiario(d.diario);
+  if (!d.diario) migrarDiarioAntigo();
 
   // inventário: 5 espaços; item só vale se tiver nome
   const s = Array.isArray(d.slots) ? d.slots : [];
