@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- user-scalable=no evita zoom por toque duplo; viewport-fit=cover usa a tela toda -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Shadow of War</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- O canvas é a "tela" onde o jogo é desenhado. Ele ocupa a tela inteira; o tamanho é ajustado por js/config.js (ajustarTela). -->
+  <canvas id="jogo" width="1200" height="896"></canvas>
+
+  <!-- Controles virtuais: D-pad no canto esquerdo -->
+  <div id="dpad" aria-label="Direcional">
+    <button class="dir" data-dir="up"    aria-label="Cima">▲</button>
+    <button class="dir" data-dir="left"  aria-label="Esquerda">◀</button>
+    <div class="centro"></div>
+    <button class="dir" data-dir="right" aria-label="Direita">▶</button>
+    <button class="dir" data-dir="down"  aria-label="Baixo">▼</button>
+  </div>
+
+  <!-- Botão A = ataca | Botão B = interage (porta, conversa, avançar texto) -->
+  <button id="botaoB" aria-label="Interagir">B</button>
+  <button id="botaoA" aria-label="Atacar">A</button>
+  <!-- Botão C = esquiva (só aparece onde há combate) -->
+  <button id="botaoC" aria-label="Esquivar">💨</button>
+
+  <!-- Botão do inventário (canto superior esquerdo) -->
+  <button id="btnInventario" aria-label="Abrir inventário">🎒</button>
+  <!-- Mapinha: toque para ampliar (js/mapinha.js) -->
+  <canvas id="mapinha" aria-label="Mapa" hidden></canvas>
+
+  <!-- Painel do inventário (começa escondido) -->
+  <div id="inventario" hidden>
+    <div class="inv-painel" role="dialog" aria-modal="true" aria-labelledby="inventarioTitulo">
+      <button id="btnSom" aria-label="Desligar som" title="Ligar/desligar som">🔊 Som</button>
+      <button id="inventarioFechar" aria-label="Fechar inventário">×</button>
+      <h2 id="inventarioTitulo">INVENTÁRIO</h2>
+      <div class="inv-abas">
+        <button id="abaBtnMochila" class="ativa">🎒 Mochila</button>
+        <button id="abaBtnDiario">📖 Diário</button>
+        <button id="abaBtnRelacionamento">💞 Relacionamentos</button>
+      </div>
+
+      <div id="abaMochila">
+        <div id="inventarioMissoes"></div>
+        <div id="inventarioSlots"></div>
+        <p class="inv-dica" id="inventarioDica">Nenhum item ainda.</p>
+        <button id="inventarioExaminar" hidden>Examinar</button>
+        <button id="inventarioEquipar" hidden>Equipar</button>
+        <button id="inventarioComer" hidden>Comer</button>
+      </div>
+
+      <div id="abaDiario" hidden></div>
+      <div id="abaRelacionamento" hidden></div>
+    </div>
+  </div>
+
+  <!-- Loja (abre ao conversar com o Seu Tomás; js/loja.js controla) -->
+  <div id="loja" hidden>
+    <div class="loja-painel" role="dialog" aria-modal="true" aria-labelledby="lojaTitulo">
+      <button id="lojaFechar" aria-label="Fechar loja">X</button>
+      <h2 id="lojaTitulo">LOJA</h2>
+      <p id="lojaMoedas" class="loja-moedas"></p>
+      <div id="lojaLista"></div>
+      <p id="lojaAviso" class="inv-dica"></p>
+    </div>
+  </div>
+
+  <!-- Tela inicial (começa visível; js/telas.js controla) -->
+  <div id="menuInicial">
+    <h1 class="titulo-jogo">Shadow of War</h1>
+    <div class="menu-botoes">
+      <button id="btnContinuar" class="btn-menu">Continuar</button>
+      <button id="btnDoZero" class="btn-menu">Do zero</button>
+    </div>
+  </div>
+
+  <!-- Carregando (aparece ao tocar em Continuar / Do zero) -->
+  <div id="carregando" hidden>
+    <p id="carregandoTexto">Carregando... 0%</p>
+    <div class="carregando-barra"><div id="carregandoProgresso"></div></div>
+  </div>
+
+  <!-- Tela preta quando a Dellalos morre -->
+  <div id="telaMorte" hidden>
+    <button id="btnRenascer" class="btn-menu">Renascer</button>
+  </div>
+
+  <!-- Opções ao interagir com um personagem -->
+  <section id="menuInteracaoNPC" hidden role="dialog" aria-modal="true" aria-label="Opções de conversa com personagem">
+    <h2 id="npcMenuTitulo">Conversar</h2>
+    <p class="npc-menu-dica">Escolha como deseja conversar</p>
+    <button id="npcConversaNormal" class="npc-opcao npc-opcao-padrao" type="button"><span class="npc-opcao-icone" aria-hidden="true">▤</span><span class="npc-opcao-texto"><strong>Conversa padrão</strong><small>Diálogos da história e opções prontas</small></span><span class="npc-opcao-seta" aria-hidden="true">›</span></button>
+    <button id="npcConversaLivre" class="npc-opcao npc-opcao-livre" type="button"><span class="npc-opcao-icone" aria-hidden="true">✎</span><span class="npc-opcao-texto"><strong>Conversa livre</strong><small>Escreva o que deseja dizer</small></span><span class="npc-opcao-seta" aria-hidden="true">›</span></button>
+    <button id="npcMenuFechar" class="npc-voltar" type="button">‹ Voltar</button>
+  </section>
+  <!-- Conversa livre offline; aberta pelo menu de interação do NPC -->
+  <section id="painelConversaIA" hidden aria-label="Conversa com personagem" role="dialog" aria-modal="true">
+    <header class="ia-cabecalho">
+      <div><strong>CONVERSA COM PERSONAGEM</strong><small>Shadow of War · conversa offline</small></div>
+      <button id="iaFechar" type="button" aria-label="Fechar conversa">✕</button>
+    </header>
+    <label class="ia-label" for="iaPersonagem">Personagem</label>
+    <select id="iaPersonagem">
+      <option value="Nathalia">Nathalia</option>
+      <option value="Millena">Millena</option>
+      <option value="Lucas">Lucas</option>
+      <option value="Isabela">Isabela</option>
+      <option value="Thaina">Thaina</option>
+      <option value="Deriky">Deriky</option>
+      <option value="Simon">Simon</option>
+    </select>
+    <div id="iaMensagens" aria-live="polite" aria-label="Mensagens da conversa"></div>
+    <div id="iaSugestoes" class="ia-sugestoes" aria-label="Sugestões de pergunta"></div>
+    <form id="iaFormulario">
+      <textarea id="iaTexto" rows="2" maxlength="1000" placeholder="Escreva o que quiser sobre o jogo..." required></textarea>
+      <button id="iaEnviar" type="submit">Enviar ➤</button>
+    </form>
+    <p id="iaStatus" role="status">Offline e grátis: respostas por regras e informações do jogo; não é uma IA generativa completa.</p>
+    <button id="iaFracasBtn" type="button" class="ia-link">Respostas fracas (0)</button>
+    <section id="iaFracas" hidden aria-label="Respostas fracas registradas">
+      <p>Mensagens que o personagem não soube responder bem. Fica só neste aparelho. Toque em Copiar e cole na conversa com a Claude para melhorar o jogo.</p>
+      <textarea id="iaFracasTexto" readonly rows="10"></textarea>
+      <div class="ia-fracas-acoes">
+        <button id="iaFracasCopiar" type="button">Copiar</button>
+        <button id="iaFracasBaixar" type="button">Baixar .txt</button>
+        <button id="iaFracasLimpar" type="button">Limpar</button>
+        <button id="iaFracasFechar" type="button">Voltar</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- Aviso que aparece só em celular em pé -->
+  <div id="girar">Gire o aparelho para jogar na horizontal</div>
+
+  <!-- Ordem importa: cada arquivo pode usar os que vêm antes dele -->
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>   <!-- sons e música sintetizados (sem arquivos) -->
+  <script src="js/efeitos.js"></script>   <!-- tremor, faíscas, números de dano, esquiva -->
+  <script src="js/ciclo.js"></script>   <!-- ciclo de dia e noite -->
+  <script src="js/chuva.js"></script>   <!-- chuva aleatória ao ar livre -->
+  <script src="js/mapinha.js"></script>   <!-- minimapa -->
+  <script src="js/imagens.js"></script>
+  <script src="js/tiles.js"></script>
+  <script src="js/colisao.js"></script>
+  <script src="js/controles.js"></script>
+  <script src="js/inventario.js"></script>
+  <script src="js/jogador.js"></script>
+  <script src="js/inimigos.js"></script>
+  <script src="js/combate.js"></script>
+  <script src="js/habilidade.js"></script>   <!-- grito espectral: segurar o botão A (nó da árvore do grimório) -->
+  <script src="js/npcs.js"></script>
+  <script src="js/personagens.js"></script>
+  <script src="js/diario.js"></script>
+  <script src="js/dialogos.js"></script>
+  <script src="js/roupas.js"></script>   <!-- armário da casa: troca a roupa (sprite) da Dellalos, dia 2+ -->
+  <script src="js/itens.js"></script>
+  <script src="js/missoes.js"></script>
+<script src="js/reputacao.js"></script>   <!-- reputação: missões secundárias dão mais moedas dos inimigos -->
+  <script src="js/dias.js"></script>
+<script src="js/calendario.js"></script>   <!-- em que dia cada missão é oferecida -->
+  <script src="js/loja.js"></script>
+  <script src="js/salvamento.js"></script>
+  <script src="js/hud.js"></script>
+  <script src="js/telatempo.js"></script>
+  <script src="js/cena.js"></script>
+  <script src="js/interacoes.js"></script>
+  <script src="js/salas/_portas.js"></script>
+  <script src="js/salas/sala.js"></script>
+  <script src="js/salas/estrada.js"></script>
+  <script src="js/salas/escola.js"></script>   <!-- 1º andar da escola (entrada, 1A, 2A, 2B, 2C) -->
+  <script src="js/salas/escola2.js"></script>   <!-- 2º andar da escola (3A, 3B, 3C e sala dos professores) -->
+  <script src="js/salas/aulas.js"></script>
+  <script src="js/salas/quartopai.js"></script>
+  <script src="js/salas/loja.js"></script>
+  <script src="js/salas/necro.js"></script>   <!-- loja NECRO por dentro (só abre de noite; a fachada fica na Zona Leste) -->
+  <script src="js/salas/bairrosul.js"></script>
+  <script src="js/salas/bairrosul2.js"></script>   <!-- nova região ao sul: comunidade de sobreviventes e fazenda -->
+  <script src="js/salas/zonaleste.js"></script>   <!-- região perigosa a leste: ferro-velho, pátio e fachada da fábrica -->
+  <script src="js/salas/zonaleste2.js"></script>   <!-- extensão Leste 2: estação e depósitos -->
+  <script src="js/salas/fabrica.js"></script>   <!-- interior da fábrica (dungeon com chefe): precisa vir depois de zonaleste.js -->
+  <script src="js/salas/zonanorte.js"></script>   <!-- região a norte: bosque, cabana, cemitério, ruínas e capela; espíritos que soltam essências -->
+  <script src="js/salas/zonanorte2.js"></script>   <!-- Zona Norte 2: bairro devastado, casas destruídas, sem NPCs -->
+  <script src="js/salas/capela.js"></script>   <!-- capela da colina por dentro: altar do Caos (opcional) e as essências dos espíritos -->
+  <script src="js/salas/casassul.js"></script>   <!-- interiores das casas do Bairro Sul (precisa vir depois de bairrosul.js) -->
+  <script src="js/salas/zonaoeste.js"></script>   <!-- região a oeste: mansão abandonada, praça, bairro residencial, área comercial, terminal e entrada de instalação subterrânea (só cenário) -->
+  <script src="js/salas/zonaoeste2.js"></script>   <!-- Oeste 2: planície e treino diário com Simon, Deriky e Vitinho a partir do dia 6 -->
+  <script src="js/salas/mansao.js"></script>   <!-- mansão da Zona Oeste por dentro (escura, precisa da lanterna; papéis do passado e da seita) -->
+  <script src="js/expansao_v57.js"></script>
+  <script src="js/casas_v57.js"></script>   <!-- v57: amplia todos os mapas existentes para 2x -->
+  <script src="js/amizade.js"></script>   <!-- amizade e companheiros: precisa vir depois das salas -->
+  <script src="js/relacoes.js"></script>   <!-- memória de escolhas e consequências sociais offline (v49) -->
+  <script src="js/simon.js"></script>   <!-- dia 4: Simon acompanha a Dellalos até o Deriky -->
+  <script src="js/chave1a.js"></script>
+  <script src="js/thaina.js"></script>
+  <script src="js/dia10.js"></script>   <!-- dia 10: o dia da volta do papai (Isabela, Thaina e Lucas/Caos; precisa vir depois de thaina.js) -->   <!-- dia 7: a Thaina no norte, o Caos no Lucas, procurar o Lucas (precisa vir depois de zonanorte.js e chave1a.js) -->   <!-- dia 5: a sala 1A (Millena ou Nathalia, chave, Mariane) -->
+  <script src="js/torneio.js"></script>   <!-- dia 15: o torneio na arena da Oeste 2 (precisa vir depois do dia10.js e das salas) -->
+  <script src="js/npcvida.js"></script>   <!-- v55: NPCs mais vivos: hora do dia, humor e reação à roupa (precisa vir depois de npcs.js e roupas.js) -->
+  <script src="js/romances_v60.js"></script>
+  <script src="js/social_v66.js"></script>   <!-- v66: memórias sociais, rumores e reputação offline -->
+  <script src="js/romance_autonomo_v67.js"></script>
+  <script src="js/painel_relacionamentos_v68.js"></script>
+  <script src="js/eventos_sociais_v69.js"></script>   <!-- v69: eventos sociais e reações contextuais -->   <!-- v68: fichas sociais e vínculos conhecidos -->   <!-- v67: ciclos sociais e romance autônomo -->   <!-- v62: romances, ciúmes, segredos e descoberta com consequências offline -->
+  <script src="js/exploracao.js"></script>   <!-- companheiros: habilidades fora de combate e falas do passeio -->
+  <script src="js/desenho.js"></script>
+  <script src="js/carregamento.js"></script>
+  <script src="js/telas.js"></script>
+  <script src="js/rotina_noturna_v58.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/ia-chat.js"></script>
+  <script src="js/integracao_social_v70.js"></script>   <!-- v70: conversa livre e reações sociais integradas -->
+  <script src="js/conversas_autonomas_v71.js"></script>   <!-- v71: conversas sociais autônomas, limitadas e offline -->
+  <script src="js/encontros_visiveis_v72.js"></script>   <!-- v72: encontros visíveis e histórico de conversas reais no mapa -->
+  <script src="js/consequencias_sociais_v73.js"></script>
+<script src="js/vinculos_dinamicos_v74.js"></script>
+<script src="js/personalidade_social_v75.js"></script>   <!-- v75: reações sociais contextuais e personalidade inicial -->   <!-- v74: mudanças graduais nos vínculos sociais -->   <!-- v73: consequências de encontros sociais reais -->
+  <script src="js/memoria_conversas_v76.js"></script> <!-- v76: memória contextual de promessas, conflitos e confidências -->
+  <script src="js/consequencias_emocionais_v77.js"></script> <!-- v77: consequências emocionais graduais das conversas -->
+  <script src="js/vinculos_gameplay_v78.js"></script> <!-- v78: vínculos (confiança/mágoa) com consequência no gameplay -->
+  <script src="js/promessas_prazo_v79.js"></script> <!-- v79: promessas feitas na conversa livre, com prazo (usa o sistema da v56) -->
+  <script src="js/resumo_v80.js"></script> <!-- v80: "Anteriormente...": resumo do que aconteceu desde a última vez, na tela inicial -->
+  <script src="js/minijogos_v81.js"></script> <!-- v81: minijogos curtos (pescaria, entrega de encomendas, símbolos) -->
+  <script src="js/pazes_v81.js"></script> <!-- v81: missão "Fazer as pazes" depois de promessa quebrada (precisa vir depois de npcvida.js e missoes.js) -->
+  <script src="js/faltas_v82.js"></script> <!-- v82: faltas na escola (-2 de reputação) e comentários da Nathalia e da Millena (precisa vir depois de pazes_v81.js e reputacao.js) -->
+</body>
+</html>

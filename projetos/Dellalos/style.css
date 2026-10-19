@@ -1,0 +1,959 @@
+/* ===== Base: tela inteira, sem rolagem ===== */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;            /* sem barras de rolagem */
+  background: #14110f;
+  /* impede rolagem, zoom e seleção de texto durante o jogo */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* ===== Canvas: ocupa a tela inteira (o JavaScript centraliza o mundo dentro dele) ===== */
+#jogo {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  image-rendering: pixelated;  /* mantém o visual pixel art nítido */
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  background: #000;
+}
+
+/* ===== D-pad (canto inferior esquerdo) ===== */
+#dpad {
+  position: fixed;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  --lado: clamp(150px, 30vmin, 210px);
+  width: var(--lado);
+  height: var(--lado);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  touch-action: none;
+}
+
+/* Posição de cada área na grade 3x3 */
+.dir[data-dir="up"]    { grid-column: 2; grid-row: 1; }
+.dir[data-dir="left"]  { grid-column: 1; grid-row: 2; }
+.centro                { grid-column: 2; grid-row: 2; }
+.dir[data-dir="right"] { grid-column: 3; grid-row: 2; }
+.dir[data-dir="down"]  { grid-column: 2; grid-row: 3; }
+
+.dir, #botaoA, #botaoB, #botaoC {
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  background: rgba(30, 24, 20, 0.55);
+  color: #f3e6c8;
+  font-size: 22px;
+  font-family: system-ui, sans-serif;
+  border-radius: 12px;
+  padding: 0;
+  touch-action: none;
+  outline: none;
+}
+
+/* Visual de botão pressionado (classe colocada pelo JavaScript) */
+.dir.ativo, #botaoA.ativo, #botaoB.ativo, #botaoC.ativo {
+  background: rgba(230, 180, 80, 0.75);
+  color: #2a1d0c;
+}
+
+.centro {
+  border-radius: 50%;
+  background: rgba(30, 24, 20, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+/* ===== Botões A (ataca) e B (interage), canto inferior direito ===== */
+#botaoA, #botaoB, #botaoC {
+  --tam: clamp(80px, 18vmin, 110px);
+  position: fixed;
+  width: var(--tam);
+  height: var(--tam);
+  border-radius: 50%;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+/* A fica mais alto e à direita; B fica embaixo, à esquerda do A */
+#botaoA {
+  right: max(24px, env(safe-area-inset-right));
+  bottom: calc(max(28px, env(safe-area-inset-bottom)) + var(--tam) * 0.55);
+}
+#botaoB {
+  right: calc(max(24px, env(safe-area-inset-right)) + var(--tam) + 12px);
+  bottom: max(28px, env(safe-area-inset-bottom));
+}
+
+/* ===== Aviso para girar o aparelho (só celular em pé) ===== */
+#girar {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90vw;
+  padding: 8px 14px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #f3e6c8;
+  font: 14px system-ui, sans-serif;
+  border-radius: 8px;
+  text-align: center;
+  pointer-events: none;
+}
+
+@media (orientation: portrait) {
+  #girar { display: block; }
+}
+
+/* ===== Inventário (só mexe nos elementos do inventário) ===== */
+#btnInventario {
+  position: fixed;
+  left: max(12px, env(safe-area-inset-left));
+  top: max(12px, env(safe-area-inset-top));
+  width: clamp(52px, 11vmin, 68px);
+  height: clamp(52px, 11vmin, 68px);
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  background: rgba(30, 24, 20, 0.55);
+  border-radius: 12px;
+  font-size: 28px;
+  padding: 0;
+  touch-action: none;
+  outline: none;
+  z-index: 20;
+}
+
+#btnInventario:active {
+  background: rgba(230, 180, 80, 0.75);
+}
+
+/* Fundo escuro que cobre o jogo (e também os controles) enquanto o inventário está aberto */
+#inventario {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(10, 7, 5, 0.7);
+  z-index: 50;
+  touch-action: none;
+}
+
+#inventario[hidden] { display: none; }
+
+#inventario .inv-painel {
+  position: relative;
+  width: min(92vw, 560px);
+  max-height: 92dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;               /* permite rolar o painel com o dedo */
+  padding: 18px 16px 14px;
+  background: #3a2a1c;
+  border: 4px solid #e0b45a;
+  border-radius: 14px;
+  box-shadow: 0 0 0 4px #1e1612, 0 10px 30px rgba(0, 0, 0, 0.6);
+  color: #f3e6c8;
+  font-family: system-ui, sans-serif;
+  text-align: center;
+}
+
+#inventario h2 {
+  margin: 0 0 14px;
+  font-size: clamp(18px, 4vmin, 24px);
+  letter-spacing: 2px;
+  color: #e0b45a;
+}
+
+#inventarioFechar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  background: rgba(30, 24, 20, 0.7);
+  color: #f3e6c8;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 0;
+  outline: none;
+}
+
+#inventarioFechar:active {
+  background: rgba(230, 180, 80, 0.75);
+  color: #2a1d0c;
+}
+
+#inventarioSlots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+#inventario .inv-slot {
+  position: relative;
+  width: clamp(60px, 14vmin, 88px);
+  height: clamp(60px, 14vmin, 88px);
+  background: rgba(0, 0, 0, 0.3);
+  border: 3px solid #6b4a2a;
+  border-radius: 10px;
+}
+
+#inventario .inv-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* Quadradinho tracejado = espaço vazio */
+#inventario .inv-slot.vazio::after {
+  content: "";
+  position: absolute;
+  inset: 28%;
+  border: 2px dashed rgba(243, 230, 200, 0.3);
+  border-radius: 6px;
+}
+
+#inventario .inv-dica {
+  margin: 12px 0 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* Bolinha "!" no 🎒 quando há missão nova ou atualizada */
+#btnInventario.novo::after {
+  content: "!";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e0463c;
+  border: 2px solid #1e1612;
+  color: #fff;
+  font: bold 15px/20px system-ui, sans-serif;
+  text-align: center;
+}
+
+/* Caixa da missão no inventário */
+#inventarioMissoes { margin: 0 0 16px; }
+
+#inventario .missao {
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 3px solid #6b4a2a;
+  border-radius: 10px;
+  text-align: left;
+}
+
+#inventario .missao h3 {
+  margin: 0 0 4px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #e0b45a;
+}
+
+#inventario .missao .missao-titulo {
+  margin: 0;
+  font-size: clamp(16px, 3.6vmin, 20px);
+  font-weight: bold;
+}
+
+#inventario .missao .missao-desc {
+  margin: 4px 0 0;
+  font-size: clamp(13px, 3vmin, 16px);
+  opacity: 0.85;
+}
+
+#inventario .missao.feita .missao-titulo { text-decoration: line-through; opacity: 0.7; }
+#inventario .missao.feita h3 { color: #8fd18a; }
+
+/* Durante a tela preta (js/telatempo.js) os controles somem */
+body.tela-tempo #dpad,
+body.tela-tempo #botaoA,
+body.tela-tempo #botaoB,
+body.tela-tempo #botaoC,
+body.tela-tempo #btnSom,
+body.tela-tempo #mapinha,
+body.tela-tempo #btnInventario {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ícone (emoji) de um item dentro do espaço do inventário */
+#inventario .inv-slot .icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: clamp(30px, 8vmin, 46px);
+}
+#inventario .inv-slot { cursor: pointer; }
+#inventario .inv-slot.vazio { cursor: default; }
+#inventario .inv-slot.escolhido { border-color: #e0b45a; }
+#inventario .inv-dica { min-height: 2.6em; }
+
+/* ===== Tela inicial e tela de morte ===== */
+#menuInicial,
+#telaMorte {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 6vmin, 44px);
+  padding: 16px;
+  font-family: system-ui, sans-serif;
+  touch-action: manipulation;
+}
+#menuInicial[hidden],
+#telaMorte[hidden] { display: none; }
+
+#menuInicial {
+  z-index: 60;
+  background: radial-gradient(ellipse at center, #2b2038 0%, #0c0910 75%);
+}
+
+.titulo-jogo {
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: clamp(3px, 1.2vmin, 8px);
+  font-size: clamp(34px, 11vmin, 84px);
+  line-height: 1.05;
+  color: #f3e6c8;
+  text-shadow: 0 4px 0 #6b4a2a, 0 8px 22px rgba(0, 0, 0, 0.8), 0 0 28px rgba(224, 180, 90, 0.35);
+}
+
+.menu-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 3vmin, 18px);
+  width: min(78vw, 340px);
+}
+
+.btn-menu {
+  padding: clamp(12px, 3.4vmin, 18px) 20px;
+  border: 3px solid #e0b45a;
+  border-radius: 12px;
+  background: #3a2a1c;
+  color: #f3e6c8;
+  font-size: clamp(18px, 4.4vmin, 26px);
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px #1e1612;
+}
+.btn-menu:active { background: #e0b45a; color: #2a1d0c; }
+.btn-menu:disabled {
+  opacity: 0.35;
+  cursor: default;
+  background: #3a2a1c;
+  color: #f3e6c8;
+}
+
+/* Morte: só preto e o botão Renascer (escurece devagar, o botão aparece depois) */
+#telaMorte {
+  z-index: 55;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.8s;
+  pointer-events: none;
+}
+#telaMorte.visivel { opacity: 1; pointer-events: auto; }
+#telaMorte .btn-menu {
+  width: min(70vw, 280px);
+  opacity: 0;
+  transition: opacity 0.5s 0.8s;
+}
+#telaMorte.visivel .btn-menu { opacity: 1; }
+
+/* o aviso "gire o aparelho" fica por cima de tudo */
+#girar { z-index: 70; }
+
+/* ===== Tela de carregamento ===== */
+#carregando {
+  position: fixed;
+  inset: 0;
+  z-index: 65;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: #0c0910;
+  color: #f3e6c8;
+  font-family: system-ui, sans-serif;
+}
+#carregando[hidden] { display: none; }
+#carregandoTexto {
+  margin: 0;
+  font-size: clamp(18px, 4.4vmin, 26px);
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.carregando-barra {
+  width: min(70vw, 360px);
+  height: 18px;
+  padding: 3px;
+  border: 3px solid #e0b45a;
+  border-radius: 10px;
+  background: #1e1612;
+}
+#carregandoProgresso {
+  width: 0%;
+  height: 100%;
+  border-radius: 4px;
+  background: #e0b45a;
+  transition: width 0.2s;
+}
+
+
+/* ===== Abas Mochila | Diário (js/diario.js) ===== */
+#inventario .inv-abas {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 0 14px;
+}
+#inventario .inv-abas button {
+  flex: 1;
+  max-width: 200px;
+  padding: 8px 10px;
+  border: 2px solid #6b4a2a;
+  background: rgba(0, 0, 0, 0.3);
+  color: #f3e6c8;
+  border-radius: 10px;
+  font: bold 15px system-ui, sans-serif;
+  outline: none;
+}
+#inventario .inv-abas button.ativa {
+  background: #e0b45a;
+  border-color: #fff4c2;
+  color: #2a1d0c;
+}
+
+#abaMochila[hidden], #abaDiario[hidden], #inventarioExaminar[hidden], #inventarioEquipar[hidden] { display: none; }
+
+#inventarioExaminar, #inventarioEquipar {
+  margin: 10px auto 0;
+  padding: 10px 22px;
+  border: 2px solid #e0b45a;
+  background: rgba(30, 24, 20, 0.7);
+  color: #f3e6c8;
+  border-radius: 10px;
+  font: bold 16px system-ui, sans-serif;
+  outline: none;
+}
+#inventarioExaminar:active, #inventarioEquipar:active { background: #e0b45a; color: #2a1d0c; }
+
+#abaDiario { text-align: left; }
+#abaDiario .dia-titulo {
+  margin: 16px 0 6px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #e0b45a;
+}
+#abaDiario .dia-titulo:first-child { margin-top: 0; }
+#abaDiario .dia-linha { margin: 4px 0; font-size: clamp(13px, 3vmin, 16px); }
+#abaDiario .dia-linha.vazio { opacity: 0.55; }
+#abaDiario .dia-linha.feito { opacity: 0.7; }
+#abaDiario .dia-doc-titulo { font-weight: bold; margin-top: 8px; }
+#abaDiario .dia-doc { opacity: 0.9; font-style: italic; }
+#abaDiario .missao { margin-bottom: 8px; }
+
+
+/* ---------- Loja ---------- */
+#loja {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(10, 7, 5, 0.7);
+  z-index: 50;
+  touch-action: none;
+}
+#loja[hidden] { display: none; }
+
+#loja .loja-painel {
+  position: relative;
+  width: min(92vw, 560px);
+  max-height: 92dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 18px 16px 14px;
+  background: #3a2a1c;
+  border: 4px solid #e0b45a;
+  border-radius: 14px;
+  box-shadow: 0 0 0 4px #1e1612, 0 10px 30px rgba(0, 0, 0, 0.6);
+  color: #f3e6c8;
+  font-family: system-ui, sans-serif;
+  text-align: center;
+}
+#loja h2 {
+  margin: 0 0 6px;
+  font-size: clamp(18px, 4vmin, 24px);
+  letter-spacing: 2px;
+  color: #e0b45a;
+}
+#lojaFechar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  background: rgba(30, 24, 20, 0.7);
+  color: #f3e6c8;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 0;
+  outline: none;
+}
+#lojaFechar:active { background: rgba(230, 180, 80, 0.75); color: #2a1d0c; }
+
+#loja .loja-moedas {
+  margin: 0 0 12px;
+  font-size: clamp(16px, 3.6vmin, 20px);
+  font-weight: bold;
+  color: #ffe08a;
+}
+#loja .loja-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.25);
+  border: 2px solid #6b4a2a;
+  border-radius: 10px;
+}
+#loja .loja-icone { flex: none; width: 42px; text-align: center; font-size: 28px; }
+#loja .loja-info { flex: 1; min-width: 0; }
+#loja .loja-nome { margin: 0; font-weight: bold; font-size: clamp(14px, 3.2vmin, 17px); }
+#loja .loja-desc { margin: 2px 0 0; opacity: 0.85; font-size: clamp(12px, 2.8vmin, 14px); }
+#loja .loja-comprar {
+  flex: none;
+  min-width: 92px;
+  padding: 10px 8px;
+  border: 2px solid #e0b45a;
+  background: #5a3f24;
+  color: #f3e6c8;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+  outline: none;
+}
+#loja .loja-comprar:active:not(:disabled) { background: #e0b45a; color: #2a1d0c; }
+#loja .loja-comprar:disabled { opacity: 0.45; }
+#loja .inv-dica { margin: 8px 0 0; min-height: 2.6em; font-size: clamp(13px, 3vmin, 16px); }
+
+/* ----- Amizade (aba AMIGOS do Diário; js/amizade.js) ----- */
+#abaDiario .amigo { margin: 8px 0; padding: 8px 10px; border: 2px solid rgba(255,255,255,0.18); border-radius: 10px; background: rgba(255,255,255,0.05); }
+#abaDiario .amigo.ativo { border-color: #ff8fa8; background: rgba(255,143,168,0.12); }
+#abaDiario .amigo .amigo-nome { font-weight: bold; margin-top: 0; }
+#abaDiario .amigo-barra { height: 8px; margin: 4px 0 6px; border-radius: 4px; background: rgba(255,255,255,0.15); overflow: hidden; }
+#abaDiario .amigo-barra > div { height: 100%; background: #ff8fa8; }
+#abaDiario .btn-amigo { margin-top: 6px; padding: 8px 12px; border: 0; border-radius: 8px; background: #ff8fa8; color: #3a1220; font-weight: bold; font-size: clamp(13px, 3vmin, 16px); }
+
+
+/* ----- Conversa com IA dos personagens (js/ia-chat.js) ----- */
+#menuInteracaoNPC { position:fixed; z-index:90; left:50%; top:50%; transform:translate(-50%,-50%); width:min(420px, calc(100vw - 32px)); box-sizing:border-box; padding:18px; border:3px solid #8063a6; border-radius:14px; background:rgba(20,18,29,.98); color:#f7f1ff; box-shadow:0 0 0 9999px rgba(0,0,0,.72); font-family:inherit; }
+#menuInteracaoNPC[hidden] { display:none; }
+#menuInteracaoNPC h2 { margin:0 0 14px; font-size:clamp(18px,4vmin,24px); text-align:center; }
+#menuInteracaoNPC button { display:block; width:100%; margin-top:9px; padding:13px 10px; border:1px solid #8063a6; border-radius:9px; background:#30243f; color:#fff1c7; font:inherit; font-weight:700; }
+#menuInteracaoNPC button:active { background:#63498a; }
+#painelConversaIA { position: fixed; z-index: 100; inset: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)); max-width: 640px; margin: auto; box-sizing: border-box; padding: 14px; border: 3px solid #8063a6; border-radius: 14px; background: rgba(20,18,29,.98); color: #f7f1ff; box-shadow: 0 0 0 9999px rgba(0,0,0,.7); font-family: inherit; display: flex; flex-direction: column; gap: 10px; }
+#painelConversaIA[hidden] { display: none; }
+.ia-cabecalho { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.ia-cabecalho strong { display:block; font-size: clamp(14px, 3.5vmin, 18px); }
+.ia-cabecalho small { display:block; margin-top:3px; color:#c9b8e4; }
+#iaFechar { flex:none; width:38px; height:38px; border:1px solid #8b78a5; border-radius:8px; background:#30283b; color:white; font-size:20px; }
+.ia-label { font-size:13px; color:#d9c8f2; }
+#iaPersonagem { width:100%; padding:10px; border:1px solid #8063a6; border-radius:8px; background:#292333; color:#fff; font-size:16px; }
+#iaMensagens { flex:1; min-height:100px; overflow-y:auto; display:flex; flex-direction:column; gap:9px; padding:5px 2px; }
+.ia-mensagem { max-width:92%; padding:10px 12px; border-radius:10px; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.4; font-size:15px; }
+.ia-mensagem.personagem { align-self:flex-start; background:#302a3d; border:1px solid #635076; }
+.ia-mensagem.jogador { align-self:flex-end; background:#4d3970; border:1px solid #9277ba; }
+.ia-mensagem strong { display:block; margin-bottom:3px; font-size:12px; color:#e0c7ff; }
+#iaFormulario { display:flex; gap:8px; align-items:stretch; }
+#iaTexto { flex:1; min-width:0; resize:vertical; box-sizing:border-box; padding:10px; border:1px solid #8063a6; border-radius:8px; background:#17141f; color:white; font:inherit; font-size:15px; }
+#iaEnviar { padding:10px 12px; border:0; border-radius:8px; background:#8c67bb; color:white; font-weight:bold; }
+#iaEnviar:disabled { opacity:.55; }
+#iaStatus { margin:0; min-height:1.3em; color:#bdb0ce; font-size:12px; }
+body.ia-aberta #dpad, body.ia-aberta #botaoA, body.ia-aberta #botaoB, body.ia-aberta #btnInventario { visibility:hidden; }
+body.npc-menu-aberto #dpad, body.npc-menu-aberto #botaoA, body.npc-menu-aberto #botaoB, body.npc-menu-aberto #btnInventario { visibility:hidden; }
+@media (min-width: 700px) { #painelConversaIA { width:min(640px, calc(100vw - 32px)); max-height: min(760px, calc(100vh - 32px)); } }
+
+/* ----- Apresentação da conversa: "digitando…" e balões em sequência (js/ia-chat.js) ----- */
+.ia-mensagem.continuacao { margin-top:-4px; }
+.ia-mensagem.digitando { display:flex; align-items:center; flex-wrap:wrap; gap:6px; opacity:.9; }
+.ia-mensagem.digitando strong { flex-basis:100%; margin-bottom:0; }
+.ia-digitando-texto { font-style:italic; font-size:13px; color:#cdbde6; }
+.ia-pontos { display:inline-flex; gap:3px; }
+.ia-pontos i { width:6px; height:6px; border-radius:50%; background:#cdbde6; animation:iaPonto 1s infinite ease-in-out; }
+.ia-pontos i:nth-child(2) { animation-delay:.15s; }
+.ia-pontos i:nth-child(3) { animation-delay:.3s; }
+@keyframes iaPonto { 0%,60%,100% { opacity:.3; transform:translateY(0); } 30% { opacity:1; transform:translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .ia-pontos i { animation:none; opacity:.7; } }
+
+/* ----- Sugestões e registro de respostas fracas (js/ia-chat.js) ----- */
+.ia-sugestoes { display:flex; gap:6px; overflow-x:auto; flex:none; padding:2px 0; -webkit-overflow-scrolling:touch; }
+.ia-sugestoes:empty { display:none; }
+.ia-chip { flex:none; padding:8px 12px; border:1px solid #8063a6; border-radius:999px; background:#30243f; color:#fff1c7; font:inherit; font-size:13px; white-space:nowrap; }
+.ia-chip:active { background:#63498a; }
+.ia-link { align-self:flex-start; padding:4px 0; border:0; background:none; color:#bdb0ce; font:inherit; font-size:12px; text-decoration:underline; }
+#iaFracas { flex:1; min-height:0; display:flex; flex-direction:column; gap:8px; }
+#iaFracas[hidden] { display:none; }
+#iaFracas p { margin:0; font-size:13px; color:#d9c8f2; }
+#iaFracasTexto { flex:1; min-height:120px; resize:none; box-sizing:border-box; padding:10px; border:1px solid #8063a6; border-radius:8px; background:#17141f; color:#fff; font:12px/1.4 monospace; }
+.ia-fracas-acoes { display:flex; flex-wrap:wrap; gap:8px; }
+.ia-fracas-acoes button { flex:1 1 auto; padding:10px 12px; border:0; border-radius:8px; background:#8c67bb; color:#fff; font-weight:bold; }
+#painelConversaIA.mostrando-fracas #iaMensagens, #painelConversaIA.mostrando-fracas #iaSugestoes, #painelConversaIA.mostrando-fracas #iaFormulario, #painelConversaIA.mostrando-fracas #iaPersonagem, #painelConversaIA.mostrando-fracas .ia-label, #painelConversaIA.mostrando-fracas #iaFracasBtn { display:none; }
+
+
+/* ===== Botão C (esquiva): em cima do B; some onde não há combate ===== */
+#botaoC {
+  right: calc(max(24px, env(safe-area-inset-right)) + var(--tam) + 12px);
+  bottom: calc(max(28px, env(safe-area-inset-bottom)) + var(--tam) + 14px);
+  font-size: 30px;
+}
+body.sem-combate #botaoC { display: none; }
+
+/* ===== Botão de som (ao lado do inventário) ===== */
+#btnSom {
+  position: fixed;
+  left: calc(max(12px, env(safe-area-inset-left)) + clamp(52px, 11vmin, 68px) + 10px);
+  top: max(12px, env(safe-area-inset-top));
+  width: clamp(52px, 11vmin, 68px);
+  height: clamp(52px, 11vmin, 68px);
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  background: rgba(30, 24, 20, 0.55);
+  border-radius: 12px;
+  font-size: 26px;
+  padding: 0;
+  touch-action: manipulation;
+  outline: none;
+  z-index: 20;
+}
+#btnSom:active { background: rgba(230, 180, 80, 0.75); }
+
+
+/* ===== Mapinha (ao lado do 🎒 e do 🔊); toque = amplia ===== */
+#mapinha {
+  position: fixed;
+  left: calc(max(12px, env(safe-area-inset-left)) + (clamp(52px, 11vmin, 68px) + 10px) * 2);
+  top: max(12px, env(safe-area-inset-top));
+  width: clamp(92px, 25vmin, 150px);
+  height: clamp(92px, 25vmin, 150px);
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  image-rendering: pixelated;
+  touch-action: manipulation;
+  z-index: 19;
+}
+#mapinha.grande {
+  width: min(72vmin, 460px);
+  height: min(72vmin, 460px);
+  z-index: 30;
+}
+
+/* Loja NECRO (Zona Leste, só de noite) */
+#loja.necro .loja-painel { background: #1d1428; border-color: #8a5fd0; box-shadow: 0 0 0 4px #0c0712, 0 0 28px rgba(138, 95, 208, 0.45); color: #e6dcf5; }
+#loja.necro .loja-comprar:active:not(:disabled) { background: #8a5fd0; color: #140b1f; }
+
+
+/* ===== Refinamento visual v38: HUD compacto, inventário unificado e mapa no canto ===== */
+#btnInventario {
+  width: 44px; height: 44px;
+  font-size: 22px;
+  border: 2px solid rgba(224,180,90,.9);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(54,39,25,.92), rgba(18,15,13,.86));
+  box-shadow: 0 3px 12px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.12);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+#btnInventario:active { transform: scale(.96); background: #e0b45a; }
+
+/* O som agora fica dentro do painel do inventário, sem ocupar espaço no HUD. */
+#inventario .inv-painel {
+  background: linear-gradient(155deg, #493522 0%, #302216 58%, #211811 100%);
+  border: 3px solid #d7a94d;
+  border-radius: 16px;
+  box-shadow: 0 0 0 2px rgba(20,14,9,.96), 0 16px 44px rgba(0,0,0,.72), inset 0 1px rgba(255,235,180,.13);
+}
+#inventario h2 {
+  padding: 7px 78px 11px 0;
+  margin: 0 0 12px;
+  border-bottom: 1px solid rgba(224,180,90,.35);
+  text-shadow: 0 2px 0 #1e130a;
+}
+#inventario #btnSom {
+  position: absolute;
+  top: 12px; right: 58px; left: auto;
+  width: auto; min-width: 78px; height: 34px;
+  padding: 0 9px;
+  border: 1px solid rgba(224,180,90,.72);
+  border-radius: 9px;
+  background: linear-gradient(180deg, rgba(78,56,34,.98), rgba(35,25,17,.98));
+  color: #f3e6c8;
+  font: 700 12px system-ui, sans-serif;
+  box-shadow: inset 0 1px rgba(255,255,255,.12);
+  touch-action: manipulation;
+  z-index: 2;
+}
+#inventario #btnSom:active { background: #e0b45a; color: #2a1d0c; }
+#inventarioFechar {
+  top: 10px; right: 10px; width: 36px; height: 36px;
+  border-color: rgba(224,180,90,.7); border-radius: 9px;
+  font-size: 23px; line-height: 1;
+}
+#inventario .inv-abas { gap: 9px; margin-bottom: 15px; }
+#inventario .inv-abas button {
+  border-color: rgba(224,180,90,.48);
+  background: rgba(12,8,5,.42);
+  transition: background .12s ease, transform .12s ease;
+}
+#inventario .inv-abas button.ativa {
+  background: linear-gradient(180deg, #f0cc72, #d4a13d);
+  border-color: #fff0b5;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+#inventario .inv-slot {
+  background: linear-gradient(145deg, rgba(12,9,6,.72), rgba(45,31,20,.7));
+  border-color: #76532f;
+  box-shadow: inset 0 1px rgba(255,255,255,.06);
+}
+#inventario .inv-slot.escolhido {
+  border-color: #ffe08a;
+  box-shadow: 0 0 0 2px rgba(224,180,90,.25), 0 0 12px rgba(224,180,90,.22);
+}
+#inventario .missao { border-color: rgba(224,180,90,.55); background: rgba(12,8,5,.38); }
+
+/* Minimapa no lado esquerdo, abaixo do botão do inventário.
+   Vida, moedas e essências permanecem no HUD do lado direito. */
+#mapinha {
+  left: max(12px, env(safe-area-inset-left));
+  right: auto;
+  top: calc(max(12px, env(safe-area-inset-top)) + 44px + 10px);
+  width: clamp(100px, 20vmin, 132px);
+  height: clamp(104px, 22vmin, 142px);
+  border: 2px solid #d7a94d;
+  border-radius: 10px;
+  background: #100d0a;
+  box-shadow: 0 3px 14px rgba(0,0,0,.6), 0 0 0 2px rgba(22,15,10,.8), inset 0 0 0 1px rgba(255,240,190,.22);
+  image-rendering: pixelated;
+  overflow: hidden;
+}
+#mapinha.grande {
+  right: 50%; top: 50%; left: auto;
+  transform: translate(50%, -50%);
+  width: min(76vmin, 460px);
+  height: min(76vmin, 460px);
+  border-width: 3px;
+  border-radius: 12px;
+  box-shadow: 0 0 0 4px rgba(15,10,7,.88), 0 14px 40px rgba(0,0,0,.8);
+}
+@media (max-width: 560px) {
+  #mapinha { top: calc(max(12px, env(safe-area-inset-top)) + 44px + 8px); width: 96px; height: 96px; }
+  #mapinha.grande { left: 50%; right: auto; top: 50%; transform: translate(-50%, -50%); width: min(82vw, 76vh); height: min(82vw, 76vh); }
+  #inventario .inv-painel { width: min(94vw, 560px); padding: 16px 12px 12px; }
+}
+
+
+/* Aba Relacionamentos do inventário */
+#abaRelacionamento[hidden] { display:none; }
+#inventario .inv-abas button { min-width:0; padding:8px 6px; font-size:clamp(12px,2.8vmin,15px); }
+#abaRelacionamento { text-align:left; }
+.relacao-card { margin:8px 0; padding:10px 12px; border:2px solid rgba(255,255,255,.18); border-radius:10px; background:rgba(0,0,0,.22); }
+.relacao-card h4 { margin:0 0 4px; font-size:16px; }
+.relacao-card p { margin:5px 0; font-size:clamp(12px,2.8vmin,15px); }
+.relacao-status { opacity:.9; font-style:italic; }
+.relacao-barra { height:9px; margin:5px 0 8px; border-radius:5px; overflow:hidden; background:rgba(255,255,255,.15); }
+.relacao-barra>div { height:100%; background:#ff8fa8; transition:width .2s; }
+.relacao-detalhes { opacity:.85; }
+.relacao-evento { color:#f3d28a; }
+
+
+/* v61 — cartões do sistema de romances */
+.romance-card { border-left: 3px solid #d96b91; }
+.romance-card h4 { color: #f0a0bd; }
+.romance-barra { margin-top: -7px; margin-bottom: 8px; }
+.romance-barra > div { background: linear-gradient(90deg, #a84f76, #f08db0); }
+.relacao-evento { overflow-wrap: anywhere; }
+
+
+/* ===== v64: conversas integradas ao visual pixel-art de Shadow of War ===== */
+#menuInteracaoNPC {
+  width:min(430px, calc(100vw - 28px));
+  padding:18px 16px 14px;
+  border:3px solid #8a6942;
+  border-radius:4px;
+  background:linear-gradient(180deg, rgba(43,34,27,.99), rgba(24,22,21,.99));
+  color:#f4e7c7;
+  box-shadow:0 0 0 9999px rgba(8,7,6,.76), inset 0 0 0 2px #33291f, 0 5px 0 #100d0a;
+  image-rendering:pixelated;
+}
+#menuInteracaoNPC::before {
+  content:"✦  INTERAÇÃO  ✦";
+  display:block;
+  margin:-3px 0 10px;
+  color:#d5ad68;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-align:center;
+}
+#menuInteracaoNPC h2 {
+  margin:0;
+  padding:0 0 5px;
+  color:#fff0cb;
+  font-size:clamp(19px,4.5vmin,25px);
+  text-shadow:2px 2px #17110c;
+}
+#menuInteracaoNPC .npc-menu-dica {
+  margin:0 0 13px;
+  color:#c6b69b;
+  font-size:12px;
+  text-align:center;
+}
+#menuInteracaoNPC button.npc-opcao {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  width:100%;
+  min-height:66px;
+  margin:9px 0 0;
+  padding:10px 11px;
+  border:2px solid #66503a;
+  border-radius:3px;
+  background:linear-gradient(180deg,#3b3027,#2b241e);
+  color:#f7e8c9;
+  text-align:left;
+  font:inherit;
+  box-shadow:inset 0 0 0 1px rgba(224,188,123,.08), 0 3px 0 #17120e;
+  transition:filter .12s, transform .12s, border-color .12s;
+}
+#menuInteracaoNPC button.npc-opcao:active { transform:translateY(2px); box-shadow:inset 0 0 0 1px rgba(224,188,123,.08); filter:brightness(1.2); }
+#menuInteracaoNPC .npc-opcao-icone {
+  display:grid;
+  place-items:center;
+  flex:0 0 38px;
+  width:38px;
+  height:38px;
+  border:2px solid #8c6a42;
+  background:#211b16;
+  color:#e9c47c;
+  font-size:23px;
+  line-height:1;
+}
+#menuInteracaoNPC .npc-opcao-texto { display:flex; flex:1; min-width:0; flex-direction:column; gap:4px; }
+#menuInteracaoNPC .npc-opcao-texto strong { color:#fff0cb; font-size:14px; letter-spacing:.2px; }
+#menuInteracaoNPC .npc-opcao-texto small { color:#c8b79b; font-size:11px; font-weight:400; line-height:1.25; }
+#menuInteracaoNPC .npc-opcao-seta { color:#d9b16d; font-size:25px; font-weight:900; }
+#menuInteracaoNPC .npc-opcao-padrao { border-color:#8a6942; }
+#menuInteracaoNPC .npc-opcao-livre { border-color:#6f7651; background:linear-gradient(180deg,#34382a,#25291f); }
+#menuInteracaoNPC .npc-opcao-livre .npc-opcao-icone { border-color:#79845a; color:#c8d69a; }
+#menuInteracaoNPC .npc-opcao-livre .npc-opcao-seta { color:#c8d69a; }
+#menuInteracaoNPC button.npc-voltar {
+  width:100%; margin-top:13px; padding:8px 10px;
+  border:1px solid #594737; border-radius:2px;
+  background:#211b17; color:#cdbb9d; font-size:13px;
+}
+#menuInteracaoNPC button.npc-voltar:active { background:#403126; }
+
+/* Painel de conversa livre: mesma moldura de madeira, tons de pergaminho e detalhes dourados */
+#painelConversaIA {
+  max-width:640px;
+  padding:12px;
+  gap:9px;
+  border:3px solid #8a6942;
+  border-radius:4px;
+  background:linear-gradient(180deg,rgba(38,31,26,.99),rgba(20,19,18,.99));
+  color:#f4e7c7;
+  box-shadow:0 0 0 9999px rgba(8,7,6,.78), inset 0 0 0 2px #33291f, 0 5px 0 #100d0a;
+}
+.ia-cabecalho { padding-bottom:8px; border-bottom:1px solid #594633; }
+.ia-cabecalho strong { color:#f6e3b7; letter-spacing:.7px; text-shadow:1px 1px #130f0c; }
+.ia-cabecalho small { color:#c4ad88; }
+#iaFechar { border:2px solid #6d553b; border-radius:3px; background:#30251d; color:#f4dfb4; }
+.ia-label { color:#d6bd91; }
+#iaPersonagem, #iaTexto {
+  border:2px solid #665039;
+  border-radius:3px;
+  background:#191714;
+  color:#f6e9ce;
+  accent-color:#c5a05c;
+}
+#iaPersonagem { padding:9px; }
+#iaMensagens { padding:7px 3px; }
+.ia-mensagem { border-radius:3px; line-height:1.45; }
+.ia-mensagem.personagem { background:#2c2822; border:1px solid #62513b; color:#f1e3c7; }
+.ia-mensagem.jogador { background:#3a3d2b; border:1px solid #7a8056; color:#f2f0d5; }
+.ia-mensagem strong { color:#e5c47f; }
+.ia-mensagem.jogador strong { color:#d2dfa1; }
+.ia-chip { border:1px solid #76603f; border-radius:3px; background:#30271d; color:#f0dfbd; }
+.ia-chip:active { background:#51412b; }
+.ia-link { color:#c8b38f; }
+#iaEnviar { border:2px solid #a07a43; border-radius:3px; background:linear-gradient(#8a6939,#674a29); color:#fff0ce; box-shadow:0 2px 0 #21170e; }
+#iaEnviar:active { transform:translateY(1px); box-shadow:none; }
+#iaStatus { color:#c6b18d; }
+@media (max-width:420px) {
+  #menuInteracaoNPC { padding:15px 12px 12px; }
+  #menuInteracaoNPC button.npc-opcao { min-height:62px; gap:9px; padding:8px; }
+  #menuInteracaoNPC .npc-opcao-icone { flex-basis:34px; width:34px; height:34px; font-size:20px; }
+  #menuInteracaoNPC .npc-opcao-texto strong { font-size:13px; }
+  #menuInteracaoNPC .npc-opcao-texto small { font-size:10px; }
+}
+
+
+/* ===== V68: painel completo de relacionamentos ===== */
+#abaRelacionamento .v68-painel { text-align:left; margin:12px 0; padding:12px; border:2px solid #8a6536; border-radius:10px; background:rgba(12,9,7,.38); }
+#abaRelacionamento .v68-painel h3 { margin:0 0 8px; color:#e0b45a; font-size:14px; letter-spacing:1px; }
+#abaRelacionamento .v68-intro { font-size:13px; line-height:1.45; opacity:.82; margin:0 0 10px; }
+#abaRelacionamento .v68-filtros { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+#abaRelacionamento .v68-filtros button { flex:1; min-width:90px; padding:8px 6px; border:1px solid #8a6536; border-radius:7px; background:#241a12; color:#f3e6c8; font-weight:bold; }
+#abaRelacionamento .v68-filtros button.ativa { background:#e0b45a; color:#2a1d0c; }
+#abaRelacionamento .v68-lista { display:grid; grid-template-columns:1fr; gap:8px; }
+#abaRelacionamento .v68-pessoa { border:1px solid #6b4a2a; border-radius:8px; background:rgba(0,0,0,.22); padding:10px; }
+#abaRelacionamento .v68-pessoa summary { cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:8px; font-weight:bold; color:#f3e6c8; }
+#abaRelacionamento .v68-pessoa summary::-webkit-details-marker { display:none; }
+#abaRelacionamento .v68-status { display:block; font-size:12px; font-weight:normal; color:#e0b45a; margin-top:3px; }
+#abaRelacionamento .v68-medidor { display:grid; grid-template-columns:92px 1fr 32px; align-items:center; gap:6px; margin-top:8px; font-size:12px; }
+#abaRelacionamento .v68-trilho { height:8px; border-radius:5px; background:#17120e; overflow:hidden; border:1px solid #59432b; }
+#abaRelacionamento .v68-trilho span { display:block; height:100%; background:#70b878; }
+#abaRelacionamento .v68-medidor[data-tipo="confianca"] .v68-trilho span { background:#5f9ce8; }
+#abaRelacionamento .v68-medidor[data-tipo="romance"] .v68-trilho span { background:#e56b91; }
+#abaRelacionamento .v68-medidor[data-tipo="ciumes"] .v68-trilho span { background:#ed8b45; }
+#abaRelacionamento .v68-medidor[data-tipo="mag oa"] .v68-trilho span { background:#a18be8; }
+#abaRelacionamento .v68-detalhe { font-size:13px; line-height:1.45; margin:9px 0 0; opacity:.9; }
+#abaRelacionamento .v68-par { padding:8px 0; border-top:1px solid rgba(224,180,90,.25); font-size:13px; line-height:1.4; }
+#abaRelacionamento .v68-vazio { opacity:.7; font-size:13px; padding:8px 0; }
+@media (min-width:520px) { #abaRelacionamento .v68-lista { grid-template-columns:repeat(2,minmax(0,1fr)); } }

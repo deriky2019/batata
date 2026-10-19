@@ -1,0 +1,18 @@
+SHADOW OF WAR — V85: ECO DE ESSÊNCIA (árvore de habilidades, ramo Espírito)
+
+Base: V84. Arquivos mexidos: js/loja.js (nó e constante) e js/salas/capela.js (espiritoDerrotado). Nenhum arquivo novo.
+
+O NÓ
+- Eco de essência (30 essências), exige Olhar espectral. Cada espírito derrotado solta 1 essência a mais (2 em vez de 1).
+- Na lista do grimório ele aparece logo depois do Olhar espectral, para ajudar cedo. Véu de espírito continua exigindo o Olhar espectral.
+- A mensagem passa a mostrar "Essência coletada! +2 (N)". Ajuste: MELHORIAS.arvoreEcoEssencias (js/loja.js).
+- Total da árvore: 555 essências (antes 525).
+
+EQUILÍBRIO (importante)
+- As essências são as mesmas do altar da capela: com o Eco, os 10 sacrifícios do altar são alcançados com metade dos espíritos.
+  Se quiser manter o altar mais demorado, aumente ALTAR_TOTAL em js/salas/capela.js ou diminua arvoreEcoEssencias.
+- O altar do dia (zonanorte2, 1 essência) não muda.
+- Saves antigos funcionam: o nó começa como não aprendido.
+
+Nota de teste: sintaxe validada e efeito testado com dados simulados (sem o nó: 3 espíritos = 3 essências; com o nó: 6),
+e a árvore conferida (16 nós, ids únicos, requisitos válidos). Falta testar no navegador/celular.

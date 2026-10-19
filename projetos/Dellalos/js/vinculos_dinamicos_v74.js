@@ -1,0 +1,20 @@
+/* Shadow of War V74 — consequências graduais e auditáveis nos vínculos sociais. Offline. */
+(function(){
+ 'use strict';
+ const KEY='shadowOfWar.v74.vinculos.v1';
+ const $=id=>document.getElementById(id);
+ const clamp=n=>Math.max(-100,Math.min(100,Number(n)||0));
+ function read(){try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');return {pares:x.pares&&typeof x.pares==='object'?x.pares:{},eventos:Array.isArray(x.eventos)?x.eventos:[],aplicados:x.aplicados&&typeof x.aplicados==='object'?x.aplicados:{}}}catch(_){return {pares:{},eventos:[],aplicados:{}}}}
+ function write(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(_){}}
+ function day(){try{return typeof diaAtual==='function'?(Number(diaAtual())||1):1}catch(_){return 1}}
+ function pairKey(a,b){return [String(a||''),String(b||'')].sort().join('|')}
+ function getPair(a,b,s){const k=pairKey(a,b);if(!s.pares[k])s.pares[k]={a:String(a),b:String(b),amizade:0,confianca:0,ciumes:0,magoa:0};return s.pares[k]}
+ function normalize(p){p.amizade=clamp(p.amizade);p.confianca=clamp(p.confianca);p.ciumes=Math.max(0,Math.min(100,Number(p.ciumes)||0));p.magoa=Math.max(0,Math.min(100,Number(p.magoa)||0));return p}
+ function deltaFor(tipo){const t=String(tipo||'').toLowerCase();if(t.includes('casal_visto')||t.includes('amizade_reforcada'))return {amizade:1,confianca:1};if(t.includes('crise')||t.includes('conflito'))return {confianca:-2,magoa:2};if(t.includes('interesse_observado'))return {amizade:1};return {amizade:0};}
+ function apply(ev){if(!ev||!ev.id||!ev.a||!ev.b)return false;const s=read();if(s.aplicados[ev.id])return false;const d=deltaFor(ev.tipo),p=normalize(getPair(ev.a,ev.b,s));for(const k of ['amizade','confianca','ciumes','magoa'])if(Number.isFinite(d[k]))p[k]=Number(p[k]||0)+d[k];normalize(p);s.aplicados[ev.id]=true;s.eventos.unshift({id:'v74-'+ev.id,dia:ev.dia==null?day():ev.dia,a:ev.a,b:ev.b,tipo:ev.tipo||'evento',delta:d,texto:ev.texto||'Evento social processado'});s.eventos=s.eventos.slice(0,60);const ids=Object.keys(s.aplicados);if(ids.length>300)ids.slice(0,ids.length-240).forEach(k=>delete s.aplicados[k]);write(s);render();return true;}
+ function render(){const target=$('abaRelacionamento');if(!target)return;let box=target.querySelector('[data-v74-vinculos]');if(box)box.remove();box=document.createElement('section');box.dataset.v74Vinculos='1';box.className='relacao-card';box.style.cssText='margin:12px 0;padding:12px;border:2px solid #9b7a43;background:#29251d;color:#f4e8c9;font-family:inherit';const h=document.createElement('h3');h.textContent='💞 VÍNCULOS DINÂMICOS — V74';box.appendChild(h);const note=document.createElement('p');note.textContent='Mudanças pequenas só são aplicadas uma vez por evento registrado. Estes indicadores complementares não substituem os pontos originais de amizade nem inventam namoro ou traição.';box.appendChild(note);const s=read();if(!s.eventos.length){const p=document.createElement('p');p.textContent='Nenhuma mudança de vínculo registrada ainda.';box.appendChild(p)}else s.eventos.slice(0,8).forEach(e=>{const p=document.createElement('p');const delta=Object.entries(e.delta||{}).map(([k,v])=>k+' '+(v>0?'+':'')+v).join(', ');p.textContent='Dia '+e.dia+' · '+e.a+' + '+e.b+' — '+e.texto+(delta?' ('+delta+')':'');box.appendChild(p)});target.appendChild(box)}
+ function hook(){const api=window.consequenciasSociaisV73;if(!api||typeof api.registrar!=='function'||api.registrar.__v74)return;const original=api.registrar;const wrapped=function(a,b,source){const ev=original.apply(this,arguments);try{if(ev)apply(ev)}catch(_){}return ev};wrapped.__v74=true;api.registrar=wrapped;}
+ function boot(){hook();const btn=$('abaBtnRelacionamento');if(btn&&!btn.__v74){btn.__v74=true;btn.addEventListener('click',()=>setTimeout(render,80))}render()}
+ window.vinculosDinamicosV74={aplicar:apply,consultar:()=>read().eventos.slice(),consultarPar:(a,b)=>read().pares[pairKey(a,b)]||null,render};
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();setInterval(hook,1200);
+})();
