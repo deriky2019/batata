@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teste: contagem de flexões</title>
+<style>
+  :root{--bg:#090b13;--panel:#111522;--line:#252d42;--text:#eef2ff;--muted:#b4bdd4;--purple:#9b7bff;--green:#52dda0;--yellow:#ffd166;--red:#ff7788}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+  .app{max-width:520px;margin:auto;padding:16px}
+  h1{font-size:18px;margin:4px 0 12px;letter-spacing:1px}
+  .stage{position:relative;width:100%;aspect-ratio:3/4;background:#000;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+  video,canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  video{transform:scaleX(-1)}
+  canvas{transform:scaleX(-1);pointer-events:none}
+  .overlay{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(transparent,#000d);display:flex;justify-content:space-between;align-items:flex-end}
+  .count{font-size:64px;font-weight:800;line-height:1}
+  .count small{font-size:14px;color:var(--muted);font-weight:600;display:block}
+  .status{font-size:13px;color:var(--muted);text-align:right;max-width:55%}
+  .status.ok{color:var(--green)} .status.warn{color:var(--yellow)} .status.bad{color:var(--red)}
+  .msg{position:absolute;top:12px;left:12px;right:12px;background:#0009;border-radius:12px;padding:10px 12px;font-size:13px;text-align:center}
+  .row{display:flex;gap:10px;margin-top:14px}
+  button{flex:1;font:inherit;font-weight:700;border:0;border-radius:14px;padding:14px;color:#fff;background:linear-gradient(90deg,#7656d8,#477fd5);cursor:pointer}
+  button.secondary{background:#1b2134;border:1px solid var(--line);color:var(--text)}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  button:focus-visible{outline:2px solid #54b8ff;outline-offset:2px}
+  .tips{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px;color:var(--muted)}
+  .tips b{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>TESTE · FLEXÕES PELA CÂMERA</h1>
+
+  <div class="stage" id="stage">
+    <video id="video" playsinline muted></video>
+    <canvas id="canvas" width="480" height="640"></canvas>
+    <div class="msg" id="msg">Toque em "Ativar câmera" para começar. O vídeo fica somente no seu aparelho.</div>
+    <div class="overlay">
+      <div class="count"><span id="reps">0</span><small>repetições</small></div>
+      <div class="status" id="status">Aguardando</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <button id="startBtn">Ativar câmera</button>
+    <button id="stopBtn" class="secondary" disabled>Desligar</button>
+  </div>
+  <div class="row">
+    <button id="resetBtn" class="secondary">Zerar contagem</button>
+  </div>
+
+  <div class="tips">
+    <b>Como posicionar:</b> apoie o celular no chão ou em um suporte, de <b>lado</b> para você, com o corpo inteiro visível da cabeça aos pés (ou pelo menos ombro, cotovelo e punho). Em pé, faça flexões descendo até o cotovelo dobrar e subindo até o braço estender. A contagem só sobe depois de um ciclo completo.
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.js" crossorigin="anonymous"></script>
+<script>
+(() => {
+  const DOWN_ANGLE = 95;     // cotovelo dobrado: fim da descida
+  const UP_ANGLE   = 155;    // braço estendido: fim da subida
+  const MIN_VIS    = 0.5;    // confiança mínima dos pontos
+  const IDLE_MS    = 15000;  // sem movimento por tanto tempo -> aviso
+
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const repsEl = document.getElementById('reps');
+  const statusEl = document.getElementById('status');
+  const msgEl = document.getElementById('msg');
+  const startBtn = document.getElementById('startBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  let reps = 0, phase = 'up', smooth = null, lastMove = Date.now();
+  let pose = null, running = false, frameId = null;
+
+  // Ângulo no ponto B formado por A-B-C, em graus
+  function angle(a, b, c) {
+    const v1 = { x: a.x - b.x, y: a.y - b.y };
+    const v2 = { x: c.x - b.x, y: c.y - b.y };
+    const dot = v1.x * v2.x + v1.y * v2.y;
+    const m = Math.hypot(v1.x, v1.y) * Math.hypot(v2.x, v2.y);
+    if (!m) return null;
+    return Math.acos(Math.max(-1, Math.min(1, dot / m))) * 180 / Math.PI;
+  }
+
+  // Escolhe o braço mais visível (ombro, cotovelo, punho)
+  function pickArm(lm) {
+    const left = [lm[11], lm[13], lm[15]];
+    const right = [lm[12], lm[14], lm[16]];
+    const score = arr => Math.min(...arr.map(p => p.visibility ?? 0));
+    const sL = score(left), sR = score(right);
+    if (Math.max(sL, sR) < MIN_VIS) return null;
+    return sL >= sR ? left : right;
+  }
+
+  function setStatus(text, cls) {
+    statusEl.textContent = text;
+    statusEl.className = 'status ' + (cls || '');
+  }
+
+  function drawSkeleton(lm, arm) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (!lm) return;
+    const W = canvas.width, H = canvas.height;
+    const pts = [lm[11], lm[13], lm[15]];
+    if (arm) {
+      ctx.strokeStyle = '#52dda0';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      arm.forEach((p, i) => {
+        const x = p.x * W, y = p.y * H;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      pts.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x * W, p.y * H, 6, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+  }
+
+  function onResults(results) {
+    const lm = results.poseLandmarks;
+    if (!lm) {
+      drawSkeleton(null);
+      setStatus('Corpo não detectado', 'bad');
+      return;
+    }
+    const arm = pickArm(lm);
+    if (!arm) {
+      drawSkeleton(null);
+      setStatus('Mostre ombro, cotovelo e punho', 'warn');
+      return;
+    }
+    drawSkeleton(lm, arm);
+
+    const raw = angle(arm[0], arm[1], arm[2]);
+    if (raw === null) return;
+
+    // suavização para evitar ruído da detecção
+    smooth = smooth === null ? raw : smooth * 0.6 + raw * 0.4;
+
+    // detecção de movimento (variação do ângulo)
+    if (Math.abs(raw - (smooth ?? raw)) > 2) lastMove = Date.now();
+
+    if (phase === 'up' && smooth < DOWN_ANGLE) {
+      phase = 'down';
+      lastMove = Date.now();
+    } else if (phase === 'down' && smooth > UP_ANGLE) {
+      phase = 'up';
+      reps++;
+      repsEl.textContent = reps;
+      lastMove = Date.now();
+      if (navigator.vibrate) navigator.vibrate(40);
+    }
+
+    if (Date.now() - lastMove > IDLE_MS) {
+      setStatus('Sem movimento detectado', 'warn');
+    } else if (phase === 'down') {
+      setStatus('Subindo…', 'ok');
+    } else {
+      setStatus(smooth > UP_ANGLE ? 'Pronto para descer' : 'Descendo…', 'ok');
+    }
+  }
+
+  async function start() {
+    startBtn.disabled = true;
+    msgEl.textContent = 'Solicitando acesso à câmera…';
+    try {
+      pose = new Pose({
+        locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${f}`
+      });
+      pose.setOptions({
+        modelComplexity: 1,
+        smoothLandmarks: true,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+      });
+      pose.onResults(onResults);
+
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'user', width: 640, height: 480 },
+          audio: false
+        });
+      } catch (e) {
+        throw e;
+      }
+      video.srcObject = stream;
+      await video.play();
+      running = true;
+      const loop = async () => {
+        if (!running) return;
+        if (video.readyState >= 2) await pose.send({ image: video });
+        frameId = requestAnimationFrame(loop);
+      };
+      loop();
+      msgEl.classList.add('hidden');
+      msgEl.style.display = 'none';
+      stopBtn.disabled = false;
+      setStatus('Procurando você…', 'warn');
+    } catch (err) {
+      startBtn.disabled = false;
+      msgEl.style.display = 'block';
+      const motivo = {
+        NotAllowedError: 'Permissão da câmera negada. Libere a câmera para este site nas configurações do navegador e tente de novo.',
+        NotFoundError: 'Nenhuma câmera encontrada neste aparelho.',
+        NotReadableError: 'A câmera está em uso por outro app. Feche-o e tente de novo.',
+        SecurityError: 'Abra a página por um link https:// (arquivos locais não podem usar a câmera).'
+      }[err.name];
+      msgEl.textContent = motivo || ('Erro ao iniciar a câmera: ' + (err.message || err.name));
+      console.error(err);
+    }
+  }
+
+  function stop() {
+    running = false;
+    if (frameId) cancelAnimationFrame(frameId);
+    if (video.srcObject) video.srcObject.getTracks().forEach(t => t.stop());
+    video.srcObject = null;
+    running = false;
+    drawSkeleton(null);
+    stopBtn.disabled = true;
+    startBtn.disabled = false;
+    msgEl.style.display = 'block';
+    msgEl.textContent = 'Câmera desligada.';
+    setStatus('Desligada', '');
+  }
+
+  function reset() {
+    reps = 0;
+    phase = 'up';
+    smooth = null;
+    repsEl.textContent = '0';
+  }
+
+  startBtn.addEventListener('click', start);
+  stopBtn.addEventListener('click', stop);
+  resetBtn.addEventListener('click', reset);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && running) stop();
+  });
+})();
+</script>
+</body>
+</html>
